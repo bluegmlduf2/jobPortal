@@ -5,8 +5,11 @@ const data = { title: 'ejs init', message: 'Hello World' };
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  //console.log("#############"+req.params.test);
-  res.render('index', { title: '222222222222222222' });
+  res.set(test='aaaaaaaaaaaaaaaaaa');
+  console.log('%%%%%%%%%%%%%%');
+  // console.log();
+  // req.test='yyyyyyyyyyyyyyyyyyy';
+  next();
 });
 
 module.exports = router;
