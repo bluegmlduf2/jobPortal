@@ -5,22 +5,28 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
 var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
+var applyRouter = require('./routes/apply');
+var candidateRouter = require('./routes/candidate');
+var companyRouter = require('./routes/company');
+var employerRouter = require('./routes/employer');
 
 var app = express();
 
 // view engine setup
-app.set('views', path.join(__dirname, 'views'));
+app.set('views', path.join(__dirname, 'views'));//템플릿에서 루트의 경로 설정 (현재폴더까지경로 +  /views)가 기본경로가 됨
 app.set('view engine', 'ejs');
 
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, 'public')));//ejs 내부에서 정적경로 // root+pulic
 
 app.use('/', indexRouter);
-app.use('/users11', usersRouter);
+app.use('/apply', applyRouter);
+app.use('/candidate', candidateRouter);
+app.use('/company', companyRouter);
+app.use('/employer', employerRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
