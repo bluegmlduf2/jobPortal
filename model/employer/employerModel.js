@@ -3,8 +3,8 @@ var router = express.Router();
 var appRoot = require('app-root-path').path.replace(/\\/g,"/");
 var dbConObj = require(appRoot+"/conf/db_info");
 
-var dbconn = dbConObj.init();
-//var dbconn = dbConObj.dbopen();
+var conn = dbConObj.init();//connection 생성
+dbConObj.connect(conn);//connection 연결
 
 const data = { title: 'ejs init', message: 'Hello World' };
 
@@ -20,16 +20,13 @@ var memberList = {
       //var sql = 'SELECT * FROM BOARD_TBL WHERE B_CD = ?'; // 클럽목록
       var sql = 'SELECT * FROM BOARD_TBL';
       
-      dbconn.query(sql,function(err, results, field){
+      conn.query(sql,function(err, results, field){
           //res.render('member/member_list', {data : 'testData list ejs', memberList : results});
           console.log("###########"+results);
           paramModel=results;
-
           req.paramResult=results;
-          dbconn.end();
           next();
       });
-
   }
 };
 

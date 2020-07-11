@@ -12,10 +12,16 @@ var indexPaging=function(req, res, next) {
     res.render(pathname, { title: '1111' ,test:req.paramResult});
 }
 
-
 //app()과 달리 router()는 path 가 일치하거나 포함되는 path를 다 잡는다
 router.get('/index',employerModel.memberList,indexPaging);
 router.get('/about',indexPaging);
+router.get('/blog', indexPaging);
+router.get('/blog-single', indexPaging);
+router.get('/contact', indexPaging);
+router.get('/job-post', indexPaging);
+router.get('/new-post', indexPaging);
+router.get('/error', indexPaging);
+
   
 //console.log( path.join(__dirname, "index.html"));
 
