@@ -9,11 +9,6 @@ dbConObj.connect(conn);//connection 연결
 const data = { title: 'ejs init', message: 'Hello World' };
 
 /* GET home page. */
-// router.get('/', function(req, res, next) {
-//   req.param1={test:'2222'}
-//   next();
-// });
-
 var memberList = {
   //멤버리스트
   memberList : function(req,res,next){
@@ -22,8 +17,7 @@ var memberList = {
       
       conn.query(sql,function(err, results, field){
           //res.render('member/member_list', {data : 'testData list ejs', memberList : results});
-          console.log("###########"+results);
-          paramModel=results;
+          //console.log("###########"+results);
           req.paramResult=results;
           next();
       });

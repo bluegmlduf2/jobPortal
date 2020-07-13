@@ -5,8 +5,8 @@ var indexController = require('./index/indexController');
 /* GET home page. */
 
 router.get('/index', indexController);
-router.get('/about', indexController);
-router.get('/blog', indexController);
+router.get('/job', indexController);
+router.get('/candidate', indexController);
 router.get('/blog-single', indexController);
 router.get('/contact', indexController);
 router.get('/job-post', indexController);
