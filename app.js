@@ -22,11 +22,11 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));//ejs 내부에서 정적경로 // root+pulic
 
-app.use(indexRouter);//app,router은 res.send() 한번만 사용가능  //router()는 method()를 다중 사용가능
-app.use('/apply', applyRouter);
-app.use('/candidate', candidateRouter);
-app.use('/company', companyRouter);
-app.use('/employer', employerRouter);
+app.get('/index',indexRouter);//app,router은 res.send() 한번만 사용가능  //router()는 method()를 다중 사용가능
+app.get('/apply', applyRouter);
+app.get('/candidate', candidateRouter);
+app.get('/company', companyRouter);
+app.get('/employer', employerRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

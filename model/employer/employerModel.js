@@ -9,7 +9,7 @@ dbConObj.connect(conn);//connection 연결
 const data = { title: 'ejs init', message: 'Hello World' };
 
 /* GET home page. */
-var memberList = {
+var memberModel = {
   //멤버리스트
   memberList : function(req,res,next){
       //var sql = 'SELECT * FROM BOARD_TBL WHERE B_CD = ?'; // 클럽목록
@@ -25,4 +25,4 @@ var memberList = {
 };
 
 
-module.exports = memberList;
+module.exports = memberModel;
