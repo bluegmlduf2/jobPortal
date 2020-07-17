@@ -13,7 +13,7 @@ var employerRouter = require('./routes/employer');
 var app = express();
 
 // view engine setup
-app.set('views', path.join(__dirname, 'views'));//템플릿에서 루트의 경로 설정 (현재폴더까지경로 +  /views)가 기본경로가 됨
+app.set('views', path.join(__dirname, 'views'));//템플릿에서 루트의 경로 설정 (현재폴더까지경로 +  /views)가 기본경로가 됨 //체크를 위해서적음
 app.set('view engine', 'ejs');
 
 app.use(logger('dev'));
