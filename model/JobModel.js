@@ -9,12 +9,14 @@ module.exports = {
   getJobList: function (startCnt, pageShow) {
     return new Promise((resolve, reject) => {
       const con = mysql.createConnection(db);
-      var sql = 'SELECT * FROM JOB_TBL ORDER BY JOB_IDX+0 LIMIT ? , ?';
+      var sql = 'SELECT * FROM JOB_TBL ORDER BY JOB_IDX+0 ASC LIMIT ? , ?';
       con.query(
         sql, [startCnt, pageShow], (err, result, fields) => {
           if (err) {
             reject(err);
           } else {
+            console.log('###########################');
+            console.log(result)
             resolve(result);
           }
         });
@@ -22,7 +24,7 @@ module.exports = {
     });
   },
   //select job count
-  jobCnt: function (req, res, next) {
+  jobCnt: function () {
     return new Promise((resolve, reject) => {
       const con = mysql.createConnection(db);
       var sql = 'SELECT COUNT(*) AS CNT FROM JOB_TBL';

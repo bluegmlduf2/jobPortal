@@ -12,130 +12,29 @@
       </div>
     </div>
 
+    <pre><%- JSON.stringify(test, null, '\t') %></pre>
     <section class="ftco-section bg-light">
       <div class="container">
         <div class="row d-flex">
+          <% for(let j = 0; j< test.jobList.length; j++){%>
           <div class="col-md-3 d-flex ftco-animate">
             <div class="blog-entry align-self-stretch">
-              <a href="blog-single" class="block-20" style="background-image: url('images/image_1.jpg');">
+              <a href="blog-single" class="block-20" style="background-image: url('<%=test.jobList[j].JOB_IMAGE%>');">
               </a>
               <div class="text mt-3">
               	<div class="meta mb-2">
-                  <div><a href="#">December 2, 2018</a></div>
+                  <div><a href="#"><%=test.jobList[j].JOB_DATE%></a></div>
                   <div><a href="#">Admin</a></div>
                   <div><a href="#" class="meta-chat"><span class="icon-chat"></span> 3</a></div>
                 </div>
-                <h3 class="heading"><a href="#">Even the all-powerful Pointing has no control about the blind texts</a></h3>
-               <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Alias architecto enim non iste maxime optio, ut com</p>
+                <h3 class="heading"><a href="#"><%=test.jobList[j].JOB_TITLE%></a></h3>
+               <p><%=test.jobList[j].JOB_CONTENT%></p>
               </div>
             </div>
           </div>
-          <div class="col-md-3 d-flex ftco-animate">
-            <div class="blog-entry align-self-stretch">
-              <a href="blog-single" class="block-20" style="background-image: url('images/image_2.jpg');">
-              </a>
-              <div class="text mt-3">
-              	<div class="meta mb-2">
-                  <div><a href="#">December 2, 2018</a></div>
-                  <div><a href="#">Admin</a></div>
-                  <div><a href="#" class="meta-chat"><span class="icon-chat"></span> 3</a></div>
-                </div>
-                <h3 class="heading"><a href="#">Even the all-powerful Pointing has no control about the blind texts</a></h3>
-               <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet nobis natus incidunt officia assumenda.</p>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-3 d-flex ftco-animate">
-            <div class="blog-entry align-self-stretch">
-              <a href="blog-single" class="block-20" style="background-image: url('images/image_3.jpg');">
-              </a>
-              <div class="text mt-3">
-              	<div class="meta mb-2">
-                  <div><a href="#">December 2, 2018</a></div>
-                  <div><a href="#">Admin</a></div>
-                  <div><a href="#" class="meta-chat"><span class="icon-chat"></span> 3</a></div>
-                </div>
-                <h3 class="heading"><a href="#">Even the all-powerful Pointing has no control about the blind texts</a></h3>
-               <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Excepturi obcaecati praesentium,</p>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-3 d-flex ftco-animate">
-            <div class="blog-entry align-self-stretch">
-              <a href="blog-single" class="block-20" style="background-image: url('images/image_4.jpg');">
-              </a>
-              <div class="text mt-3">
-              	<div class="meta mb-2">
-                  <div><a href="#">December 2, 2018</a></div>
-                  <div><a href="#">Admin</a></div>
-                  <div><a href="#" class="meta-chat"><span class="icon-chat"></span> 3</a></div>
-                </div>
-                <h3 class="heading"><a href="#">Even the all-powerful Pointing has no control about the blind texts</a></h3>
-               <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolor minima, dolores quis, dolorum accusamu</p>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-3 d-flex ftco-animate">
-            <div class="blog-entry align-self-stretch">
-              <a href="blog-single" class="block-20" style="background-image: url('images/image_5.jpg');">
-              </a>
-              <div class="text mt-3">
-              	<div class="meta mb-2">
-                  <div><a href="#">December 2, 2018</a></div>
-                  <div><a href="#">Admin</a></div>
-                  <div><a href="#" class="meta-chat"><span class="icon-chat"></span> 3</a></div>
-                </div>
-                <h3 class="heading"><a href="#">Even the all-powerful Pointing has no control about the blind texts</a></h3>
-               <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Alias architecto enim non iste maxime optio, ut com</p>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-3 d-flex ftco-animate">
-            <div class="blog-entry align-self-stretch">
-              <a href="blog-single" class="block-20" style="background-image: url('images/image_6.jpg');">
-              </a>
-              <div class="text mt-3">
-              	<div class="meta mb-2">
-                  <div><a href="#">December 2, 2018</a></div>
-                  <div><a href="#">Admin</a></div>
-                  <div><a href="#" class="meta-chat"><span class="icon-chat"></span> 3</a></div>
-                </div>
-                <h3 class="heading"><a href="#">Even the all-powerful Pointing has no control about the blind texts</a></h3>
-               <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet nobis natus incidunt officia assumenda.</p>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-3 d-flex ftco-animate">
-            <div class="blog-entry align-self-stretch">
-              <a href="blog-single" class="block-20" style="background-image: url('images/image_7.jpg');">
-              </a>
-              <div class="text mt-3">
-              	<div class="meta mb-2">
-                  <div><a href="#">December 2, 2018</a></div>
-                  <div><a href="#">Admin</a></div>
-                  <div><a href="#" class="meta-chat"><span class="icon-chat"></span> 3</a></div>
-                </div>
-                <h3 class="heading"><a href="#">Even the all-powerful Pointing has no control about the blind texts</a></h3>
-               <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Excepturi obcaecati praesentium,</p>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-3 d-flex ftco-animate">
-            <div class="blog-entry align-self-stretch">
-              <a href="blog-single" class="block-20" style="background-image: url('images/image_8.jpg');">
-              </a>
-              <div class="text mt-3">
-              	<div class="meta mb-2">
-                  <div><a href="#">December 2, 2018</a></div>
-                  <div><a href="#">Admin</a></div>
-                  <div><a href="#" class="meta-chat"><span class="icon-chat"></span> 3</a></div>
-                </div>
-                <h3 class="heading"><a href="#">Even the all-powerful Pointing has no control about the blind texts</a></h3>
-               <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolor minima, dolores quis, dolorum accusamu</p>
-              </div>
-            </div>
-          </div>
+          <%}%>
         </div>
+        <!--bar nav-->
         <div class="row mt-5">
           <div class="col text-center">
             <div class="block-27">
