@@ -15,8 +15,6 @@ module.exports = {
           if (err) {
             reject(err);
           } else {
-            console.log('###########################');
-            console.log(result)
             resolve(result);
           }
         });

@@ -5,7 +5,11 @@ const Views = '../views/'
 
 module.exports = {
   doIndexPage: function (req, res, next) {
-    var pathname = url.parse(req.url).pathname.substring(1); //req는 웹의 requst요청에 대한 정보가지고있다
+    var pathname =url.parse(req.url).pathname;
+        console.log(pathname)
+    var idxStr=pathname.substring(pathname.indexOf('/')+1);
+        console.log(idxStr)
+    pathname =(idxStr.substring(0,idxStr.indexOf('/'))); //req는 웹의 requst요청에 대한 정보가지고있다
     console.log("pathname::::::::"+pathname);
     //console.log("test::::::::::::::::::"+req.paramResult);
         // req.paramResult.jobList=result[0];

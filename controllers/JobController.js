@@ -20,7 +20,7 @@ module.exports = {
   doGetJobList: function (req, res, next) {
     /* PAGING INIT*/
     var pageShow=8;//한 페이지당 8개
-    var curPage=1; //현재 선택 페이지 
+    var curPage=req.params.pageNum; //현재 선택 페이지 
     var startCnt=(curPage*pageShow)-8; //시작 페이지 수
 
     //Promise.all()은 모든 프로미스가 실행 된 후 then()이 실행된다.
@@ -53,7 +53,7 @@ module.exports = {
       console.log(lastYN);
 
       req.params.jobList=jobList;
-      req.params.curBlock=curBlock;
+      req.params.curPage=curPage;
       req.params.startBlock=startBlock;
       req.params.lastBlock=lastBlock;
       req.params.lastYN=lastYN;

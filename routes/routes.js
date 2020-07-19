@@ -4,8 +4,12 @@ var indexController = require('../controllers/IndexController')
 var jobController = require('../controllers/JobController')
 
 /*화면이동 */
-router.get('/index', indexController.doIndexPage);
-router.get('/job', jobController.doGetJobList,indexController.doIndexPage);
+router.get('/index', function(req, res, next){
+    res.render('index', { title: '1111' ,test:JSON.parse(JSON.stringify(req.params))});
+});
+router.get('/job/:pageNum', jobController.doGetJobList,function(req, res, next){
+    res.render('job', { title: '1111' ,test:JSON.parse(JSON.stringify(req.params))});
+});
 router.get('/candidate', indexController.doIndexPage);
 router.get('/blog-single', indexController.doIndexPage);
 router.get('/contact', indexController.doIndexPage);

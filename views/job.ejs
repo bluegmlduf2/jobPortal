@@ -1,4 +1,5 @@
 <% include ./layout/head.ejs %>
+<script>console.log(<%- JSON.stringify(test, null, '\t') %>);</script> 
 
     <div class="hero-wrap js-fullheight" style="background-image: url('images/bg_2.jpg');" data-stellar-background-ratio="0.5">
       <div class="overlay"></div>
@@ -10,9 +11,7 @@
           </div>
         </div>
       </div>
-    </div>
-
-    <pre><%- JSON.stringify(test, null, '\t') %></pre>
+    </div>    
     <section class="ftco-section bg-light">
       <div class="container">
         <div class="row d-flex">
@@ -40,11 +39,13 @@
             <div class="block-27">
               <ul>
                 <li><a href="#">&lt;</a></li>
-                <li class="active"><span>1</span></li>
-                <li><a href="#">2</a></li>
-                <li><a href="#">3</a></li>
-                <li><a href="#">4</a></li>
-                <li><a href="#">5</a></li>
+                <% for(let j = test.startBlock; j<= test.lastBlock; j++){
+                  if(test.curPage==j){%>
+                    <li class="active"><a href="#"><%=j%></a></li>
+                  <%}else{%>
+                    <li><a href="#"><%=j%></a></li>
+                  <%}%>
+                <%}%>
                 <li><a href="#">&gt;</a></li>
               </ul>
             </div>
