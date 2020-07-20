@@ -22,7 +22,7 @@ app.use(cookieParser());
 // app.use('*/images',express.static('public/images'));
 // app.use('*/fonts',express.static('public/fonts'));
 app.use('*/css',express.static(path.join(__dirname, 'public/css')));//반환되는 url에서 */css로 끝나는 url 이있다면 public/css로 변경한다..?
-app.use('*/js',express.static(path.join(__dirname, 'public/js'))); //*/js로 끝나는 요청이 오면 public/js에서 해당 파일이 있는지 찾는다
+app.use('*/js',express.static(path.join(__dirname, 'public/js'))); // */js에 해당되는 url을 public/js로 부분 교체
 app.use('*/images',express.static(path.join(__dirname, 'public/images')));
 app.use('*/fonts',express.static(path.join(__dirname, 'public/fonts')));
 // app.use('/job/images',express.static(path.join(__dirname, 'public/images')));
