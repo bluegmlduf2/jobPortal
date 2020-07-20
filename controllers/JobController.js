@@ -46,11 +46,10 @@ module.exports = {
         lastYN=true;
       }
       
-      console.log(curBlock);
-      //console.log(blockCnt);
-      console.log(startBlock);
-      console.log(lastBlock);
-      console.log(lastYN);
+      // console.log(curBlock);
+      // console.log(startBlock);
+      // console.log(lastBlock);
+      // console.log(lastYN);
 
       req.params.jobList=jobList;
       req.params.curPage=curPage;
@@ -61,6 +60,15 @@ module.exports = {
       
       next();//여기서 next()를 사용해줘야지 다음 요청(컨트롤러)으로 넘어감. //응답을 넘긴다
       //router.get(1,2..)을 통해 요청이 들어옴. get(1,2) 내부의 함수가 요청에 따라 실행. 요청이 끝날 경우 next()사용
+    });
+  },
+  doGetJobSingleList: function (req, res, next) {
+    var jobNum=req.params.jobNum; //job_idx
+
+    Promise.all([jobModel.getJobSingleList(jobNum),jobModel.getJobCommentList(jobNum)]).then((result) => {
+      req.params.jobSingleList=result[0];
+      req.params.jobCommentList=result[1];
+      next();
     });
   }
 }

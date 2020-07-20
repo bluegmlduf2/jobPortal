@@ -1,5 +1,5 @@
 <% include ./layout/head.ejs %>
-<script>console.log(<%- JSON.stringify(test, null, '\t') %>);</script> 
+<script>console.log(<%- JSON.stringify(JsonParam, null, '\t') %>);</script> 
 
     <div class="hero-wrap js-fullheight" style="background-image: url('images/bg_2.jpg');" data-stellar-background-ratio="0.5">
       <div class="overlay"></div>
@@ -15,19 +15,19 @@
     <section class="ftco-section bg-light">
       <div class="container">
         <div class="row d-flex">
-          <% for(let j = 0; j< test.jobList.length; j++){%>
+          <% for(let j = 0; j< JsonParam.jobList.length; j++){%>
           <div class="col-md-3 d-flex ftco-animate">
             <div class="blog-entry align-self-stretch">
-              <a href="blog-single" class="block-20" style="background-image: url('<%=test.jobList[j].JOB_IMAGE%>');">
+              <a href="/job-single/<%=JsonParam.jobList[j].JOB_IDX%>" class="block-20" style="background-image: url('<%=JsonParam.jobList[j].JOB_IMAGE%>');">
               </a>
               <div class="text mt-3">
               	<div class="meta mb-2">
-                  <div><a href="#"><%=test.jobList[j].JOB_DATE%></a></div>
-                  <div><a href="#">Admin</a></div>
-                  <div><a href="#" class="meta-chat"><span class="icon-chat"></span> 3</a></div>
+                  <div><a href="#"><%= new Date(JsonParam.jobList[j].JOB_DATE).toISOString().replace(/T/, ' ').replace(/\..+/, '')%></a></div>
+                  <div><a href="#"><%=JsonParam.jobList[j].EMP_NM%></a></div>
+                  <div><a href="#" class="meta-chat"><span class="icon-chat"></span> <%=JsonParam.jobList[j].COM_CNT%></a></div>
                 </div>
-                <h3 class="heading"><a href="#"><%=test.jobList[j].JOB_TITLE%></a></h3>
-               <p><%=test.jobList[j].JOB_CONTENT%></p>
+                <h3 class="heading"><a href="#"><%=JsonParam.jobList[j].JOB_TITLE%></a></h3>
+               <p><%=JsonParam.jobList[j].JOB_SUBTITLE%></p>
               </div>
             </div>
           </div>
@@ -38,15 +38,15 @@
           <div class="col text-center">
             <div class="block-27">
               <ul>
-                <li><a href="#">&lt;</a></li>
-                <% for(let j = test.startBlock; j<= test.lastBlock; j++){
-                  if(test.curPage==j){%>
-                    <li class="active"><a href="#"><%=j%></a></li>
+                <%if(JsonParam.startBlock!=1){%><li><a href="/job/<%=JsonParam.startBlock-1%>">&lt;</a></li><%}%>
+                <% for(let j = JsonParam.startBlock; j<= JsonParam.lastBlock; j++){
+                  if(JsonParam.curPage==j){%>
+                    <li class="active"><a href="/job/<%=j%>""><%=j%></a></li>
                   <%}else{%>
-                    <li><a href="#"><%=j%></a></li>
+                    <li><a href="/job/<%=j%>"><%=j%></a></li>
                   <%}%>
                 <%}%>
-                <li><a href="#">&gt;</a></li>
+                <%if(!JsonParam.lastYN){%><li><a href="/job/<%=JsonParam.lastBlock+1%>">&gt;</a></li><%}%>
               </ul>
             </div>
           </div>

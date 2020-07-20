@@ -5,13 +5,16 @@ var jobController = require('../controllers/JobController')
 
 /*화면이동 */
 router.get('/index', function(req, res, next){
-    res.render('index', { title: '1111' ,test:JSON.parse(JSON.stringify(req.params))});
+    res.render('index', { title: '1111' ,JsonParam:JSON.parse(JSON.stringify(req.params))});
 });
 router.get('/job/:pageNum', jobController.doGetJobList,function(req, res, next){
-    res.render('job', { title: '1111' ,test:JSON.parse(JSON.stringify(req.params))});
+    res.render('job', { title: '1111' ,JsonParam:JSON.parse(JSON.stringify(req.params))});
 });
-router.get('/candidate', indexController.doIndexPage);
-router.get('/blog-single', indexController.doIndexPage);
+
+router.get('/job-single/:jobNum',jobController.doGetJobSingleList, function(req, res, next){
+    res.render('job-single', { title: '1111' ,JsonParam:JSON.parse(JSON.stringify(req.params))});
+});
+//router.get('/candidate', indexController.doIndexPage);
 router.get('/contact', indexController.doIndexPage);
 router.get('/job-post', indexController.doIndexPage);
 router.get('/new-post', indexController.doIndexPage);
