@@ -19,7 +19,7 @@
        
           <div class="col-md-12 col-lg-8 mb-5">
           
-			     <form action="#" class="p-5 bg-white">
+			     <form action="#" class="p-5 bg-white" method="post">
               
               <div class="row form-group">
                 <div class="col-md-12 mb-3 mb-md-0">
@@ -82,8 +82,7 @@
               <div class="row form-group mb-4">
                 <div class="col-md-12"><h3>Location</h3></div>
                 <div class="col-md-12 mb-3 mb-md-0">
-                  <input type="text" class="form-control" placeholder="Western City, UK
-">
+                  <input type="text" class="form-control" placeholder="Western City, UK">
                 </div>
               </div>
 
@@ -95,12 +94,19 @@
               </div>
 
               <div class="row form-group">
-                <div class="col-md-12">
-                  <input type="submit" value="Post" class="btn btn-primary  py-2 px-5">
+                <div class="col-md-12"><h3>Job Description</h3></div>
+                <div class="col-md-12 mb-3 mb-md-0">
+                  <textarea class="form-control" id="p_content"></textarea>
+
                 </div>
               </div>
 
-  
+              <div class="row form-group">
+                <div class="col-md-12">
+                  <input type="button" value="Post" onclick="setValue()" class="btn btn-primary  py-2 px-5">
+                </div>
+              </div>
+
             </form>
           </div>
 
@@ -129,4 +135,6 @@
     </div>
 
 
-  <% include ./layout/footer.ejs %>
+    <% include ./layout/footer.ejs %>
+    <script src="/javascript/new-post.js"></script>
+

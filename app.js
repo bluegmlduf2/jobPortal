@@ -17,15 +17,25 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 // app.use(express.static(path.join(__dirname, 'public')));//ejs 내부에서 정적경로 // root+pulic
-// app.use('*/css',express.static('public/css'));
-// app.use('*/js',express.static('public/js'));
-// app.use('*/images',express.static('public/images'));
-// app.use('*/fonts',express.static('public/fonts'));
+
 app.use('*/css',express.static(path.join(__dirname, 'public/css')));//반환되는 url에서 */css로 끝나는 url 이있다면 public/css로 변경한다..?
 app.use('*/js',express.static(path.join(__dirname, 'public/js'))); // */js에 해당되는 url을 public/js로 부분 교체
 app.use('*/images',express.static(path.join(__dirname, 'public/images')));
 app.use('*/fonts',express.static(path.join(__dirname, 'public/fonts')));
-// app.use('/job/images',express.static(path.join(__dirname, 'public/images')));
+app.use('*/ckeditor',express.static(path.join(__dirname, 'public/ckeditor')));
+app.use('*/javascript',express.static(path.join(__dirname, 'views/javascript')));
+
+
+const multer = require('multer');
+// 기타 express 코드 /new-post/upload
+const upload = multer({ dest: 'new-post/upload', limits: { fileSize: 5 * 1024 * 1024 } });
+app.use('new-post/upload', upload.single('jpg'), (req, res) => {
+  console.log("$$$$$$$$$$$$$$$$$$");
+  console.log(req.file); 
+});
+
+
+//<link rel="stylesheet" href="/css/flaticon.css"></link>를 localhost/job/로 호출하면 localhost/job/css/flaticon.css가 되고 이를 변경하면 c:\..public/css/flaticon.css
 
 app.use(router);//app,router은 res.send() 한번만 사용가능  //router()는 method()를 다중 사용가능
 
