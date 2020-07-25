@@ -46,10 +46,34 @@
 	          <li class="nav-item "><a href="/candidate" class="nav-link">Candidate</a></li>
 	          <li class="nav-item"><a href="/contact" class="nav-link">Contact</a></li>
 	          <li class="nav-item cta mr-md-2"><a href="/new-post" class="nav-link">Post a Job</a></li>
-	          <li class="nav-item cta cta-colored"><a href="/job-post" class="nav-link">Want a Job</a></li>
-
+	          <li class="nav-item cta cta-colored mr-md-2"><a href="/job-post" class="nav-link">Want a Job</a></li>
+            <li class="nav-item cta cta-colored1"><a href="#" id="openModalBtn" class="nav-link">LOGIN</a></li>
 	        </ul>
 	      </div>
 	    </div>
 	  </nav>
     <!-- END nav -->
+
+    <div id="modalBox" class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title" id="myModalLabel">Login Management</h4>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">close</span></button>
+          </div>
+          <div class="modal-body">
+            <div class="col-md-12">
+                <label for="MNG_ID" class="text-black">ID</label>
+                <input type="text" class="form-control" id="MNG_ID">
+                <label for="MNG_PW" class="text-black">PASSWORD</label>
+                <input type="password" class="form-control" id="MNG_PW">
+            </div>
+          </div>
+          <div class="modal-footer" style="display: inline-block;">
+            <button style="float:left" type="button" class="btn btn-info" id="signInBtn" onclick="location.href='/signup'">SignUp</button>
+            <button style="float:right" type="button" class="btn btn-default" id="closeModalBtn">Cancel</button>
+            <button style="float:right" type="button" class="btn btn-primary" id="confirmBtn">Ok</button>
+          </div>
+        </div>
+      </div>
+    </div>

@@ -1,13 +1,13 @@
 
 $( document ).ready( function() {
-     CKEDITOR.replace(
+    CKEDITOR.replace(
          'p_content', 
         {
             height: 500,
             toolbarCanCollapse : true,
-            filebrowserUploadUrl :'/new-post/upload'
+            filebrowserUploadUrl :'/new-post/imageUpload'
         }
-     );
+    );
 } );
 
 function setValue() {

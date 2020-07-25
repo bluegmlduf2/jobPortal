@@ -22,20 +22,9 @@ app.use('*/css',express.static(path.join(__dirname, 'public/css')));//반환되�
 app.use('*/js',express.static(path.join(__dirname, 'public/js'))); // */js에 해당되는 url을 public/js로 부분 교체
 app.use('*/images',express.static(path.join(__dirname, 'public/images')));
 app.use('*/fonts',express.static(path.join(__dirname, 'public/fonts')));
+app.use('*/uploads',express.static(path.join(__dirname, 'public/uploads')));//image upload path
 app.use('*/ckeditor',express.static(path.join(__dirname, 'public/ckeditor')));
 app.use('*/javascript',express.static(path.join(__dirname, 'views/javascript')));
-
-
-const multer = require('multer');
-// 기타 express 코드 /new-post/upload
-const upload = multer({ dest: 'new-post/upload', limits: { fileSize: 5 * 1024 * 1024 } });
-app.use('new-post/upload', upload.single('jpg'), (req, res) => {
-  console.log("$$$$$$$$$$$$$$$$$$");
-  console.log(req.file); 
-});
-
-
-//<link rel="stylesheet" href="/css/flaticon.css"></link>를 localhost/job/로 호출하면 localhost/job/css/flaticon.css가 되고 이를 변경하면 c:\..public/css/flaticon.css
 
 app.use(router);//app,router은 res.send() 한번만 사용가능  //router()는 method()를 다중 사용가능
 

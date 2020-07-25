@@ -27,11 +27,19 @@ router.get('/new-post', function(req, res, next){
 router.get('/error', function(req, res, next){
     res.render('error', {JsonParam:JSON.parse(JSON.stringify(req.params))});
 });
+router.get('/signup', function(req, res, next){
+    res.render('signup', {JsonParam:JSON.parse(JSON.stringify(req.params))});
+});
 
 /* POST */
-router.post('/new-post/upload',postController.doInsertPostImage, function(req, res, next){
-    console.log('11111111111111111111111111111111111');
-    res.render('new-post', {JsonParam:JSON.parse(JSON.stringify(req.params))});
+router.post('/new-post/imageUpload',postController.doInsertPostImage, function(req, res, next){
+    res.send({"uploaded":req.params.status
+    ,"fileName":req.params.filename
+    ,"url":"/public/uploads/"+req.params.filename
+    ,"error": {
+        "message": "Uploads are completed."
+    }
+    });
 });
 
 module.exports = router;

@@ -1,0 +1,241 @@
+<% include ./layout/head.ejs %>
+
+
+<div class="hero-wrap js-fullheight" style="background-image: url('images/bg_2.jpg');"
+  data-stellar-background-ratio="0.5">
+  <div class="overlay"></div>
+  <div class="container">
+    <div class="row no-gutters slider-text js-fullheight align-items-end justify-content-start"
+      data-scrollax-parent="true">
+      <div class="col-md-8 ftco-animate text-center text-md-left mb-5"
+        data-scrollax=" properties: { translateY: '70%' }">
+        <p class="breadcrumbs" data-scrollax="properties: { translateY: '30%', opacity: 1.6 }"><span class="mr-3"><a
+              href="index.html">Home <i class="ion-ios-arrow-forward"></i></a></span> <span>Sign Up</span></p>
+        <h1 class="mb-3 bread" data-scrollax="properties: { translateY: '30%', opacity: 1.6 }">Sign Up</h1>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="ftco-section bg-light">
+  <div class="container">
+    <ul class="nav nav-pills">
+      <li class="nav-item">
+        <a class="nav-link active" data-toggle="tab" href="#candidate">CANDIDATE</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" data-toggle="tab" href="#employer">EMPLOYER</a>
+      </li>
+    </ul>
+    <div class="tab-content">
+      <div class="tab-pane fade show active" id="candidate">
+        <!-- 1번째 행 -->
+        <div class="row">
+          <!-- 첫번째 탭 -->
+          <div class="col-md-12 mb-5 mb-md-0">
+            <h2 class="h3 mb-3 text-black">Item Details</h2>
+            <div class="p-3 p-lg-5 border">
+              <div class="form-group row">
+                <div class="col-md-12">
+                  <label for="itemcd" class="text-black">Cd</label>
+                  <input type="text" class="form-control" id="itemcd" disabled="disabled">
+                </div>
+                <div class="col-md-12">
+                  <label for="itemName" class="text-black">Item Name <span class="text-danger">*</span></label>
+                  <input type="text" class="form-control" id="itemName">
+                </div>
+              </div>
+              <div class="form-group row">
+                <div class="col-md-12">
+                  <label for="itemKind" class="text-black">Kind <span class="text-danger">*</span></label>
+                  <select id="itemKind" class="form-control">
+                    <!-- kind -->
+                  </select>
+                </div>
+                <div class="col-md-12">
+                  <label for="itemSale" class="text-black">Sale(%)</label>
+                  <input type="text" class="form-control" id="itemSale" numberonly="true" maxlength="2">
+                </div>
+              </div>
+              <div class="form-group row">
+                <div class="col-md-12">
+                  <label for="itemPrice" class="text-black">Price($)<span class="text-danger">*</span></label>
+                  <input type="text" class="form-control" id="itemPrice" numberonly="true">
+                </div>
+                <div class="col-md-12">
+                  <label for="itemTake" class="text-black">Take</label>
+                  <input type="text" class="form-control" id="itemTake">
+                </div>
+              </div>
+              <div class="form-group row">
+                <div class="col-md-6">
+                  <label for="itemImage" class="text-black" style="display:block;">Image <span
+                      class="text-danger">*</span></label>
+                  <!-- <input type="text" class="form-control" id="c_lname" name="c_lname"> -->
+                  <!-- <div class="site-blocks-cover inner-page" style="background-image: url('images/hero_1.jpg');"> -->
+                  <img src='/pharmaShop/static/libraries/images/noimage.png' id='itemImage' alt='Image'
+                    class='img-fluid'>
+                </div>
+                <div class="col-md-6">
+                  <!-- <input class="upload-name" value="Select File" disabled="disabled" >  -->
+                  <form action="/pharmaShop/main/saveImage" method="post" id="form_img" enctype="multipart/form-data"
+                    accept-charset="utf-8">
+                    <div>
+                      <label for="itemImage" class="text-black">Select image file</label><span
+                        class="text-danger">*</span>
+                      <input type="file" name="image" id="image">
+                      <span class="error image"></span>
+                    </div>
+                    </br>
+                    <label for="itemPath" class="text-black" style="display:block;">Save file Path</label>
+                    <input type="text" class="form-control" id="itemPath" disabled='disabled'>
+                    <input type="submit" name="submit" value="Image Save" style="margin-top:15px;">
+                  </form>
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="itemContent" class="text-black">Content</label>
+                <textarea id="itemContent" cols="30" rows="5" class="form-control"
+                  placeholder="Write your notes here..."></textarea>
+              </div>
+              <div class="form-group row">
+                <div class="col-md-12">
+                  <div style='float:left;margin:auto;'><label for="itemListTbl"
+                      class="text-black">ItemDetailList</label></div>&nbsp
+                  <div style='float:right;margin:auto;'><button class='btn btn-outline-primary' type='button'
+                      id='addItemBtn'>Add Item</button></div>
+                  <table table class="table table-bordered" id='itemListTbl' style='margin-top:15px;'>
+                    <thead>
+                      <tr>
+                        <th class="medicine-cd">Medicine Code</th>
+                        <th class="medicine-name">Medicine Name</th>
+                        <th class="medicine-effect">MEdicine Effect</th>
+                        <th class="medicine-remove">Remove</th>
+                      </tr>
+                    </thead>
+                    <tbody id="itemDetailList">
+                      <!-- itemDetailList -->
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              <div style='float:left;'>
+                <div class="btn btn-primary btn-md px-2" type="button" id='btnInit'>INIT VALUE</div>
+              </div>
+              <div style='float:right;'>
+                <div class="btn btn-primary btn-md px-2" type="button" id='btnDelete'>DELETE</div>
+                <div class="btn btn-primary btn-md px-2" type="button" id='btnSave'>SAVE</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="tab-pane fade" id="employer">
+        <!-- 1번째 행 -->
+        <div class="row">
+          <!-- 두번째 탭 -->
+          <div class="col-md-6 mb-5 mb-md-0">
+            <h2 class="h3 mb-3 text-black">Item Details</h2>
+            <div class="p-3 p-lg-5 border">
+              <div class="form-group row">
+                <div class="col-md-6">
+                  <label for="itemcd" class="text-black">Cd</label>
+                  <input type="text" class="form-control" id="itemcd" disabled="disabled">
+                </div>
+                <div class="col-md-6">
+                  <label for="itemName" class="text-black">Item Name <span class="text-danger">*</span></label>
+                  <input type="text" class="form-control" id="itemName">
+                </div>
+              </div>
+              <div class="form-group row">
+                <div class="col-md-6">
+                  <label for="itemKind" class="text-black">Kind <span class="text-danger">*</span></label>
+                  <select id="itemKind" class="form-control">
+                    <!-- kind -->
+                  </select>
+                </div>
+                <div class="col-md-6">
+                  <label for="itemSale" class="text-black">Sale(%)</label>
+                  <input type="text" class="form-control" id="itemSale" numberonly="true" maxlength="2">
+                </div>
+              </div>
+              <div class="form-group row">
+                <div class="col-md-6">
+                  <label for="itemPrice" class="text-black">Price($)<span class="text-danger">*</span></label>
+                  <input type="text" class="form-control" id="itemPrice" numberonly="true">
+                </div>
+                <div class="col-md-6">
+                  <label for="itemTake" class="text-black">Take</label>
+                  <input type="text" class="form-control" id="itemTake">
+                </div>
+              </div>
+              <div class="form-group row">
+                <div class="col-md-6">
+                  <label for="itemImage" class="text-black" style="display:block;">Image <span
+                      class="text-danger">*</span></label>
+                  <!-- <input type="text" class="form-control" id="c_lname" name="c_lname"> -->
+                  <!-- <div class="site-blocks-cover inner-page" style="background-image: url('images/hero_1.jpg');"> -->
+                  <img src='/pharmaShop/static/libraries/images/noimage.png' id='itemImage' alt='Image'
+                    class='img-fluid'>
+                </div>
+                <div class="col-md-6">
+                  <!-- <input class="upload-name" value="Select File" disabled="disabled" >  -->
+                  <form action="/pharmaShop/main/saveImage" method="post" id="form_img" enctype="multipart/form-data"
+                    accept-charset="utf-8">
+                    <div>
+                      <label for="itemImage" class="text-black">Select image file</label><span
+                        class="text-danger">*</span>
+                      <input type="file" name="image" id="image">
+                      <span class="error image"></span>
+                    </div>
+                    </br>
+                    <label for="itemPath" class="text-black" style="display:block;">Save file Path</label>
+                    <input type="text" class="form-control" id="itemPath" disabled='disabled'>
+                    <input type="submit" name="submit" value="Image Save" style="margin-top:15px;">
+                  </form>
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="itemContent" class="text-black">Content</label>
+                <textarea id="itemContent" cols="30" rows="5" class="form-control"
+                  placeholder="Write your notes here..."></textarea>
+              </div>
+              <div class="form-group row">
+                <div class="col-md-12">
+                  <div style='float:left;margin:auto;'><label for="itemListTbl"
+                      class="text-black">ItemDetailList</label></div>&nbsp
+                  <div style='float:right;margin:auto;'><button class='btn btn-outline-primary' type='button'
+                      id='addItemBtn'>Add Item</button></div>
+                  <table table class="table table-bordered" id='itemListTbl' style='margin-top:15px;'>
+                    <thead>
+                      <tr>
+                        <th class="medicine-cd">Medicine Code</th>
+                        <th class="medicine-name">Medicine Name</th>
+                        <th class="medicine-effect">MEdicine Effect</th>
+                        <th class="medicine-remove">Remove</th>
+                      </tr>
+                    </thead>
+                    <tbody id="itemDetailList">
+                      <!-- itemDetailList -->
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              <div style='float:left;'>
+                <div class="btn btn-primary btn-md px-2" type="button" id='btnInit'>INIT VALUE</div>
+              </div>
+              <div style='float:right;'>
+                <div class="btn btn-primary btn-md px-2" type="button" id='btnDelete'>DELETE</div>
+                <div class="btn btn-primary btn-md px-2" type="button" id='btnSave'>SAVE</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<% include ./layout/footer.ejs %>
+<script src="/javascript/new-post.js"></script>

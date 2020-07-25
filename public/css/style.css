@@ -7379,6 +7379,9 @@ h1, h2, h3, h4, h5,
   .ftco-navbar-light .navbar-nav > .nav-item.cta.cta-colored a {
     border: 1px solid #5dd28e;
     background: #5dd28e !important; }
+  .ftco-navbar-light .navbar-nav > .nav-item.cta.cta-colored1 a {
+      border: 1px solid #e6881c;
+      background: #e6881c !important; }
   .ftco-navbar-light .navbar-nav > .nav-item.active > a {
     color: rgba(255, 255, 255, 0.5); }
   .ftco-navbar-light .navbar-toggler {
