@@ -42,9 +42,17 @@ router.post('/new-post/imageUpload',postController.doInsertPostImage, function(r
     });
 });
 
-/*POST MEMBER */
+/*POST SIGN */
 //jobTypeDetail init
 router.post('/signup/jobTypeDetail',jobController.doGetJobtypeDetail, function(req, res, next){
+    res.send({JsonParam:JSON.parse(JSON.stringify(req.params))});
+});
+router.post('/signup/idCheck',memberController.doPostIdCheck, function(req, res, next){
+    console.log(req.params);
+    res.send({JsonParam:JSON.parse(JSON.stringify(req.params))});
+});
+router.post('/signup/mailCheck',memberController.doPostMailCheck, function(req, res, next){
+    console.log(req.params);
     res.send({JsonParam:JSON.parse(JSON.stringify(req.params))});
 });
 

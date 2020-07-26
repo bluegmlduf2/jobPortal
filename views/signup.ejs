@@ -29,52 +29,52 @@
     </ul>
     <div class="tab-content">
       <div class="tab-pane fade show active" id="candidate">
-        <!-- 1번째 행 -->
         <div class="row">
-          <!-- 첫번째 탭 -->
+          <!--          첫번째 탭               -->
           <div class="col-md-12 mb-5 mb-md-0">
             <h2 class="h3 mb-3 mt-3 text-black">Candidate SignUp</h2>
             <div class="p-5 p-lg-5 border">
               <div class="form-group row">
                 <div class="col-md-10">
-                  <label for="itemcd" class="text-black">ID<span class="text-danger">*</span></label>
-                  <input type="text" class="form-control" id="itemcd">
+                  <label for="cId" class="text-black">ID<span class="text-danger">*</span></label>
+                  <input type="text" class="form-control" id="cId">
                 </div>
                 <div class="col-md-2 pl-0 ml-0 pt-5">
-                  <div class="btn btn-outline-primary" type="button" id='btnIdCheck'>ID CHECK</div>
+                  <div class="btn btn-outline-primary" type="button" id='btnIdCheck1' data-memo ='cId'>ID CHECK</div>
                 </div>
               </div>
               <div class="form-group row">
                 <div class="col-md-6">
-                  <label for="itemName" class="text-black">PASSWORD <span class="text-danger">*</span></label>
-                  <input type="password" class="form-control" id="itemName">
+                  <label for="cPass" class="text-black">PASSWORD <span class="text-danger">*</span></label>
+                  <input type="password" class="form-control" id="cPass">
                 </div>
                 <div class="col-md-6">
-                  <label for="itemName" class="text-black">CONFIRM PASSWORD <span class="text-danger">*</span></label>
-                  <input type="password" class="form-control" id="itemName">
+                  <label for="cConfirmPass" class="text-black">CONFIRM PASSWORD <span
+                      class="text-danger">*</span></label>
+                  <input type="password" class="form-control" id="cConfirmPass">
                 </div>
               </div>
               <div class="form-group row">
                 <div class="col-md-6">
-                  <label for="itemSale" class="text-black">NAME</label>
-                  <input type="text" class="form-control" id="itemSale">
+                  <label for="cName" class="text-black">NAME<span class="text-danger">*</span></label>
+                  <input type="text" class="form-control" id="cName">
                 </div>
                 <div class="col-md-4">
-                  <label for="email" class="text-black">EMAIL <span class="text-danger">*</span></label>
-                  <input type="email" class="form-control" id="email">
+                  <label for="cMail" class="text-black">EMAIL <span class="text-danger">*</span></label>
+                  <input type="email" class="form-control" id="cMail">
                 </div>
                 <div class="col-md-2 pl-0 pt-5">
-                  <div class="btn btn-outline-primary" type="button" id='btnIdCheck'>EMAIL CHECK</div>
+                  <div class="btn btn-outline-primary" type="button" id='btnMailCheck1' data-memo ='cMail'>EMAIL CHECK</div>
                 </div>
               </div>
               <div class="form-group row">
                 <div class="col-md-4">
-                  <label for="itemPrice" class="text-black">PHONE<span class="text-danger">*</span></label>
-                  <input type="text" class="form-control" id="itemPrice" numberonly="true">
+                  <label for="cPhone" class="text-black">PHONE<span class="text-danger">*</span></label>
+                  <input type="text" class="form-control" id="cPhone" numberonly="true">
                 </div>
                 <div class="col-md-4">
-                  <label for="datePicker" class="text-black">BIRTH DATE<span class="text-danger">*</span></label>
-                  <input type="text" id="datePicker" class="form-control">
+                  <label for="cBirth" class="text-black">BIRTH DATE<span class="text-danger">*</span></label>
+                  <input type="text" id="cBirth" name='datePicker' class="form-control">
                 </div>
                 <div class="col-md-4">
                   <div><label for="rdoSex1" class="text-black">SEX<span class="text-danger">*</span></label></div>
@@ -90,14 +90,14 @@
               </div>
               <div class="form-group row">
                 <div class="col-md-12">
-                  <label for="itemTake" class="text-black">ADDRESS</label>
-                  <input type="text" class="form-control" id="itemTake">
+                  <label for="cAdress" class="text-black">ADDRESS<span class="text-danger">*</span></label>
+                  <input type="text" class="form-control" id="cAdress">
                 </div>
               </div>
               <div class="form-group row">
                 <div class="col-md-6">
-                  <label for="jobType" class="text-black">JOB TYPE<span class="text-danger">*</span></label>
-                  <select id="jobType" class="form-control">
+                  <label for="cJobType" class="text-black">JOB TYPE<span class="text-danger">*</span></label>
+                  <select id="cJobType" class="form-control">
                     <option value="0">Please Select</option>
                     <% for(let j = 0; j< JsonParam.jobType.length; j++){%>
                     <option value="<%=JsonParam.jobType[j].CODE_IDX%>"><%=JsonParam.jobType[j].CODE_NAME%></option>
@@ -105,8 +105,8 @@
                   </select>
                 </div>
                 <div class="col-md-6">
-                  <label for="jobTypeDetail" class="text-black">JOB TYPE DETAIL<span class="text-danger">*</span></label>
-                  <select id="jobTypeDetail" class="form-control">
+                  <label for="cJobTypeDetail" class="text-black">JOB TYPE DETAIL<span class="text-danger">*</span></label>
+                  <select id="cJobTypeDetail" class="form-control">
                     <!--JOBTYPE DETAIL-->
                     <option value="0">Please Select</option>
                   </select>
@@ -114,43 +114,43 @@
               </div>
               <div class="form-group row">
                 <div class="col-md-6">
-                  <label for="itemImage" class="text-black" style="display:block;">IMAGE<span
+                  <label for="cImage" class="text-black" style="display:block;">CANDIDATE IMAGE<span
                       class="text-danger">*</span></label>
                   <!-- <input type="text" class="form-control" id="c_lname" name="c_lname"> -->
                   <!-- <div class="site-blocks-cover inner-page" style="background-image: url('images/hero_1.jpg');"> -->
-                  <img src='/images/postImage/noimage.png' id='itemImage' alt='Image'
+                  <img src='/images/postImage/noimage.png' id='cImage' alt='Image'
                     class='img-fluid'>
                 </div>
                 <div class="col-md-6">
                   <!-- <input class="upload-name" value="Select File" disabled="disabled" >  -->
-                  <form action="/pharmaShop/main/saveImage" method="post" id="form_img" enctype="multipart/form-data"
+                  <form action="/pharmaShop/main/saveImage" method="post" id="c_form_img" enctype="multipart/form-data"
                     accept-charset="utf-8">
                     <div>
-                      <label for="itemImage" class="text-black">SELECT IMAGE FILE</label><span
+                      <label for="cImageFile" class="text-black">SELECT IMAGE FILE</label><span
                         class="text-danger">*</span>
                         <div>
-                      <input type="file" name="image" id="image">
+                      <input type="file" name="cImage" id="cImageFile">
                       <span class="error image"></span>
                       </div>
                     </div>
                     </br>
-                    <label for="itemPath" class="text-black" style="display:block;">SAVE FILE PATH</label>
-                    <input type="text" class="form-control" id="itemPath" disabled='disabled'>
-                    <input type="submit" name="submit" value="Image Save" style="margin-top:15px;">
+                    <label for="cPath" class="text-black" style="display:block;">SAVE FILE PATH</label>
+                    <input type="text" class="form-control" id="cPath" disabled='disabled'>
+                    <input type="submit" name="cSubmit" value="Image Save" style="margin-top:15px;">
                   </form>
                 </div>
               </div>
               <div class="form-group">
-                <label for="itemContent" class="text-black">SELF INTRODUCTION<span class="text-danger">*</span></label>
-                <textarea id="itemContent" cols="30" rows="5" class="form-control"
+                <label for="cIntro" class="text-black">SELF INTRODUCTION<span class="text-danger">*</span></label>
+                <textarea id="cIntro" cols="30" rows="5" class="form-control"
                   placeholder="Write here..."></textarea>
               </div>
               <div class="form-group">
                 <div style='float:left;'>
-                  <div class="btn btn-primary btn-lg" type="button" id='btnInit'>INIT VALUE</div>
+                  <div class="btn btn-primary btn-lg" type="button" id='btnInit1'>INIT VALUE</div>
                 </div>
                 <div style='float:right;'>
-                  <div class="btn btn-primary btn-lg" type="button" id='btnSave'>SAVE</div>
+                  <div class="btn btn-primary btn-lg" type="button" id='btnSave1'>SAVE</div>
                 </div>
               </div>
               <div class="form-group">&nbsp;</div>
@@ -159,101 +159,100 @@
         </div>
       </div>
       <div class="tab-pane fade" id="employer">
-        <!-- 1번째 행 -->
         <div class="row">
-          <!-- 두번째 탭 -->
+<!--          두번째 탭               -->
           <div class="col-md-12 mb-5 mb-md-0">
             <h2 class="h3 mb-3  mt-3 text-black">Employer SignUp</h2>
             <div class="p-5 p-lg-5 border">
               <div class="form-group row">
                 <div class="col-md-10">
-                  <label for="itemcd" class="text-black">ID<span class="text-danger">*</span></label>
-                  <input type="text" class="form-control" id="itemcd">
+                  <label for="eId" class="text-black">ID<span class="text-danger">*</span></label>
+                  <input type="text" class="form-control" id="eId">
                 </div>
                 <div class="col-md-2 pl-0 ml-0 pt-5">
-                  <div class="btn btn-outline-primary" type="button" id='btnIdCheck'>ID CHECK</div>
+                  <div class="btn btn-outline-primary" type="button" id='btnIdCheck2' data-memo='eId'>ID CHECK</div>
                 </div>
               </div>
               <div class="form-group row">
                 <div class="col-md-6">
-                  <label for="itemName" class="text-black">PASSWORD <span class="text-danger">*</span></label>
-                  <input type="password" class="form-control" id="itemName">
+                  <label for="ePass" class="text-black">PASSWORD <span class="text-danger">*</span></label>
+                  <input type="password" class="form-control" id="ePass">
                 </div>
                 <div class="col-md-6">
-                  <label for="itemName" class="text-black">CONFIRM PASSWORD <span class="text-danger">*</span></label>
-                  <input type="password" class="form-control" id="itemName">
+                  <label for="eConfirmPass" class="text-black">CONFIRM PASSWORD <span class="text-danger">*</span></label>
+                  <input type="password" class="form-control" id="eConfirmPass">
                 </div>
               </div>
               <div class="form-group row">
                 <div class="col-md-12">
-                  <label for="itemSale" class="text-black">EMPLOYER NAME</label>
-                  <input type="text" class="form-control" id="itemSale">
+                  <label for="eName" class="text-black">EMPLOYER NAME <span class="text-danger">*</span></label>
+                  <input type="text" class="form-control" id="eName">
                 </div>
               </div>
               <div class="form-group row">
                 <div class="col-md-12">
-                  <label for="itemTake" class="text-black">EMPLOYER INTRODUCTION</label>
-                  <textarea id="itemContent" cols="30" rows="3" class="form-control"
+                  <label for="eIntro" class="text-black">EMPLOYER INTRODUCTION</label>
+                  <textarea id="eIntro" cols="30" rows="3" class="form-control"
                   placeholder="Write here..."></textarea>
                 </div>
               </div>
               <div class="form-group row">
                 <div class="col-md-6">
-                  <label for="itemImage" class="text-black" style="display:block;">EMPLOYER IMAGE<span
+                  <label for="eImage" class="text-black" style="display:block;">EMPLOYER IMAGE<span
                       class="text-danger">*</span></label>
                   <!-- <input type="text" class="form-control" id="c_lname" name="c_lname"> -->
                   <!-- <div class="site-blocks-cover inner-page" style="background-image: url('images/hero_1.jpg');"> -->
-                  <img src='/images/postImage/noimage.png' id='itemImage' alt='Image'
+                  <img src='/images/postImage/noimage.png' id='eImage' alt='Image'
                     class='img-fluid'>
                 </div>
                 <div class="col-md-6">
                   <!-- <input class="upload-name" value="Select File" disabled="disabled" >  -->
-                  <form action="/pharmaShop/main/saveImage" method="post" id="form_img" enctype="multipart/form-data"
+                  <form action="/pharmaShop/main/saveImage" method="post" id="e_form_img" enctype="multipart/form-data"
                     accept-charset="utf-8">
                     <div>
-                      <label for="itemImage" class="text-black">SELECT IMAGE FILE</label><span
+                      <label for="eImageFile" class="text-black">SELECT IMAGE FILE</label><span
                         class="text-danger">*</span>
                         <div>
-                      <input type="file" name="image" id="image">
+                      <input type="file" name="eImage" id="eImageFile">
                       <span class="error image"></span>
                       </div>
                     </div>
                     </br>
-                    <label for="itemPath" class="text-black" style="display:block;">SAVE FILE PATH</label>
-                    <input type="text" class="form-control" id="itemPath" disabled='disabled'>
-                    <input type="submit" name="submit" value="Image Save" style="margin-top:15px;">
+                    <label for="ePath" class="text-black" style="display:block;">SAVE FILE PATH</label>
+                    <input type="text" class="form-control" id="ePath" disabled='disabled'>
+                    <input type="submit" name="eSubmit" value="Image Save" style="margin-top:15px;">
                   </form>
                 </div>
               </div>
               <div class="form-group row">
                 <div class="col-md-10">
-                  <label for="email" class="text-black">COMPANY EMAIL <span class="text-danger">*</span></label>
-                  <input type="email" class="form-control" id="email">
+                  <label for="comMail" class="text-black">COMPANY EMAIL <span class="text-danger">*</span></label>
+                  <input type="email" class="form-control" id="comMail">
                 </div>
                 <div class="col-md-2 pl-0 pt-5">
-                  <div class="btn btn-outline-primary" type="button" id='btnIdCheck'>EMAIL CHECK</div>
+                  <div class="btn btn-outline-primary" type="button" id='btnMailCheck2' data-memo ='comMail'>EMAIL CHECK</div>
                 </div>
             </div>
               <div class="form-group row">
                 <div class="col-md-6">
-                  <label for="itemPrice" class="text-black">COMPANY TELEPHONE NUMBER<span class="text-danger">*</span></label>
-                  <input type="text" class="form-control" id="itemPrice" numberonly="true">
+                  <label for="comPhone" class="text-black">COMPANY TELEPHONE NUMBER<span class="text-danger">*</span></label>
+                  <input type="text" class="form-control" id="comPhone" numberonly="true">
                 </div>
                 <div class="col-md-6">
-                  <label for="datePicker" class="text-black">COMPANY ESTABLISHMENT DATE<span class="text-danger">*</span></label>
-                  <input type="text" id="datePicker" class="form-control">
+                  <label for="comBirth" class="text-black">COMPANY ESTABLISHMENT DATE<span class="text-danger">*</span></label>
+                  <input type="text" name="datePicker" id="comBirth" class="form-control">
                 </div>
               </div>
               <div class="form-group row">
                 <div class="col-md-12">
-                  <label for="itemTake" class="text-black">COMPANY ADDRESS</label>
-                  <input type="text" class="form-control" id="itemTake">
+                  <label for="comAdress" class="text-black">COMPANY ADDRESS <span class="text-danger">*</span></label>
+                  <input type="text" class="form-control" id="comAdress">
                 </div>
               </div>
               <div class="form-group row">
                 <div class="col-md-12">
-                  <label for="jobType" class="text-black">JOB TYPE<span class="text-danger">*</span></label>
-                  <select id="jobType" class="form-control">
+                  <label for="comJobType" class="text-black">JOB TYPE<span class="text-danger">*</span></label>
+                  <select id="comJobType" class="form-control">
                     <option value="0">Please Select</option>
                     <% for(let j = 0; j< JsonParam.jobType.length; j++){%>
                     <option value="<%=JsonParam.jobType[j].CODE_IDX%>"><%=JsonParam.jobType[j].CODE_NAME%></option>
@@ -263,43 +262,43 @@
               </div>
               <div class="form-group row">
                 <div class="col-md-6">
-                  <label for="itemImage" class="text-black" style="display:block;">COMPANY IMAGE<span
+                  <label for="comImage" class="text-black" style="display:block;">COMPANY IMAGE<span
                       class="text-danger">*</span></label>
                   <!-- <input type="text" class="form-control" id="c_lname" name="c_lname"> -->
                   <!-- <div class="site-blocks-cover inner-page" style="background-image: url('images/hero_1.jpg');"> -->
-                  <img src='/images/postImage/noimage.png' id='itemImage' alt='Image'
+                  <img src='/images/postImage/noimage.png' id='comImage' alt='Image'
                     class='img-fluid'>
                 </div>
                 <div class="col-md-6">
                   <!-- <input class="upload-name" value="Select File" disabled="disabled" >  -->
-                  <form action="/pharmaShop/main/saveImage" method="post" id="form_img" enctype="multipart/form-data"
+                  <form action="/pharmaShop/main/saveImage" method="post" id="com_form_img" enctype="multipart/form-data"
                     accept-charset="utf-8">
                     <div>
-                      <label for="itemImage" class="text-black">SELECT IMAGE FILE</label><span
+                      <label for="comImageFile" class="text-black">SELECT IMAGE FILE</label><span
                         class="text-danger">*</span>
                         <div>
-                      <input type="file" name="image" id="image">
+                      <input type="file" name="comImage" id="comImageFile">
                       <span class="error image"></span>
                       </div>
                     </div>
                     </br>
-                    <label for="itemPath" class="text-black" style="display:block;">SAVE FILE PATH</label>
-                    <input type="text" class="form-control" id="itemPath" disabled='disabled'>
-                    <input type="submit" name="submit" value="Image Save" style="margin-top:15px;">
+                    <label for="comPath" class="text-black" style="display:block;">SAVE FILE PATH</label>
+                    <input type="text" class="form-control" id="comPath" disabled='disabled'>
+                    <input type="submit" name="comSubmit" value="Image Save" style="margin-top:15px;">
                   </form>
                 </div>
               </div>
               <div class="form-group">
-                <label for="itemContent" class="text-black">COMPANY INTRODUCTION<span class="text-danger">*</span></label>
-                <textarea id="itemContent" cols="30" rows="5" class="form-control"
+                <label for="comIntro" class="text-black">COMPANY INTRODUCTION<span class="text-danger">*</span></label>
+                <textarea id="comIntro" cols="30" rows="5" class="form-control"
                   placeholder="Write here..."></textarea>
               </div>
               <div class="form-group">
                 <div style='float:left;'>
-                  <div class="btn btn-primary btn-lg" type="button" id='btnInit'>INIT VALUE</div>
+                  <div class="btn btn-primary btn-lg" type="button" id='btnInit2'>INIT VALUE</div>
                 </div>
                 <div style='float:right;'>
-                  <div class="btn btn-primary btn-lg" type="button" id='btnSave'>SAVE</div>
+                  <div class="btn btn-primary btn-lg" type="button" id='btnSave2'>SAVE</div>
                 </div>
               </div>
               <div class="form-group">&nbsp;</div>

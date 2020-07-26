@@ -1,3 +1,6 @@
+var idChk=false;
+var mailChk=false;
+
 $(function () {
 	//initType();//job kind init
 
@@ -8,18 +11,18 @@ $(function () {
 });
 
 //jobTypeDetail init
-$('#jobType').on('change', function () {
+$('#cJobType').on('change', function () {
 	$.ajax({
 		type: "POST",
 		url: "/signup/jobTypeDetail",
 		data: {
-			"jobType": $("#jobType option:selected").val()
+			"jobType": $("#cJobType option:selected").val()
 		},
 		async: false,
 		dataType: "json",
 		success: function (result) {
 			//kind
-			$('#jobTypeDetail').empty();
+			$('#cJobTypeDetail').empty();
 			var listHtml
 
 			if (result['JsonParam'].jobTypeDetail.length != 0) {
@@ -30,8 +33,79 @@ $('#jobType').on('change', function () {
 				listHtml += '<option value="0">Please Select</option>';
 			}
 
-			$('#jobTypeDetail').append(listHtml);
+			$('#cJobTypeDetail').append(listHtml);
 			//console.log(result['post'][0].ITEM_CD);//JS에서 객체의 멤버변수를 접근할때는 .을 사용
+		},
+		error: function (request, status, error) {
+			//console.log("code:"+request.status+ ", message: "+request.responseText+", error:"+error);
+			swal("Error!", "--- Please Contact Administrator ---", "error");
+		}
+	});
+});
+
+//ID CHECK
+$('#btnIdCheck1,#btnIdCheck2').on('click', function () {
+	var id=$(this).attr('data-memo');
+	$.ajax({
+		type: "POST",
+		url: "/signup/idCheck",
+		data: {
+			"id": $("#"+id).val()
+		},
+		async: false,
+		dataType: "json",
+		success: function (result) {
+			var loginChk=result['JsonParam'].loginChk;
+
+			if(loginChk!=1){
+				swal("Thanks!", "Successfully Checked!\n ID input field would be disabled", "success");
+				//$('#'+id).css('background-color', '#e2e2e2');
+				$('#'+id).attr("disabled",true);
+				$('#'+id).attr("readonly",true);
+				idChk=true; 
+			}else{
+				swal("Check!", "The ID that already exists.", "info");
+				//$('#'+id).css('background-color', '#e2e2e2');
+				$('#'+id).attr("disabled",false);
+				$('#'+id).attr("readonly",false);
+				idChk=false; 
+			}
+		},
+		error: function (request, status, error) {
+			//console.log("code:"+request.status+ ", message: "+request.responseText+", error:"+error);
+			swal("Error!", "--- Please Contact Administrator ---", "error");
+		}
+	});
+})
+
+//EMAIL CHECK
+$('#btnMailCheck1,#btnMailCheck2').on('click', function () {
+	var mail=$(this).attr('data-memo');
+
+	$.ajax({
+		type: "POST",
+		url: "/signup/mailCheck",
+		data: {
+			"mail": $("#"+mail).val()
+		},
+		async: false,
+		dataType: "json",
+		success: function (result) {
+			var loginChk=result['JsonParam'].loginChk;
+
+			if(loginChk!=1){
+				swal("Thanks!", "Successfully Checked!\n EMAIL input field would be disabled", "success");
+				//$('#'+id).css('background-color', '#e2e2e2');
+				$('#'+mail).attr("disabled",true);
+				$('#'+mail).attr("readonly",true);
+				mailChk=true; 
+			}else{
+				swal("Check!", "The EMAIL that already exists.", "info");
+				//$('#'+id).css('background-color', '#e2e2e2');
+				$('#'+mail).attr("disabled",false);
+				$('#'+mail).attr("readonly",false);
+				mailChk=false; 
+			}
 		},
 		error: function (request, status, error) {
 			//console.log("code:"+request.status+ ", message: "+request.responseText+", error:"+error);
