@@ -1,5 +1,6 @@
 const express = require('express');
 const jobModel = require('../model/JobModel');
+const memberModel = require('../model/memberModel');
 const Views = '../views/'
 
 module.exports = {
@@ -49,6 +50,21 @@ module.exports = {
     Promise.all([jobModel.getJobSingleList(jobNum),jobModel.getJobCommentList(jobNum)]).then((result) => {
       req.params.jobSingleList=result[0];
       req.params.jobCommentList=result[1];
+      next();
+    });
+  },
+  doGetJobtype: function (req, res, next) {
+    Promise.all([jobModel.getJobType()]).then((result) => {
+      var jobType=result[0]; //JOB TYPE
+      req.params.jobType=jobType;      
+      next();
+    });
+  },
+  doGetJobtypeDetail: function (req, res, next) {
+    var jobType=req.body.jobType; 
+    Promise.all([jobModel.getJobTypeDetail(jobType)]).then((result) => {
+      var jobTypeDetail=result[0]; //JOB TYPE
+      req.params.jobTypeDetail=jobTypeDetail;
       next();
     });
   }

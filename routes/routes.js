@@ -3,7 +3,7 @@ var router = express.Router();
 var indexController = require('../controllers/IndexController')
 var jobController = require('../controllers/JobController')
 var postController = require('../controllers/PostController')
-
+var memberController = require('../controllers/MemberController')
 
 /*화면이동 */
 router.get('/index', function(req, res, next){
@@ -27,11 +27,11 @@ router.get('/new-post', function(req, res, next){
 router.get('/error', function(req, res, next){
     res.render('error', {JsonParam:JSON.parse(JSON.stringify(req.params))});
 });
-router.get('/signup', function(req, res, next){
+router.get('/signup',jobController.doGetJobtype, function(req, res, next){
     res.render('signup', {JsonParam:JSON.parse(JSON.stringify(req.params))});
 });
 
-/* POST */
+/* POST FILE&IMAGE UPLOAD  */
 router.post('/new-post/imageUpload',postController.doInsertPostImage, function(req, res, next){
     res.send({"uploaded":req.params.status
     ,"fileName":req.params.filename
@@ -40,6 +40,12 @@ router.post('/new-post/imageUpload',postController.doInsertPostImage, function(r
         "message": "Uploads are completed."
     }
     });
+});
+
+/*POST MEMBER */
+//jobTypeDetail init
+router.post('/signup/jobTypeDetail',jobController.doGetJobtypeDetail, function(req, res, next){
+    res.send({JsonParam:JSON.parse(JSON.stringify(req.params))});
 });
 
 module.exports = router;
