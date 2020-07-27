@@ -1,4 +1,5 @@
 var express = require('express');
+var url = require('url');
 var router = express.Router();
 var indexController = require('../controllers/IndexController')
 var jobController = require('../controllers/JobController')
@@ -32,15 +33,35 @@ router.get('/signup',jobController.doGetJobtype, function(req, res, next){
 });
 
 /* POST FILE&IMAGE UPLOAD  */
-router.post('/new-post/imageUpload',postController.doInsertPostImage, function(req, res, next){
-    res.send({"uploaded":req.params.status
-    ,"fileName":req.params.filename
-    ,"url":"/public/uploads/"+req.params.filename
-    ,"error": {
-        "message": "Uploads are completed."
+// router.post('/new-post/imageUpload',postController.doInsertPostImage, function(req, res, next){
+//     res.send({"uploaded":req.params.status
+//     ,"fileName":req.params.filename
+//     ,"url":"/public/uploads/"+req.params.filename
+//     ,"error": {
+//         "message": "Uploads are completed."
+//     }
+//     });
+// });
+router.post('*/imageUpload',postController.doInsertPostImage, function(req, res, next){
+    var rPath=url.parse(req.url,true).path;
+
+    if(rPath=='/new-post/imageUpload'){
+        res.send({"uploaded":req.params.status
+        ,"fileName":req.params.filename
+        ,"url":"/public/uploads/"+req.params.filename
+        ,"error": {
+            "message": "Uploads are completed."
+        }
+        });
+    }else if(rPath=='/signup/imageUpload'){
+        res.send({"uploaded":req.params.status
+        ,"fileName":req.params.filename
+        ,"url":"/public/uploads/"+req.params.filename
+        });
     }
-    });
 });
+
+
 
 /*POST SIGN */
 //jobTypeDetail init
