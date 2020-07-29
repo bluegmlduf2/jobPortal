@@ -22,7 +22,10 @@ app.use('*/css',express.static(path.join(__dirname, 'public/css')));//반환되�
 app.use('*/js',express.static(path.join(__dirname, 'public/js'))); // */js에 해당되는 url을 public/js로 부분 교체
 app.use('*/images',express.static(path.join(__dirname, 'public/images')));
 app.use('*/fonts',express.static(path.join(__dirname, 'public/fonts')));
-app.use('*/uploads',express.static(path.join(__dirname, 'public/uploads')));//image upload path
+app.use('*/uploads/post',express.static(path.join(__dirname, 'public/uploads/post')));//image upload path
+app.use('*/uploads/candidate',express.static(path.join(__dirname, 'public/uploads/candidate')));//image upload path
+app.use('*/uploads/employer',express.static(path.join(__dirname, 'public/uploads/employer')));//image upload path
+app.use('*/uploads/company',express.static(path.join(__dirname, 'public/uploads/company')));//image upload path
 app.use('*/ckeditor',express.static(path.join(__dirname, 'public/ckeditor')));
 app.use('*/javascript',express.static(path.join(__dirname, 'views/javascript')));
 

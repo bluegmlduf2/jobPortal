@@ -45,6 +45,7 @@ router.get('/signup',jobController.doGetJobtype, function(req, res, next){
 router.post('*/imageUpload',postController.doInsertPostImage, function(req, res, next){
     var rPath=url.parse(req.url,true).path;
 
+    //POST IMAGE UPLOAD
     if(rPath=='/new-post/imageUpload'){
         res.send({"uploaded":req.params.status
         ,"fileName":req.params.filename
@@ -53,10 +54,21 @@ router.post('*/imageUpload',postController.doInsertPostImage, function(req, res,
             "message": "Uploads are completed."
         }
         });
-    }else if(rPath=='/signup/imageUpload'){
+    //SIGN UP IMAGE UPLOAD
+    }else if(rPath=='/signup/candidate/imageUpload'){
         res.send({"uploaded":req.params.status
         ,"fileName":req.params.filename
-        ,"url":"/public/uploads/"+req.params.filename
+        ,"url":"/public/uploads/candidate/"+req.params.filename
+        });
+    }else if(rPath=='/signup/employer/imageUpload'){
+        res.send({"uploaded":req.params.status
+        ,"fileName":req.params.filename
+        ,"url":"/public/uploads/employer/"+req.params.filename
+        });
+    }else if(rPath=='/signup/company/imageUpload'){
+        res.send({"uploaded":req.params.status
+        ,"fileName":req.params.filename
+        ,"url":"/public/uploads/company/"+req.params.filename
         });
     }
 });

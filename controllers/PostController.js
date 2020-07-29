@@ -1,16 +1,18 @@
 const express = require('express');
 const path = require('path');
 const router = express.Router();
-var appRoot = require('app-root-path').path.replace(/\\/g,"/");
+var appRoot = require('app-root-path').path.replace(/\\/g, "/");
 const postModel = require('../model/postModel');
+var url = require('url');
 
 var multiparty = require('multiparty');
 var fs = require('fs');
 
 module.exports = {
   doInsertPostImage: function (req, res, next) {
-    var form = new multiparty.Form();//https://bcho.tistory.com/1078
-    
+    var form = new multiparty.Form(); //https://bcho.tistory.com/1078
+    var rPath = url.parse(req.url, true).path;
+
     // get field name & value
     //field : 파일이 아닌 일반 필드가 들왔을때, 발생하는 이벤트
     form.on('field', function (name, value) {
@@ -18,10 +20,13 @@ module.exports = {
     });
 
     // file upload handling
-    //HTML 파트가 들어왔을 때 발생하는 이벤트로 파일 업로드에서는 파일 파트만을 잡아서 처리한다.
+    //HTML 파트가 들어왔을 때 발생하는 이벤트 -이미지파일이 part에 저장되어있음.
     form.on('part', function (part) {
       var filename;
       var size;
+      var writeStream;
+      var date = new Date();
+      var addImageName = 'image_' + date.getHours() + date.getMinutes() + date.getSeconds() + '_';
 
       if (part.filename) {
         filename = part.filename;
@@ -31,9 +36,25 @@ module.exports = {
       }
 
       console.log("Write Streaming file :" + filename);
-      var writeStream = fs.createWriteStream(path.join(appRoot, '/public/uploads/')+filename);
-      
-      writeStream.filename = filename;
+
+      //var writeStream = fs.createWriteStream(path.join(appRoot, '/public/uploads/')+filename);
+
+      switch (rPath) {
+        case "/new-post/imageUpload":
+          writeStream = fs.createWriteStream(path.join(appRoot, '/public/uploads/post/') + addImageName + filename);
+          break;
+        case "/signup/candidate/imageUpload":
+          writeStream = fs.createWriteStream(path.join(appRoot, '/public/uploads/candidate/') + addImageName + filename);
+          break;
+        case "/signup/employer/imageUpload":
+          writeStream = fs.createWriteStream(path.join(appRoot, '/public/uploads/employer/') + addImageName + filename);
+          break;
+        case "/signup/company/imageUpload":
+          writeStream = fs.createWriteStream(path.join(appRoot, '/public/uploads/company/') + addImageName + filename);
+          break;
+      }
+
+      writeStream.filename = addImageName+filename;
 
       part.pipe(writeStream);
 
@@ -46,9 +67,9 @@ module.exports = {
         writeStream.end();
 
         //send Parameters..
-        req.params.status=1;
-        req.params.url=writeStream.path;
-        req.params.filename=writeStream.filename;
+        req.params.status = 1;
+        req.params.url = writeStream.path;
+        req.params.filename = writeStream.filename;
       });
     });
 
