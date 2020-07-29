@@ -201,6 +201,18 @@ function validationChk() {
 		SELF_INTRODUCTION: $('#cIntro').val()
 	}
 
+	//ID&EMAIL CHECK 
+	if(idChk==false||mailChk==false){
+		if(idChk==false){
+			output += 'Confirm ID duplication\n';
+		}
+		if(mailChk==false){
+			output += 'Confirm EMAIL duplication';
+		}
+		swal("** Please Check Your ID  **", output);
+		return;
+	}
+
 	var i = 0;
 
 	$.each(arrVal, function (index, item) {
@@ -229,85 +241,77 @@ function validationChk() {
 	return chk;
 }
 
-//Save
-$('#btnSave1').click(function () {
-	// var msg = 'Item Code : ' + $('#itemcd').val();
+//Save ,Init
+$('#btnSave1,#btnSave2').click(function () {
+	var msg = 'ID : ' + $('#cId').val();
 
-	// if ($('#itemcd').val() == '') {
-	// 	msg = 'New Item';
-	// }
-
-	// var main = new Array();
-	// var cnt = 0;
-	// var sub;
-
-	// //htmlTable->json
-	// //json형태 --> 객체{배열[객체{}{}..]}
-	// $('#itemListTbl>tbody>tr').children().each(function (i, e) {
-	// 	//$(this) 와 e (태그객체)는 같다
-
-	// 	if ($(this).attr('class') == 'medicine-cd') {
-	// 		sub = new Object();
-	// 		sub['MEDICINE_CD'] = $(this).children('#mCD').text();
-	// 	}
-	// 	if ($(this).attr('class') == 'medicine-name') {
-	// 		sub['MEDICINE_NAME'] = $(this).children('#mNameMedi').text();
-	// 	}
-	// 	if ($(this).attr('class') == 'medicine-effect') {
-	// 		sub['MEDICINE_EFF'] = $(this).children('#mEff').text();
-	// 	}
-	// 	if ($(this).attr('class') == 'medicine-remove') {
-	// 		main[cnt] = sub;
-	// 		cnt++
-	// 	}
-	// });
-	// var jsonTblObj = {
-	// 	list: main
-	// };
-
-	// //jsonTblObj=JSON.stringify(jsonTblObj);
-
-	// var obj = {
-	// 	"itemCd": $('#itemcd').val(),
-	// 	"itemName": $('#itemName').val(),
-	// 	"itemKind": $('#itemKind').val(),
-	// 	"itemSale": $('#itemSale').val(),
-	// 	"itemPrice": $('#itemPrice').val(),
-	// 	"itemTake": $('#itemTake').val(),
-	// 	"itemPath": $('#itemPath').val(),
-	// 	"itemContent": $('#itemContent').val(),
-	// 	"ItemDetailList": jsonTblObj
-	// };
-
-	// obj = JSON.stringify(obj);
-
-	if (validationChk()) {
-		// swal({
-		// 	title: "Save Item",
-		// 	text: "Would you like to save " + msg + "?",
-		// 	icon: "info",
-		// 	confirmButtonColor: '#3085d6',
-		// 	cancelButtonColor: '#d33',
-		// 	buttons: true
-		// }).then((willDelete) => {
-		// 	if (willDelete) {
-		// 		$.ajax({
-		// 			type: "POST",
-		// 			url: "/pharmaShop/main/saveItemList",
-		// 			data: {
-		// 				"data": obj
-		// 			},
-		// 			async: false,
-		// 			success: function (result) {
-		// 				swal("Thanks!", "Successfully Updated!", "success");
-		// 				location.reload();
-		// 			},
-		// 			error: function (request, status, error) {
-		// 				//console.log("code:"+request.status+ ", message: "+request.responseText+", error:"+error);
-		// 				swal("Error!", "--- Please Contact Administrator ---", "error");
-		// 			}
-		// 		});
-		// 	}
-		// });
+	var main = new Array();
+	var cnt = 0;
+	var sub;
+	var btnId=$(this).attr('id');
+	
+	switch(btnId){
+		case 'btnSave1':
+			if (validationChk()) {
+				swal({
+					title: "Create Account",
+					text: "Would you like to Create " + msg + "?",
+					icon: "info",
+					confirmButtonColor: '#3085d6',
+					cancelButtonColor: '#d33',
+					buttons: true
+				}).then((willDelete) => {
+					if (willDelete) {
+						$.ajax({
+							type: "POST",
+							url: "/pharmaShop/main/saveItemList",
+							data: {
+								"data": obj
+							},
+							async: false,
+							success: function (result) {
+								swal("Thanks!", "Successfully Created!", "success");
+								location.reload();
+							},
+							error: function (request, status, error) {
+								//console.log("code:"+request.status+ ", message: "+request.responseText+", error:"+error);
+								swal("Error!", "--- Please Contact Administrator ---", "error");
+							}
+						});
+					}
+				});
+			}
+		break;
+		case 'btnSave2':
+			if (validationChk()) {
+				swal({
+					title: "Create Account",
+					text: "Would you like to Create " + msg + "?",
+					icon: "info",
+					confirmButtonColor: '#3085d6',
+					cancelButtonColor: '#d33',
+					buttons: true
+				}).then((willDelete) => {
+					if (willDelete) {
+						$.ajax({
+							type: "POST",
+							url: "/pharmaShop/main/saveItemList",
+							data: {
+								"data": obj
+							},
+							async: false,
+							success: function (result) {
+								swal("Thanks!", "Successfully Created!", "success");
+								location.reload();
+							},
+							error: function (request, status, error) {
+								//console.log("code:"+request.status+ ", message: "+request.responseText+", error:"+error);
+								swal("Error!", "--- Please Contact Administrator ---", "error");
+							}
+						});
+					}
+				});
+			}
+		break;
 	}
 });
