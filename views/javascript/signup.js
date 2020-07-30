@@ -73,12 +73,15 @@ $('#cJobType').on('change', function () {
 		success: function (result) {
 			//kind
 			$('#cJobTypeDetail').empty();
-			var listHtml
+			var listHtml;
 
 			if (result['JsonParam'].jobTypeDetail.length != 0) {
+				listHtml += '<option value="0">Please Select</option>';
+
 				$.each(result['JsonParam'].jobTypeDetail, function (index, value) {
 					listHtml += '<option value="' + value.CODE_IDX + '">' + value.CODE_NAME + '</option>';
 				});
+
 			} else {
 				listHtml += '<option value="0">Please Select</option>';
 			}
@@ -165,43 +168,12 @@ $('#btnMailCheck1,#btnMailCheck2').on('click', function () {
 })
 
 //validation Check
-function validationChk() {
+function validationChk(arrCol,arrVal) {
 	var chk = true;
+	var i = 0;
 	var output = "";
 
-	var arrCol = [
-		'[ ID ]\n',
-		'[ PASSWORD ]\n',
-		'[ CONFIRM PASSWORD ]\n',
-		'[ NAME ]\n',
-		'[ EMAIL ]\n',
-		'[ PHONE ]\n',
-		'[ BIRTH DATE ]\n',
-		'[ SEX ]\n',
-		'[ ADDRESS ]\n',
-		'[ JOB TYPE ]\n',
-		'[ JOB TYPE DETAIL ]\n',
-		'[ CANDIDATE IMAGE ]\n',
-		'[ SELF INTRODUCTION ]'
-	];
-
-	var arrVal = {
-		ID: $('#cId').val(),
-		PASSWORD: $('#cPass').val(),
-		CONFIRM_PASSWORD: $('#cConfirmPass').val(),
-		NAME: $('#cName').val(),
-		EMAIL: $('#cMail').val(),
-		PHONE: $('#cPhone').val(),
-		BIRTH_DATE: $('#cBirth').val(),
-		SEX: $('input[name=rdoSex]:checked').val(),
-		ADDRESS: $('#cAdress').val(),
-		JOB_TYPE: $('#cJobType option:selected').val(),
-		JOB_TYPE_DETAIL: $('#cJobTypeDetail option:selected').val(),
-		CANDIDATE_IMAGE: $('#cPath').val(),
-		SELF_INTRODUCTION: $('#cIntro').val()
-	}
-
-	//ID&EMAIL CHECK 
+	//ID & EMAIL DUPLICATION CHECK 
 	if(idChk==false||mailChk==false){
 		if(idChk==false){
 			output += 'Confirm ID duplication\n';
@@ -209,11 +181,9 @@ function validationChk() {
 		if(mailChk==false){
 			output += 'Confirm EMAIL duplication';
 		}
-		swal("** Please Check Your ID  **", output);
+		swal("** Please Check **", output);
 		return;
 	}
-
-	var i = 0;
 
 	$.each(arrVal, function (index, item) {
 		//공백확인
@@ -241,18 +211,82 @@ function validationChk() {
 	return chk;
 }
 
-//Save ,Init
-$('#btnSave1,#btnSave2').click(function () {
+//Save1,2 , Init1,2
+$('#btnSave1,#btnSave2,#btnInit1,#btnInit2').click(function () {
 	var msg = 'ID : ' + $('#cId').val();
-
-	var main = new Array();
-	var cnt = 0;
-	var sub;
 	var btnId=$(this).attr('id');
 	
+	//TAB PAGE 1 PARAMETER COLUMN
+	var arrCol1 = [
+		'[ ID ]\n',
+		'[ PASSWORD ]\n',
+		'[ CONFIRM PASSWORD ]\n',
+		'[ NAME ]\n',
+		'[ EMAIL ]\n',
+		'[ PHONE ]\n',
+		'[ BIRTH DATE ]\n',
+		'[ SEX ]\n',
+		'[ ADDRESS ]\n',
+		'[ JOB TYPE ]\n',
+		'[ JOB TYPE DETAIL ]\n',
+		'[ CANDIDATE IMAGE ]\n',
+		'[ SELF INTRODUCTION ]'
+	];
+
+	//TAB PAGE 1 PARAMETER ROW
+	var arrVal1 = {
+		ID: $('#cId').val(),
+		PASSWORD: $('#cPass').val(),
+		CONFIRM_PASSWORD: $('#cConfirmPass').val(),
+		NAME: $('#cName').val(),
+		EMAIL: $('#cMail').val(),
+		PHONE: $('#cPhone').val(),
+		BIRTH_DATE: $('#cBirth').val(),
+		SEX: $('input[name=rdoSex]:checked').val(),
+		ADDRESS: $('#cAdress').val(),
+		JOB_TYPE: $('#cJobType option:selected').val(),
+		JOB_TYPE_DETAIL: $('#cJobTypeDetail option:selected').val(),
+		CANDIDATE_IMAGE: $('#cPath').val(),
+		SELF_INTRODUCTION: $('#cIntro').val()
+	}
+
 	switch(btnId){
+		//BUTTON SAVE1
 		case 'btnSave1':
-			if (validationChk()) {
+			if (validationChk(arrCol1,arrVal1)) {
+				swal({
+					title: "Create Account",
+					text: "Would you like to Create " + msg + "?",
+					icon: "info",
+					confirmButtonColor: '#3085d6',
+					cancelButtonColor: '#d33',
+					buttons: true
+					//dataType: "json",전달받을 데이터양식, 보낼때는 생략
+				}).then((willDelete) => {
+					if (willDelete) {
+						$.ajax({
+							type: "PUT",
+							url: "/signup/insertCandidate",
+							data: {
+								"data": arrVal1
+							},
+							async: false,
+							success: function (result) {
+								swal("Thanks!", "Successfully Created!", "success");
+								location.reload();
+							},
+							error: function (request, status, error) {
+								//console.log("code:"+request.status+ ", message: "+request.responseText+", error:"+error);
+								swal("Error!", "--- Please Contact Administrator ---", "error");
+							}
+						});
+					}
+				});
+			}
+		break;
+		//BUTTON SAVE2
+		case 'btnSave2':
+			if (validationChk(arrCol2,arrVal2)) {
 				swal({
 					title: "Create Account",
 					text: "Would you like to Create " + msg + "?",
@@ -282,8 +316,34 @@ $('#btnSave1,#btnSave2').click(function () {
 				});
 			}
 		break;
-		case 'btnSave2':
-			if (validationChk()) {
+		//BUTTON INIT1
+		case 'btnInit1':
+			swal({
+				title: "Init Values",
+				text: "Would you like to Init Values?",
+				icon: "info",
+				confirmButtonColor: '#3085d6',
+				cancelButtonColor: '#d33',
+				buttons: true
+			}).then((willDelete) => {
+				$('#cId').val('1');
+				$('#cPass').val('2');
+				$('#cConfirmPass').val('3');
+				$('#cName').val('4');
+				$('#cMail').val('5');
+				$('#cPhone').val('6');
+				//$('#cBirth').val();
+				$('#rdoSex1').attr('checked');//$('input[name=rdoSex]:checked').val()
+				$('#cAdress').val('8');
+				$('#cJobType option:eq(0)').attr('selected','selected');//$('#cJobType option:selected').val()
+				$('#cJobTypeDetail option:eq(0)').attr('selected','selected');
+				$('#cPath').val('9');
+				$('#cIntro').val('00');
+			});
+		break;
+		//BUTTON INIT2
+		case 'btnInit2':
+			if (validationChk(arrCol2,arrVal2)) {
 				swal({
 					title: "Create Account",
 					text: "Would you like to Create " + msg + "?",

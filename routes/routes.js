@@ -33,15 +33,6 @@ router.get('/signup',jobController.doGetJobtype, function(req, res, next){
 });
 
 /* POST FILE&IMAGE UPLOAD  */
-// router.post('/new-post/imageUpload',postController.doInsertPostImage, function(req, res, next){
-//     res.send({"uploaded":req.params.status
-//     ,"fileName":req.params.filename
-//     ,"url":"/public/uploads/"+req.params.filename
-//     ,"error": {
-//         "message": "Uploads are completed."
-//     }
-//     });
-// });
 router.post('*/imageUpload',postController.doInsertPostImage, function(req, res, next){
     var rPath=url.parse(req.url,true).path;
 
@@ -74,17 +65,23 @@ router.post('*/imageUpload',postController.doInsertPostImage, function(req, res,
 });
 
 
-
 /*POST SIGN */
 //jobTypeDetail init
 router.post('/signup/jobTypeDetail',jobController.doGetJobtypeDetail, function(req, res, next){
     res.send({JsonParam:JSON.parse(JSON.stringify(req.params))});
 });
+//ID CHECK
 router.post('/signup/idCheck',memberController.doPostIdCheck, function(req, res, next){
     console.log(req.params);
     res.send({JsonParam:JSON.parse(JSON.stringify(req.params))});
 });
+//MAIL CHECK
 router.post('/signup/mailCheck',memberController.doPostMailCheck, function(req, res, next){
+    console.log(req.params);
+    res.send({JsonParam:JSON.parse(JSON.stringify(req.params))});
+});
+//INSERT CANDIDATE
+router.put('/signup/insertCandidate',memberController.doPutCandidate, function(req, res, next){
     console.log(req.params);
     res.send({JsonParam:JSON.parse(JSON.stringify(req.params))});
 });
