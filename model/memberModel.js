@@ -1,7 +1,8 @@
-const mysql = require('mysql');
+const mysql = require('mysql2/promise');
 const appRoot = require('app-root-path').path.replace(/\\/g, "/");
 let db = require(appRoot + "/conf/db_info");
 const crypto = require('crypto'); //암호화
+const { nextTick } = require('process');
 
 module.exports = {
   //Select jobList 
@@ -59,10 +60,14 @@ module.exports = {
       con.end();
     });
   },
-  putCandidate: async(jsonStr)=>{
+  putCandidate: async function(jsonStr){
     var jsonObj = JSON.parse(jsonStr)
+    var cInsertId;
+    //const connection = await pool.getConnection(async conn => conn);
 
-    const con = await mysql.createPool(db).getConnection();
+    const pool = await mysql.createPool(db);
+    const con= await pool.getConnection(async conn => conn);
+
     try {
       
       await con.beginTransaction() // 트랜잭션 적용 시작
@@ -80,7 +85,7 @@ module.exports = {
         ,CANDIDATE_WANT\
         ,CANDIDATE_WANT_DETAIL)\
         VALUES(\
-        (SELECT CONCAT('C',MAX(SUBSTRING(C.CANDIDATE_IDX,2))+1) FROM CANDIDATE_TBL AS C)\
+        'C6'\
         ,?\
         ,?\
         ,?\
@@ -101,20 +106,15 @@ module.exports = {
         , jsonObj.JOB_TYPE
         , jsonObj.JOB_TYPE_DETAIL
       ];
-      
-      let cInsertId;
 
-      const execSql1 =await con.query(sql1, sqlParamArr1, (err, result, fields) => {
-        if (err) {
-          return console.error(err.message);
-        }
-        // get inserted id
-        console.log(result.insertId);
-        console.log('$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$');
-        console.log('Inserted Id:' + result.insertId);
-        cInsertId=result.insertId;
-        console.log('$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$');
-      });
+      const execSql1 =await con.query(sql1, sqlParamArr1)
+      console.log('&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&');
+      console.log(execSql1);
+      console.log(execSql1.insertId);
+      
+      console.log('&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&');
+      //cInsertId=execSql1.insertId
+      cInsertId='C6'
       console.log(execSql1.sql);
 
       //CANDIDATE DETAIL INSERT
@@ -134,7 +134,7 @@ module.exports = {
 
       const execSql2 =await con.query(sql2, sqlParamArr2);
       console.log(execSql2.sql);
-
+      console.log('2222222222222222222222222222222222222222222');
       var encryptionPass=crypto.createHash('sha256').update(jsonObj.PASSWORD).digest('hex')
 
       //LOGIN INSERT
@@ -160,7 +160,8 @@ module.exports = {
 
       const execSql3 =await con.query(sql3, sqlParamArr3);
       console.log(execSql3.sql);
-
+      console.log('3333333333333333333333333333333333333333333');
+      
       await con.commit() // 커밋
       
       next()
@@ -169,7 +170,7 @@ module.exports = {
       con.rollback()
       return res.status(500).json(err)
     } finally {
-      con.release() // pool에 connection 반납
+      con.release(); // pool에 connection 반납
     }
   },
   putCandidateDetail: function (param) {
