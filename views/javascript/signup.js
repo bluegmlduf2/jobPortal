@@ -264,16 +264,17 @@ $('#btnSave1,#btnSave2,#btnInit1,#btnInit2').click(function () {
 					//dataType: "json",전달받을 데이터양식, 보낼때는 생략
 				}).then((willDelete) => {
 					if (willDelete) {
+						var jsonObj=JSON.stringify(arrVal1);
 						$.ajax({
 							type: "PUT",
 							url: "/signup/insertCandidate",
 							data: {
-								"data": arrVal1
+								"data": JSON.stringify(arrVal1)
 							},
 							async: false,
 							success: function (result) {
 								swal("Thanks!", "Successfully Created!", "success");
-								location.reload();
+								//location.reload();
 							},
 							error: function (request, status, error) {
 								//console.log("code:"+request.status+ ", message: "+request.responseText+", error:"+error);
@@ -326,6 +327,8 @@ $('#btnSave1,#btnSave2,#btnInit1,#btnInit2').click(function () {
 				cancelButtonColor: '#d33',
 				buttons: true
 			}).then((willDelete) => {
+				idChk = true;
+				mailChk = true;
 				$('#cId').val('1');
 				$('#cPass').val('2');
 				$('#cConfirmPass').val('3');
