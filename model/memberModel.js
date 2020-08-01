@@ -69,8 +69,7 @@ module.exports = {
     const con= await pool.getConnection(async conn => conn);
 
     try {
-      
-      await con.beginTransaction() // 트랜잭션 적용 시작
+      await con.beginTransaction() // START TRANSACTION 
        
       //CANDIDATE INSERT
       const sql1 = "INSERT CANDIDATE_TBL (\
@@ -85,7 +84,7 @@ module.exports = {
         ,CANDIDATE_WANT\
         ,CANDIDATE_WANT_DETAIL)\
         VALUES(\
-        'C6'\
+        (SELECT CONCAT('C',MAX(SUBSTRING(C.CANDIDATE_IDX,2))+1) FROM CANDIDATE_TBL AS C)\
         ,?\
         ,?\
         ,?\
@@ -108,14 +107,14 @@ module.exports = {
       ];
 
       const execSql1 =await con.query(sql1, sqlParamArr1)
-      console.log('&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&');
-      console.log(execSql1);
-      console.log(execSql1.insertId);
-      
-      console.log('&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&');
-      //cInsertId=execSql1.insertId
-      cInsertId='C6'
-      console.log(execSql1.sql);
+
+      //LAST INSERTED KEY 
+      const sql1_k = "SELECT MAX(CANDIDATE_IDX) AS CANDIDATE_IDX\
+      FROM CANDIDATE_TBL";
+
+      const execSql1_k =await con.query(sql1_k)
+      console.log('lastInsertedKey::'+execSql1_k[0][0].CANDIDATE_IDX);
+      cInsertId=execSql1_k[0][0].CANDIDATE_IDX;
 
       //CANDIDATE DETAIL INSERT
       const sql2 = "INSERT CANDIDATE_DETAIL_TBL(\
@@ -132,9 +131,9 @@ module.exports = {
         , jsonObj.SELF_INTRODUCTION
       ];
 
+      //ENCRYPTION 
       const execSql2 =await con.query(sql2, sqlParamArr2);
       console.log(execSql2.sql);
-      console.log('2222222222222222222222222222222222222222222');
       var encryptionPass=crypto.createHash('sha256').update(jsonObj.PASSWORD).digest('hex')
 
       //LOGIN INSERT
@@ -160,15 +159,14 @@ module.exports = {
 
       const execSql3 =await con.query(sql3, sqlParamArr3);
       console.log(execSql3.sql);
-      console.log('3333333333333333333333333333333333333333333');
       
-      await con.commit() // 커밋
+      await con.commit() // COMMIT
       
-      next()
+      //async 함수의 반환형은 promise 이다 resolve(반환값)
+      return Promise.resolve();
     } catch (err) {
-      console.log(err)
       con.rollback()
-      return res.status(500).json(err)
+      return Promise.reject(err);
     } finally {
       con.release(); // pool에 connection 반납
     }

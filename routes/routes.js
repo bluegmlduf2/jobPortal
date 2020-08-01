@@ -38,6 +38,9 @@ router.post('*/imageUpload',postController.doInsertPostImage, function(req, res,
 
     //POST IMAGE UPLOAD
     if(rPath=='/new-post/imageUpload'){
+        // response.writeHead(200);
+        // response.end(html); 
+        //--> return res.send(html); //return은 생략가능
         res.send({"uploaded":req.params.status
         ,"fileName":req.params.filename
         ,"url":"/public/uploads/"+req.params.filename
@@ -81,9 +84,15 @@ router.post('/signup/mailCheck',memberController.doPostMailCheck, function(req, 
     res.send({JsonParam:JSON.parse(JSON.stringify(req.params))});
 });
 //INSERT CANDIDATE
-router.put('/signup/insertCandidate',memberController.doPutCandidate, function(req, res, next){
-    console.log(req.params);
-    res.send({JsonParam:JSON.parse(JSON.stringify(req.params))});
+router.put('/signup/insertCandidate',memberController.doPutCandidate, function(err,req, res, next){
+    if(err){
+        next(err)//에러가 있을 경우 app.js의 ERROR HANDELING에게 던짐
+    }else{
+        //res.send('문제없음^^');
+         //에러가 없을시 라우터 레벨(routes.js)에서 res를 반환하고 끝냄
+        //res.send() 혹은 res.end()등을 사용하는 순간 해당 request를 끝냄 
+        //res.send()를 사용해야하는 이유는 ajax에서 응답을 기다리고있기 때문이라고 생각
+    }
 });
 
 module.exports = router;
