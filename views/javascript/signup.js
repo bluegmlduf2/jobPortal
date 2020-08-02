@@ -99,6 +99,13 @@ $('#cJobType').on('change', function () {
 //ID CHECK
 $('#btnIdCheck1,#btnIdCheck2').on('click', function () {
 	var id = $(this).attr('data-memo');
+	
+	//ID NULL CHECK
+	if($("#" + id).val()==""||$("#" + id).val()==null){
+		swal("** Please Check **", "Sorry!! Please Input the ID.");
+		return;
+	}
+
 	$.ajax({
 		type: "POST",
 		url: "/signup/idCheck",
@@ -134,6 +141,12 @@ $('#btnIdCheck1,#btnIdCheck2').on('click', function () {
 //EMAIL CHECK
 $('#btnMailCheck1,#btnMailCheck2').on('click', function () {
 	var mail = $(this).attr('data-memo');
+
+	//MAIL NULL CHECK
+	if($("#" + mail).val()==""||$("#" + mail).val()==null){
+		swal("** Please Check **", "Sorry!! Please Input the MAIL.");
+		return;
+	}
 
 	$.ajax({
 		type: "POST",
@@ -173,6 +186,22 @@ function validationChk(arrCol,arrVal) {
 	var i = 0;
 	var output = "";
 
+	/**	var arrVal1 = {
+		ID: $('#cId').val(),
+		PASSWORD: $('#cPass').val(),
+		CONFIRM_PASSWORD: $('#cConfirmPass').val(),
+		NAME: $('#cName').val(),
+		EMAIL: $('#cMail').val(),
+		PHONE: $('#cPhone').val(),
+		BIRTH_DATE: $('#cBirth').val(),
+		SEX: $('input[name=rdoSex]:checked').val(),
+		ADDRESS: $('#cAdress').val(),
+		JOB_TYPE: $('#cJobType option:selected').val(),
+		JOB_TYPE_DETAIL: $('#cJobTypeDetail option:selected').val(),
+		CANDIDATE_IMAGE: $('#cPath').val(),
+		SELF_INTRODUCTION: $('#cIntro').val()
+	} */
+
 	//ID & EMAIL DUPLICATION CHECK 
 	if(idChk==false||mailChk==false){
 		if(idChk==false){
@@ -185,8 +214,14 @@ function validationChk(arrCol,arrVal) {
 		return;
 	}
 
+	//PASSWORD CHECK
+	if(arrVal.PASSWORD!=arrVal.CONFIRM_PASSWORD){
+		swal("** Please Check **", "Sorry!! Please Check the Password.");
+		return;
+	}
+
 	$.each(arrVal, function (index, item) {
-		//공백확인
+		//NULL CHECK
 		if (index != "JOB_TYPE" && index != "JOB_TYPE_DETAIL") {
 			if (item == "") {
 				//$("#idNm").focus(); 
@@ -274,7 +309,7 @@ $('#btnSave1,#btnSave2,#btnInit1,#btnInit2').click(function () {
 							async: false,
 							success: function (result) {
 								swal("Thanks!", "Successfully Created!", "success");
-								//location.reload();
+								location.reload();
 							},
 							error: function (request, status, error) {
 								//console.log("code:"+request.status+ ", message: "+request.responseText+", error:"+error);

@@ -1,4 +1,5 @@
-const mysql = require('mysql2/promise');
+const mysql = require('mysql');
+const mysqlAsync = require('mysql2/promise');
 const appRoot = require('app-root-path').path.replace(/\\/g, "/");
 let db = require(appRoot + "/conf/db_info");
 const crypto = require('crypto'); //암호화
@@ -65,7 +66,7 @@ module.exports = {
     var cInsertId;
     //const connection = await pool.getConnection(async conn => conn);
 
-    const pool = await mysql.createPool(db);
+    const pool = await mysqlAsync.createPool(db);
     const con= await pool.getConnection(async conn => conn);
 
     try {
