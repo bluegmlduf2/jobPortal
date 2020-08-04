@@ -103,7 +103,7 @@ module.exports = {
         ,CANDIDATE_WANT\
         ,CANDIDATE_WANT_DETAIL)\
         VALUES(\
-        (SELECT CONCAT('C',MAX(SUBSTRING(C.CANDIDATE_IDX,2))+1) FROM CANDIDATE_TBL AS C)\
+        (SELECT CONCAT('C',MAX(CAST(SUBSTRING(C.CANDIDATE_IDX,2)AS UNSIGNED))+1) FROM CANDIDATE_TBL AS C)\
         ,?\
         ,?\
         ,?\
@@ -128,8 +128,9 @@ module.exports = {
       const execSql1 =await con.query(sql1, sqlParamArr1)
 
       //LAST INSERTED KEY 
-      const sql1_k = "SELECT MAX(CANDIDATE_IDX) AS CANDIDATE_IDX\
-      FROM CANDIDATE_TBL";
+      const sql1_k = "SELECT MAX(A.CANDIDATE_IDX) AS CANDIDATE_IDX FROM (\
+        SELECT CONCAT('C', MAX(CAST(SUBSTRING(CD.CANDIDATE_IDX,2) AS UNSIGNED))) AS CANDIDATE_IDX\
+        FROM CANDIDATE_TBL AS CD) AS A";
 
       const execSql1_k =await con.query(sql1_k)
       console.log('lastInsertedKey::'+execSql1_k[0][0].CANDIDATE_IDX);
@@ -141,7 +142,7 @@ module.exports = {
         ,CANDIDATE_IDX\
         ,CANDIDATE_INTRO)\
         VALUES (\
-        (SELECT CONCAT('CD',MAX(SUBSTRING(CD.CANDIDATE_DETAIL_IDX,3))+1) FROM CANDIDATE_DETAIL_TBL AS CD)\
+        (SELECT CONCAT('CD',MAX(CAST(SUBSTRING(CD.CANDIDATE_DETAIL_IDX,3)AS UNSIGNED))+1) FROM CANDIDATE_DETAIL_TBL AS CD)\
         ,?\
         ,?)";
 
@@ -206,8 +207,8 @@ module.exports = {
         ,EMP_NM\
         ,EMP_INTRO\
         ,EMP_IMAGE\
-        VALUES(\
-        (SELECT CONCAT('E',MAX(SUBSTRING(C.EMP_IDX,2))+1) FROM EMP_TBL AS C)\
+        )VALUES(\
+        (SELECT CONCAT('E',MAX(CAST(SUBSTRING(C.EMP_IDX,2)AS UNSIGNED))+1) FROM EMP_TBL AS C)\
         ,?\
         ,?\
         ,?)";
@@ -221,8 +222,9 @@ module.exports = {
       const execSql1 =await con.query(sql1, sqlParamArr1)
 
       //LAST INSERTED KEY 
-      const sql1_k = "SELECT MAX(EMP_IDX) AS EMP_IDX\
-      FROM EMP_TBL";
+      const sql1_k = "SELECT MAX(A.EMP_IDX) AS EMP_IDX FROM (\
+            SELECT CONCAT('E', MAX(CAST(SUBSTRING(CD.EMP_IDX,2) AS UNSIGNED))) AS EMP_IDX\
+            FROM EMP_TBL AS CD) AS A";
 
       const execSql1_k =await con.query(sql1_k)
       console.log('lastInsertedKey::'+execSql1_k[0][0].EMP_IDX);
@@ -230,7 +232,7 @@ module.exports = {
 
       //COMPANY INSERT
       const sql2 = "INSERT COMPANY_TBL(\
-        ,COMPANY_IDX\
+        COMPANY_IDX\
         ,EMP_IDX\
         ,COMPANY_NM\
         ,COMPANY_ADDR\
@@ -240,7 +242,7 @@ module.exports = {
         ,COMPANY_EMAIL\
         ,COMPANY_TYPE)\
         VALUES (\
-        (SELECT CONCAT('CP',MAX(SUBSTRING(CD.COMPANY_IDX,4))+1) FROM COMPANY_TBL AS CD)\
+        (SELECT CONCAT('CM',MAX(CAST(SUBSTRING(CD.COMPANY_IDX,3)AS UNSIGNED))+1) FROM COMPANY_TBL AS CD)\
         ,?\
         ,?\
         ,?\
@@ -265,8 +267,9 @@ module.exports = {
       console.log(execSql2.sql);
 
       //LAST INSERTED KEY 
-      const sql2_k = "SELECT MAX(COMPANY_IDX) AS COMPANY_IDX\
-      FROM COMPANY_TBL";
+      const sql2_k = "SELECT MAX(A.COMPANY_IDX) AS COMPANY_IDX FROM (\
+      SELECT CONCAT('CM', MAX(CAST(SUBSTRING(CD.COMPANY_IDX,3) AS UNSIGNED))) AS COMPANY_IDX\
+      FROM COMPANY_TBL AS CD) AS A";
 
       const execSql2_k =await con.query(sql2_k)
       console.log('lastInsertedKey::'+execSql2_k[0][0].COMPANY_IDX);
@@ -274,11 +277,11 @@ module.exports = {
 
       //COMPANY DETAIL INSERT
       const sql3 = "INSERT COMPANY_DETAIL_TBL(\
-        ,COMPANY_DETAIL_IDX\
+        COMPANY_DETAIL_IDX\
         ,COMPANY_IDX\
         ,COMPANY_INTRO\
-        VALUES (\
-        (SELECT CONCAT('CD',MAX(SUBSTRING(CD.COMPANY_DETAIL_IDX,4))+1) FROM COMPANY_DETAIL_TBL AS CD)\
+        )VALUES (\
+        (SELECT CONCAT('CT',MAX(CAST(SUBSTRING(CD.COMPANY_DETAIL_IDX,3)AS UNSIGNED))+1) FROM COMPANY_DETAIL_TBL AS CD)\
         ,?\
         ,?)";
 
