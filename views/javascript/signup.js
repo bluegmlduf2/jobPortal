@@ -204,22 +204,6 @@ function validationChk(arrCol,arrVal) {
 	var i = 0;
 	var output = "";
 
-	/**	var arrVal1 = {
-		ID: $('#cId').val(),
-		PASSWORD: $('#cPass').val(),
-		CONFIRM_PASSWORD: $('#cConfirmPass').val(),
-		NAME: $('#cName').val(),
-		EMAIL: $('#cMail').val(),
-		PHONE: $('#cPhone').val(),
-		BIRTH_DATE: $('#cBirth').val(),
-		SEX: $('input[name=rdoSex]:checked').val(),
-		ADDRESS: $('#cAdress').val(),
-		JOB_TYPE: $('#cJobType option:selected').val(),
-		JOB_TYPE_DETAIL: $('#cJobTypeDetail option:selected').val(),
-		CANDIDATE_IMAGE: $('#cPath').val(),
-		SELF_INTRODUCTION: $('#cIntro').val()
-	} */
-
 	//ID & EMAIL DUPLICATION CHECK 
 	if(idChk==false||mailChk==false){
 		if(idChk==false){
@@ -247,7 +231,7 @@ function validationChk(arrCol,arrVal) {
 				chk = false;
 			}
 		} else {
-			//콤보박스확인
+			//COMBOBOX CHECK
 			if (item == 0) {
 				output += arrCol[i];
 				chk = false;
@@ -266,8 +250,9 @@ function validationChk(arrCol,arrVal) {
 
 //Save1,2 , Init1,2
 $('#btnSave1,#btnSave2,#btnInit1,#btnInit2').click(function (e,flag=true) {
-	var msg = 'ID : ' + $('#cId').val();
+	var msg = 'ID : ' + $('#'+$(this).attr('data-memo')).val();
 	var btnId=$(this).attr('id');
+
 	//TAB PAGE 1 PARAMETER COLUMN
 	var arrCol1 = [
 		'[ ID ]\n',
@@ -301,6 +286,42 @@ $('#btnSave1,#btnSave2,#btnInit1,#btnInit2').click(function (e,flag=true) {
 		CANDIDATE_IMAGE: $('#cPath').val(),
 		SELF_INTRODUCTION: $('#cIntro').val()
 	}
+
+		//TAB PAGE 2 PARAMETER COLUMN
+		var arrCol2 = [
+			'[ ID ]\n',
+			'[ PASSWORD ]\n',
+			'[ CONFIRM PASSWORD ]\n',
+			'[ EMPLOYER NAME ]\n',
+			'[ EMPLOYER INTRODUCTION ]\n',
+			'[ EMPLOYER IMAGE ]\n',
+			'[ COMPANY NAME ]\n',
+			'[ COMPANY EMAIL ]\n',
+			'[ COMPANY TELEPHONE NUMBER ]\n',
+			'[ COMPANY ESTABLISHMENT DATE ]\n',
+			'[ COMPANY ADDRESS ]\n',
+			'[ JOB TYPE ]\n',
+			'[ COMPANY IMAGE ]\n',
+			'[ COMPANY INTRODUCTION ]'
+		];
+	
+		//TAB PAGE 2 PARAMETER ROW
+		var arrVal2 = {
+			ID: $('#eId').val(),
+			PASSWORD: $('#ePass').val(),
+			CONFIRM_PASSWORD: $('#eConfirmPass').val(),
+			EMPLOYER_NAME: $('#eName').val(),
+			EMPLOYER_INTRODUCTION: $('#eIntro').val(),
+			EMPLOYER_IMAGE: $('#ePath').val(),
+			COMPANY_NAME: $('#comName').val(),
+			COMPANY_EMAIL: $('#comMail').val(),
+			COMPANY_TELEPHONE_NUMBER: $('#comPhone').val(),
+			COMPANY_ESTABLISHMENT_DATE: $('#comBirth').val(),
+			COMPANY_ADDRESS: $('#comAdress').val(),
+			JOB_TYPE: $('#comJobType option:selected').val(),
+			COMPANY_IMAGE: $('#comPath').val(),
+			COMPANY_INTRODUCTION: $('#comIntro').val()
+		}
 
 	switch(btnId){
 		//BUTTON SAVE1
@@ -350,10 +371,10 @@ $('#btnSave1,#btnSave2,#btnInit1,#btnInit2').click(function (e,flag=true) {
 				}).then((willDelete) => {
 					if (willDelete) {
 						$.ajax({
-							type: "POST",
-							url: "/pharmaShop/main/saveItemList",
+							type: "PUT",
+							url: "/signup/insertEmployer",
 							data: {
-								"data": obj
+								"data": JSON.stringify(arrVal2)
 							},
 							async: false,
 							success: function (result) {
@@ -384,8 +405,8 @@ $('#btnSave1,#btnSave2,#btnInit1,#btnInit2').click(function (e,flag=true) {
 						idChk = true;
 						mailChk = true;
 						$('#cId').val('1');
-						$('#cPass').val('2');
-						$('#cConfirmPass').val('3');
+						$('#cPass').val('22');
+						$('#cConfirmPass').val('22');
 						$('#cName').val('4');
 						$('#cMail').val('5');
 						$('#cPhone').val('6');
@@ -399,8 +420,8 @@ $('#btnSave1,#btnSave2,#btnInit1,#btnInit2').click(function (e,flag=true) {
 					}
 				});
 			}else{
-					idChk = true;
-					mailChk = true;
+					idChk = false;
+					mailChk = false;
 					$('#cId').val('');
 					$('#cPass').val('');
 					$('#cConfirmPass').val('');
@@ -418,34 +439,52 @@ $('#btnSave1,#btnSave2,#btnInit1,#btnInit2').click(function (e,flag=true) {
 		break;
 		//BUTTON INIT2
 		case 'btnInit2':
-			if (validationChk(arrCol2,arrVal2)) {
+			if(flag){
 				swal({
-					title: "Create Account",
-					text: "Would you like to Create " + msg + "?",
+					title: "Init Values",
+					text: "Would you like to Init Values?",
 					icon: "info",
 					confirmButtonColor: '#3085d6',
 					cancelButtonColor: '#d33',
 					buttons: true
 				}).then((willDelete) => {
 					if (willDelete) {
-						$.ajax({
-							type: "POST",
-							url: "/pharmaShop/main/saveItemList",
-							data: {
-								"data": obj
-							},
-							async: false,
-							success: function (result) {
-								swal("Thanks!", "Successfully Created!", "success");
-								location.reload();
-							},
-							error: function (request, status, error) {
-								//console.log("code:"+request.status+ ", message: "+request.responseText+", error:"+error);
-								swal("Error!", "--- Please Contact Administrator ---", "error");
-							}
-						});
+						idChk = true;
+						mailChk = true;
+
+						$('#eId').val('1'),
+						$('#ePass').val('22'),
+						$('#eConfirmPass').val('22'),
+						$('#eName').val('4'),
+						$('#eIntro').val('5'),
+						$('#ePath').val('6'),
+						$('#comName').val('77777'),
+						$('#comMail').val('7'),
+						$('#comPhone').val('8'),
+						$('#comBirth').val('9'),
+						$('#comAdress').val('10'),
+						$('#comJobType option:eq(1)').attr('selected','selected'),
+						$('#comPath').val('11'),
+						$('#comIntro').val('12')
 					}
 				});
+			}else{
+					idChk = false;
+					mailChk = false;
+					$('#eId').val(''),
+					$('#ePass').val(''),
+					$('#eConfirmPass').val(''),
+					$('#eName').val(''),
+					$('#eIntro').val(''),
+					$('#ePath').val(''),
+					$('#comName').val(''),
+					$('#comMail').val(''),
+					$('#comPhone').val(''),
+					$('#comBirth').val(''),
+					$('#comAdress').val(''),
+					$('#comJobType option:eq(0)').attr('selected','selected'),
+					$('#comPath').val(''),
+					$('#comIntro').val('')
 			}
 		break;
 	}

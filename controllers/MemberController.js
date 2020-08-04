@@ -30,8 +30,17 @@ module.exports = {
     }).catch(function (err) {
       console.log('컨트롤러의 doPutCandidate에서 에러발생 ');
       next(err); //next(err) -->다음 미들웨어에 에러를 던지며 넘김
-    });
-    
+    }); 
+  },
+  doPutEmployer: function (req, res, next) {
+    memberModel.putEmployer(req.body.data).then(function (result) {
+      res.send('성공입니다~~')
+    }).catch(function (err) {
+      console.log('컨트롤러의 doPutCandidate에서 에러발생 ');
+      next(err);
+    }); 
   }
+
+  
 
 }

@@ -95,4 +95,11 @@ router.put('/signup/insertCandidate',memberController.doPutCandidate, function(e
     }
 });
 
+//INSERT EMPLOYER
+router.put('/signup/insertEmployer',memberController.doPutEmployer, function(err,req, res, next){
+    if(err){
+        next(err)//에러가 있을 경우 app.js의 ERROR HANDELING에게 던짐
+    }
+});
+
 module.exports = router;
