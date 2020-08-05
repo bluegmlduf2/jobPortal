@@ -271,7 +271,8 @@ module.exports = {
         ,?)";
 
       const sqlParamArr3 = [
-        comInsertId, jsonObj.COMPANY_INTRODUCTION
+        comInsertId
+        , jsonObj.COMPANY_INTRODUCTION
       ];
 
       const execSql3 = await con.query(sql3, sqlParamArr3);
@@ -295,7 +296,9 @@ module.exports = {
         ,NOW())";
 
       const sqlParamArr4 = [
-        eInsertId, jsonObj.ID, encryptionPass, jsonObj.COMPANY_EMAIL
+        eInsertId, jsonObj.ID
+        , encryptionPass
+        , jsonObj.COMPANY_EMAIL
       ];
 
       const execSql4 = await con.query(sql4, sqlParamArr4);
@@ -324,14 +327,19 @@ module.exports = {
        FROM LOGIN_TBL AS L WHERE L.LOGIN_ID=? AND L.LOGIN_PASS=?'
 
       const sqlParamArr = [
-        jsonObj.MNG_ID, encryptionPass
+        jsonObj.MNG_ID, 
+        encryptionPass
       ];
 
       var execSql = con.query(
         sql, sqlParamArr, (err, result, fields) => {
           if (err) {
-            reject(err);
+            reject(":::::postLogin:::::--->" + err);
           } else {
+            //No User
+            if (result.length == 0) {
+              reject(':::::NO USER ERROR:::::');
+            }
             resolve(result);
           }
         });
@@ -341,26 +349,19 @@ module.exports = {
     });
   },
   putLoginLog: function (jsonStr) {
-
-    const con = mysql.createConnection(db);
+    const con = mysql.createConnection(db); //con은 try밖에 있어야 finally에서 처리가능함
     var sql = 'UPDATE LOGIN_TBL SET LOGIN_LASTIN = NOW() WHERE LOGIN_ID=?'
     try {
-      var execSql = con.query(
-        sql, jsonStr[0].LOGIN_ID, (err, result, fields) => {
+      var execSql = con.query(sql, jsonStr[0].LOGIN_ID, (err, result, fields) => {
           if (err) {
-            console.log(err);
-            return false;
-          } else {
-            console.log(execSql.sql);
-            return true;
+            throw new Error(err) //만약 여기서 에러 발생시 바로 catch로 가기때문에 return true를 타지않음
           }
-        });
+      });
+      return true
     } catch (err) {
-      console.log(err);
-      return false;
+      console.log(":::::putLoginLog:::::--->" + err);
     } finally {
       con.end(); // pool에 connection 반납
     }
-
   }
 }

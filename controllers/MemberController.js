@@ -46,11 +46,9 @@ module.exports = {
       if(chk){
         req.params.result = result;
         next()
-      }else{
-        throw new Error('error!!!!!!!!!!!!!!!!!!!!!!!!!!')
       }
     }).catch(function (err) {
-      console.log('then error : ', err); // then error :  Error: Error in then()
+      console.log(':::::doPutEmployer:::::--->'+err); // then error :  Error: Error in then()
       next(err)
     });
   }
