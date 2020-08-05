@@ -3,7 +3,12 @@ const mysqlAsync = require('mysql2/promise');
 const appRoot = require('app-root-path').path.replace(/\\/g, "/");
 let db = require(appRoot + "/conf/db_info");
 const crypto = require('crypto'); //암호화
-const { nextTick } = require('process');
+const {
+  nextTick
+} = require('process');
+const {
+  Console
+} = require('console');
 
 module.exports = {
   //Select jobList 
@@ -79,17 +84,17 @@ module.exports = {
       con.end();
     });
   },
-  putCandidate: async function(jsonStr){
+  putCandidate: async function (jsonStr) {
     var jsonObj = JSON.parse(jsonStr)
     var cInsertId;
     //const connection = await pool.getConnection(async conn => conn);
 
     const pool = await mysqlAsync.createPool(db);
-    const con= await pool.getConnection(async conn => conn);
+    const con = await pool.getConnection(async conn => conn);
 
     try {
       await con.beginTransaction() // START TRANSACTION 
-       
+
       //CANDIDATE INSERT
       const sql1 = "INSERT CANDIDATE_TBL (\
         CANDIDATE_IDX\
@@ -115,26 +120,19 @@ module.exports = {
         ,?)";
 
       const sqlParamArr1 = [
-        jsonObj.NAME
-        , jsonObj.PHONE
-        , jsonObj.ADDRESS
-        , jsonObj.CANDIDATE_IMAGE
-        , jsonObj.SEX
-        , jsonObj.BIRTH_DATE
-        , jsonObj.JOB_TYPE
-        , jsonObj.JOB_TYPE_DETAIL
+        jsonObj.NAME, jsonObj.PHONE, jsonObj.ADDRESS, jsonObj.CANDIDATE_IMAGE, jsonObj.SEX, jsonObj.BIRTH_DATE, jsonObj.JOB_TYPE, jsonObj.JOB_TYPE_DETAIL
       ];
 
-      const execSql1 =await con.query(sql1, sqlParamArr1)
+      const execSql1 = await con.query(sql1, sqlParamArr1)
 
       //LAST INSERTED KEY 
       const sql1_k = "SELECT MAX(A.CANDIDATE_IDX) AS CANDIDATE_IDX FROM (\
         SELECT CONCAT('C', MAX(CAST(SUBSTRING(CD.CANDIDATE_IDX,2) AS UNSIGNED))) AS CANDIDATE_IDX\
         FROM CANDIDATE_TBL AS CD) AS A";
 
-      const execSql1_k =await con.query(sql1_k)
-      console.log('lastInsertedKey::'+execSql1_k[0][0].CANDIDATE_IDX);
-      cInsertId=execSql1_k[0][0].CANDIDATE_IDX;
+      const execSql1_k = await con.query(sql1_k)
+      console.log('lastInsertedKey::' + execSql1_k[0][0].CANDIDATE_IDX);
+      cInsertId = execSql1_k[0][0].CANDIDATE_IDX;
 
       //CANDIDATE DETAIL INSERT
       const sql2 = "INSERT CANDIDATE_DETAIL_TBL(\
@@ -147,14 +145,13 @@ module.exports = {
         ,?)";
 
       const sqlParamArr2 = [
-        cInsertId
-        , jsonObj.SELF_INTRODUCTION
+        cInsertId, jsonObj.SELF_INTRODUCTION
       ];
 
       //ENCRYPTION 
-      const execSql2 =await con.query(sql2, sqlParamArr2);
+      const execSql2 = await con.query(sql2, sqlParamArr2);
       console.log(execSql2.sql);
-      var encryptionPass=crypto.createHash('sha256').update(jsonObj.PASSWORD).digest('hex')
+      var encryptionPass = crypto.createHash('sha256').update(jsonObj.PASSWORD).digest('hex')
 
       //LOGIN INSERT
       const sql3 = "INSERT LOGIN_TBL(\
@@ -171,17 +168,14 @@ module.exports = {
         ,NOW())";
 
       const sqlParamArr3 = [
-        cInsertId
-        , jsonObj.ID
-        , encryptionPass
-        , jsonObj.EMAIL
+        cInsertId, jsonObj.ID, encryptionPass, jsonObj.EMAIL
       ];
 
-      const execSql3 =await con.query(sql3, sqlParamArr3);
+      const execSql3 = await con.query(sql3, sqlParamArr3);
       console.log(execSql3.sql);
-      
+
       await con.commit() // COMMIT
-      
+
       //async 함수의 반환형은 promise 이다 resolve(반환값)
       return Promise.resolve();
     } catch (err) {
@@ -191,16 +185,16 @@ module.exports = {
       con.release(); // pool에 connection 반납
     }
   },
-  putEmployer: async function(jsonStr){
+  putEmployer: async function (jsonStr) {
     var jsonObj = JSON.parse(jsonStr)
     var cInsertId;
 
     const pool = await mysqlAsync.createPool(db);
-    const con= await pool.getConnection(async conn => conn);
+    const con = await pool.getConnection(async conn => conn);
 
     try {
       await con.beginTransaction() // START TRANSACTION 
-       
+
       //EMPLOYER INSERT
       const sql1 = "INSERT EMP_TBL (\
         EMP_IDX\
@@ -214,21 +208,19 @@ module.exports = {
         ,?)";
 
       const sqlParamArr1 = [
-        jsonObj.EMPLOYER_NAME
-        , jsonObj.EMPLOYER_INTRODUCTION
-        , jsonObj.EMPLOYER_IMAGE
+        jsonObj.EMPLOYER_NAME, jsonObj.EMPLOYER_INTRODUCTION, jsonObj.EMPLOYER_IMAGE
       ];
 
-      const execSql1 =await con.query(sql1, sqlParamArr1)
+      const execSql1 = await con.query(sql1, sqlParamArr1)
 
       //LAST INSERTED KEY 
       const sql1_k = "SELECT MAX(A.EMP_IDX) AS EMP_IDX FROM (\
             SELECT CONCAT('E', MAX(CAST(SUBSTRING(CD.EMP_IDX,2) AS UNSIGNED))) AS EMP_IDX\
             FROM EMP_TBL AS CD) AS A";
 
-      const execSql1_k =await con.query(sql1_k)
-      console.log('lastInsertedKey::'+execSql1_k[0][0].EMP_IDX);
-      eInsertId=execSql1_k[0][0].EMP_IDX;
+      const execSql1_k = await con.query(sql1_k)
+      console.log('lastInsertedKey::' + execSql1_k[0][0].EMP_IDX);
+      eInsertId = execSql1_k[0][0].EMP_IDX;
 
       //COMPANY INSERT
       const sql2 = "INSERT COMPANY_TBL(\
@@ -253,17 +245,10 @@ module.exports = {
         ,?)";
 
       const sqlParamArr2 = [
-        eInsertId
-        , jsonObj.COMPANY_NAME
-        , jsonObj.COMPANY_ADDRESS
-        , jsonObj.COMPANY_TELEPHONE_NUMBER
-        , jsonObj.COMPANY_IMAGE
-        , jsonObj.COMPANY_ESTABLISHMENT_DATE
-        , jsonObj.COMPANY_EMAIL
-        , jsonObj.JOB_TYPE
+        eInsertId, jsonObj.COMPANY_NAME, jsonObj.COMPANY_ADDRESS, jsonObj.COMPANY_TELEPHONE_NUMBER, jsonObj.COMPANY_IMAGE, jsonObj.COMPANY_ESTABLISHMENT_DATE, jsonObj.COMPANY_EMAIL, jsonObj.JOB_TYPE
       ];
 
-      const execSql2 =await con.query(sql2, sqlParamArr2);
+      const execSql2 = await con.query(sql2, sqlParamArr2);
       console.log(execSql2.sql);
 
       //LAST INSERTED KEY 
@@ -271,9 +256,9 @@ module.exports = {
       SELECT CONCAT('CM', MAX(CAST(SUBSTRING(CD.COMPANY_IDX,3) AS UNSIGNED))) AS COMPANY_IDX\
       FROM COMPANY_TBL AS CD) AS A";
 
-      const execSql2_k =await con.query(sql2_k)
-      console.log('lastInsertedKey::'+execSql2_k[0][0].COMPANY_IDX);
-      comInsertId=execSql2_k[0][0].COMPANY_IDX;
+      const execSql2_k = await con.query(sql2_k)
+      console.log('lastInsertedKey::' + execSql2_k[0][0].COMPANY_IDX);
+      comInsertId = execSql2_k[0][0].COMPANY_IDX;
 
       //COMPANY DETAIL INSERT
       const sql3 = "INSERT COMPANY_DETAIL_TBL(\
@@ -286,15 +271,14 @@ module.exports = {
         ,?)";
 
       const sqlParamArr3 = [
-        comInsertId
-        , jsonObj.COMPANY_INTRODUCTION
+        comInsertId, jsonObj.COMPANY_INTRODUCTION
       ];
 
-      const execSql3=await con.query(sql3, sqlParamArr3);
+      const execSql3 = await con.query(sql3, sqlParamArr3);
       console.log(execSql3.sql);
-      
+
       //ENCRYPTION 
-      var encryptionPass=crypto.createHash('sha256').update(jsonObj.PASSWORD).digest('hex')
+      var encryptionPass = crypto.createHash('sha256').update(jsonObj.PASSWORD).digest('hex')
 
       //LOGIN INSERT
       const sql4 = "INSERT LOGIN_TBL(\
@@ -311,17 +295,14 @@ module.exports = {
         ,NOW())";
 
       const sqlParamArr4 = [
-        eInsertId
-        , jsonObj.ID
-        , encryptionPass
-        , jsonObj.COMPANY_EMAIL
+        eInsertId, jsonObj.ID, encryptionPass, jsonObj.COMPANY_EMAIL
       ];
 
-      const execSql4 =await con.query(sql4, sqlParamArr4);
+      const execSql4 = await con.query(sql4, sqlParamArr4);
       console.log(execSql4.sql);
-      
+
       await con.commit() // COMMIT
-      
+
       //async 함수의 반환형은 promise 이다 resolve(반환값)
       return Promise.resolve();
     } catch (err) {
@@ -330,5 +311,56 @@ module.exports = {
     } finally {
       con.release(); // pool에 connection 반납
     }
+  },
+  postLogin: function (jsonStr) {
+    return new Promise((resolve, reject) => {
+      var jsonObj = JSON.parse(jsonStr)
+      const con = mysql.createConnection(db);
+
+      //ENCRYPTION 
+      var encryptionPass = crypto.createHash('sha256').update(jsonObj.MNG_PW).digest('hex')
+
+      var sql = 'SELECT LOGIN_GB,LOGIN_ID,LOGIN_MAIL,LOGIN_LASTIN\
+       FROM LOGIN_TBL AS L WHERE L.LOGIN_ID=? AND L.LOGIN_PASS=?'
+
+      const sqlParamArr = [
+        jsonObj.MNG_ID, encryptionPass
+      ];
+
+      var execSql = con.query(
+        sql, sqlParamArr, (err, result, fields) => {
+          if (err) {
+            reject(err);
+          } else {
+            resolve(result);
+          }
+        });
+
+      console.log(execSql.sql);
+      con.end();
+    });
+  },
+  putLoginLog: function (jsonStr) {
+
+    const con = mysql.createConnection(db);
+    var sql = 'UPDATE LOGIN_TBL SET LOGIN_LASTIN = NOW()1 WHERE LOGIN_ID=?'
+    try {
+      var execSql = con.query(
+        sql, jsonStr[0].LOGIN_ID, (err, result, fields) => {
+          if (err) {
+            console.log(err);
+            return false;
+          } else {
+            console.log(execSql.sql);
+            return true;
+          }
+        });
+    } catch (err) {
+      console.log(err);
+      return false;
+    } finally {
+      con.end(); // pool에 connection 반납
+    }
+
   }
 }

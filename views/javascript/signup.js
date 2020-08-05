@@ -337,7 +337,6 @@ $('#btnSave1,#btnSave2,#btnInit1,#btnInit2').click(function (e,flag=true) {
 					//dataType: "json",전달받을 데이터양식, 보낼때는 생략
 				}).then((willDelete) => {
 					if (willDelete) {
-						var jsonObj=JSON.stringify(arrVal1);
 						$.ajax({
 							type: "PUT",
 							url: "/signup/insertCandidate",

@@ -30,17 +30,28 @@ module.exports = {
     }).catch(function (err) {
       console.log('컨트롤러의 doPutCandidate에서 에러발생 ');
       next(err); //next(err) -->다음 미들웨어에 에러를 던지며 넘김
-    }); 
+    });
   },
   doPutEmployer: function (req, res, next) {
     memberModel.putEmployer(req.body.data).then(function (result) {
       res.send('성공입니다~~')
     }).catch(function (err) {
-      console.log('컨트롤러의 doPutCandidate에서 에러발생 ');
+      console.log('컨트롤러의 doPutEmployer 에러발생 ');
       next(err);
-    }); 
+    });
+  },
+  doPostLogin: function (req, res, next) {
+    memberModel.postLogin(req.body.data).then(function (result) {
+      var chk=memberModel.putLoginLog(result);
+      if(chk){
+        req.params.result = result;
+        next()
+      }else{
+        throw new Error('error!!!!!!!!!!!!!!!!!!!!!!!!!!')
+      }
+    }).catch(function (err) {
+      console.log('then error : ', err); // then error :  Error: Error in then()
+      next(err)
+    });
   }
-
-  
-
 }

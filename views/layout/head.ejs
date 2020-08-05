@@ -10,21 +10,17 @@
 
     <link rel="stylesheet" href="/css/open-iconic-bootstrap.min.css">
     <link rel="stylesheet" href="/css/animate.css">
-    
     <link rel="stylesheet" href="/css/owl.carousel.min.css">
     <link rel="stylesheet" href="/css/owl.theme.default.min.css">
     <link rel="stylesheet" href="/css/magnific-popup.css">
-
     <link rel="stylesheet" href="/css/aos.css">
-
     <link rel="stylesheet" href="/css/ionicons.min.css">
-
     <link rel="stylesheet" href="/css/bootstrap-datepicker.css">
     <link rel="stylesheet" href="/css/jquery.timepicker.css">
-
     <link rel="stylesheet" href="/css/flaticon.css">
     <link rel="stylesheet" href="/css/icomoon.css">
     <link rel="stylesheet" href="/css/style.css">
+    <script src="/js/jquery.min.js"></script><!--JQuery-->
     <script src="/ckeditor/ckeditor.js"></script><!-- ckeditor -->
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script><!-- alert degine -->
   </head>
@@ -53,26 +49,5 @@
 	  </nav>
     <!-- END nav -->
 
-    <div id="modalBox" class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-      <div class="modal-dialog" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h4 class="modal-title" id="myModalLabel">Login Management</h4>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">close</span></button>
-          </div>
-          <div class="modal-body">
-            <div class="col-md-12">
-                <label for="MNG_ID" class="text-black">ID</label>
-                <input type="text" class="form-control" id="MNG_ID">
-                <label for="MNG_PW" class="text-black">PASSWORD</label>
-                <input type="password" class="form-control" id="MNG_PW">
-            </div>
-          </div>
-          <div class="modal-footer" style="display: inline-block;">
-            <button style="float:left" type="button" class="btn btn-info" id="signInBtn" onclick="location.href='/signup'">SignUp</button>
-            <button style="float:right" type="button" class="btn btn-default" id="closeModalBtn">Cancel</button>
-            <button style="float:right" type="button" class="btn btn-primary" id="confirmBtn">Ok</button>
-          </div>
-        </div>
-      </div>
-    </div>
+    <% include ../login.ejs %>
+

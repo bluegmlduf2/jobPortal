@@ -6,7 +6,7 @@ var jobController = require('../controllers/JobController')
 var postController = require('../controllers/PostController')
 var memberController = require('../controllers/MemberController')
 
-/*화면이동 */
+/***************************** PAGE INDEX  ********************************/
 router.get('/index', function(req, res, next){
     res.render('index', {JsonParam:JSON.parse(JSON.stringify(req.params))});
 });
@@ -68,7 +68,7 @@ router.post('*/imageUpload',postController.doInsertPostImage, function(req, res,
 });
 
 
-/*POST SIGN */
+/***************************** SIGN UP PAGE  ********************************/
 //jobTypeDetail init
 router.post('/signup/jobTypeDetail',jobController.doGetJobtypeDetail, function(req, res, next){
     res.send({JsonParam:JSON.parse(JSON.stringify(req.params))});
@@ -83,6 +83,7 @@ router.post('/signup/mailCheck',memberController.doPostMailCheck, function(req, 
     console.log(req.params);
     res.send({JsonParam:JSON.parse(JSON.stringify(req.params))});
 });
+
 //INSERT CANDIDATE
 router.put('/signup/insertCandidate',memberController.doPutCandidate, function(err,req, res, next){
     if(err){
@@ -101,5 +102,12 @@ router.put('/signup/insertEmployer',memberController.doPutEmployer, function(err
         next(err)//에러가 있을 경우 app.js의 ERROR HANDELING에게 던짐
     }
 });
+
+/***************************** LOG IN PAGE  ********************************/
+//LOG IN
+router.post('/login',memberController.doPostLogin, function(req, res, next){
+    res.send({JsonParam:JSON.parse(JSON.stringify(req.params))});
+});
+
 
 module.exports = router;
