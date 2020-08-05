@@ -343,7 +343,7 @@ module.exports = {
   putLoginLog: function (jsonStr) {
 
     const con = mysql.createConnection(db);
-    var sql = 'UPDATE LOGIN_TBL SET LOGIN_LASTIN = NOW()1 WHERE LOGIN_ID=?'
+    var sql = 'UPDATE LOGIN_TBL SET LOGIN_LASTIN = NOW() WHERE LOGIN_ID=?'
     try {
       var execSql = con.query(
         sql, jsonStr[0].LOGIN_ID, (err, result, fields) => {
