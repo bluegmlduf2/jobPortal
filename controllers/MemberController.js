@@ -41,14 +41,16 @@ module.exports = {
     });
   },
   doPostLogin: function (req, res, next) {
-    memberModel.postLogin(req.body.data).then(function (result) {
-      var chk=memberModel.putLoginLog(result);
-      if(chk){
+    //첫번째 promise는 new로 객체 생성만 해주면 되지만 메서드 체이닝 되는 promise는 return으로 반환해줘야함
+    memberModel.postLogin(req.body.data).then(result => {
+      return memberModel.putLoginLog(result) //두번째 메서드 체이닝 promise는 return 선언필요
+    }).then(result => {
+      if(result){
         req.params.result = result;
         next()
-      }
+      }  
     }).catch(function (err) {
-      console.log(':::::doPutEmployer:::::--->'+err); // then error :  Error: Error in then()
+      //console.log(':::::doPostLogin:::::--->' + err); // then error :  Error: Error in then()
       next(err)
     });
   }

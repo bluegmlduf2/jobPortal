@@ -47,27 +47,33 @@ $('#confirmBtn').on('click', function () {
 	    async: false,
 	    //dataType: "json",//서버에서 받을 데이터 형식을 지적한다.그러나 반환값이 없으므로 에러가 발생하므로 주석처리
 	    success: function (result) {
-			console.log(result)
+			console.log(result.JsonParam)
+			
+			var loginId=result.JsonParam.result[0].LOGIN_ID;
+
+	        $('#modalBox').modal('hide');
+	        swal("Welcome!", "Welcome to Login [ "+loginId+" ] !", "success");
+	        // memName=result["memObj"];
+	        // location.href = '/pharmaShop/main/managementItem/'+memName;
+	        // if (result.order_cd[0].CNT == 1) {
+	        // 	swal("Thanks!", "Successfully Checked!", "success");
+	        // 	var rUrl = "/pharmaShop/main/orderList/" + value;
+	        // 	location.href = rUrl;
+	        // } else {
+	        // 	swal("Sorry Check the OrderNumber!", result.message, "error");
+	        // }                       
+	    },
+	    error: function (request, status, error) {
 			// if(result==null){
 	        //     swal("Check!", "Please Check ID / PASSWORD", "info");
 	        //     return;
-	        // }
-	        // $('#modalBox').modal('hide');
-	        // swal("Welcome!", "Welcome to Login [ "+result["memObj"]+" ] !", "success");
-	        // memName=result["memObj"];
-	        // location.href = '/pharmaShop/main/managementItem/'+memName;
-	        // // if (result.order_cd[0].CNT == 1) {
-	        // // 	swal("Thanks!", "Successfully Checked!", "success");
-	        // // 	var rUrl = "/pharmaShop/main/orderList/" + value;
-	        // // 	location.href = rUrl;
-	        // // } else {
-	        // // 	swal("Sorry Check the OrderNumber!", result.message, "error");
-	        // // }                       
-	    },
-	    error: function (request, status, error) {
-	        $('#modalBox').modal('hide');
+			// }
+
+			var errMsg=request['responseJSON']['error'];
+	        //$('#modalBox').modal('hide');
 	        //console.log("code:"+request.status+ ", message: "+request.responseText+", error:"+error);
-	        swal("Error!", "--- Please Contact Administrator ---", "error");
+			swal("Error!", errMsg, "error");
+
 	    }
 	});
 });

@@ -43,16 +43,24 @@ app.use(router); //app,router은 res.send() 한번만 사용가능  //router()�
 
 //ERROR HANDELING 404
 app.use(function (req, res, next) {
-    console.log('::::: ErrorHandler(400) :::::')
+    console.log('::::::::::::::::::::::::: ErrorHandler(400) :::::::::::::::::::::::::')
     res.status(404).send('Sorry cant find that!');
 });
 
 //ERROR HANDELING //next(err)호출된 경우에 function(err,req,res,next)의 인자가 4개인 미들웨어가 바로 호출됨
 app.use(function (err,req, res, next) {
-    console.log('::::: ErrorHandler(500) :::::')
-    console.log(err)
-    // console.log(err.stack)
-    res.status(500).send('ServerSide Error!!')//최종적으로 500상태코드의 res를 던지며 종료
+    console.log('::::::::::::::::::::::::: ErrorHandler(500) :::::::::::::::::::::::::')
+    console.log(err);
+
+    if(typeof err=='string'){
+        //NO USER
+        if(err.substr(0,5)=='[001]'){
+            res.status(500).send({error:'Their is NO USER. Please Check'})
+        }
+    }else{
+        console.log(err.stack)
+        res.status(500).send({error:'Please Contact Administrator.'})//최종적으로 500상태코드의 res를 던지며 종료
+    }
 });
 
 module.exports = app;
