@@ -41,14 +41,25 @@ module.exports = {
     });
   },
   doPostLogin: function (req, res, next) {
+    var reqParam = req.body.data
     //첫번째 promise는 new로 객체 생성만 해주면 되지만 메서드 체이닝 되는 promise는 return으로 반환해줘야함
-    memberModel.postLogin(req.body.data).then(result => {
+    memberModel.postLogin(reqParam).then(result => {
       return memberModel.putLoginLog(result) //두번째 메서드 체이닝 promise는 return 선언필요
     }).then(result => {
-      if(result){
+      if (result) {
+        var reqJsonObj=JSON.parse(reqParam);
+        //Login Cookie
+        if (reqJsonObj.CHK == 1) {
+          res.cookie('userID', reqJsonObj.MNG_ID, {
+            expires: new Date(Date.now() + 168 * 3600000)
+          }); // cookie will be removed after 1 week
+        }else{
+          res.clearCookie('userID');
+        }
+        //Return Value
         req.params.result = result;
         next()
-      }  
+      }
     }).catch(function (err) {
       //console.log(':::::doPostLogin:::::--->' + err); // then error :  Error: Error in then()
       next(err)
