@@ -1,5 +1,6 @@
 
 $( document ).ready( function() {
+
     CKEDITOR.replace(
          'p_content', 
         {
@@ -11,8 +12,11 @@ $( document ).ready( function() {
 } );
 
 function setValue() {
+    console.log(loginChk);
+
     var value = CKEDITOR.instances['p_content'].getData()
 
     console.log(value);
+
     //  $( '#p_content' ).val( $( '' ).val() );
 }

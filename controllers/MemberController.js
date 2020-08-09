@@ -48,6 +48,7 @@ module.exports = {
     }).then(result => {
       if (result) {
         var reqJsonObj=JSON.parse(reqParam);
+        
         //Login Cookie
         if (reqJsonObj.CHK == 1) {
           res.cookie('userID', reqJsonObj.MNG_ID, {
@@ -56,6 +57,10 @@ module.exports = {
         }else{
           res.clearCookie('userID');
         }
+
+        //Login Session
+        req.session.result=result;
+
         //Return Value
         req.params.result = result;
         next()

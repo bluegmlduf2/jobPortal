@@ -2,6 +2,8 @@ var createError = require('http-errors');
 var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
+var session = require('express-session');
+//var FileStore = require('session-file-store')(session); 
 var logger = require('morgan');
 const helmet= require('helmet');
 
@@ -22,6 +24,13 @@ app.use(express.urlencoded({
     extended: false
 }));//body-parser
 app.use(cookieParser()); //app.use(미들웨어()) --> 미들웨어란? --> function(req,res,nex){next()}
+app.use(session({
+    secret: 'secretkey@#@',  // 암호화
+    resave: false,
+    saveUninitialized: true,
+    key: 'Jobportal_Sid'
+    //,store: new FileStore()//세션을 파일로 저장한다
+}));
 //미들웨어를 실행하는 이유는 request에 변형을 주기 위함이다
 //app.use() -->get/post app.get() -->get app.post() -->post
 // app.use(express.static(path.join(__dirname, 'public')));//ejs 내부에서 정적경로 // root+pulic
