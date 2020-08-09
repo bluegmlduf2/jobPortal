@@ -10,50 +10,50 @@ var memberController = require('../controllers/MemberController')
 router.get('/index', function (req, res, next) {
     console.log(req.session.result)
     res.render('index', {
-        JsonParam: JSON.parse(JSON.stringify(req.params))
-        ,session: req.session.result==null?null:req.session.result
+        JsonParam: JSON.parse(JSON.stringify(req.params)),
+        session: req.session.result == null ? null : req.session.result
     });
 });
 router.get('/job/:pageNum', jobController.doGetJobList, function (req, res, next) {
     res.render('job', {
-        JsonParam: JSON.parse(JSON.stringify(req.params))
-        ,session: req.session.result==null?null:req.session.result
+        JsonParam: JSON.parse(JSON.stringify(req.params)),
+        session: req.session.result == null ? null : req.session.result
     });
 });
 router.get('/job-single/:jobNum', jobController.doGetJobSingleList, function (req, res, next) {
     res.render('job-single', {
-        JsonParam: JSON.parse(JSON.stringify(req.params))
-        ,session: req.session.result==null?null:req.session.result
+        JsonParam: JSON.parse(JSON.stringify(req.params)),
+        session: req.session.result == null ? null : req.session.result
     });
 });
 router.get('/contact', function (req, res, next) {
     res.render('job-single', {
-        JsonParam: JSON.parse(JSON.stringify(req.params))
-        ,session: req.session.result==null?null:req.session.result
+        JsonParam: JSON.parse(JSON.stringify(req.params)),
+        session: req.session.result == null ? null : req.session.result
     });
 });
 router.get('/job-post', function (req, res, next) {
     res.render('job-post', {
-        JsonParam: JSON.parse(JSON.stringify(req.params))
-        ,session: req.session.result==null?null:req.session.result
+        JsonParam: JSON.parse(JSON.stringify(req.params)),
+        session: req.session.result == null ? null : req.session.result
     });
 });
 router.get('/new-post', function (req, res, next) {
     res.render('new-post', {
-        JsonParam: JSON.parse(JSON.stringify(req.params))
-        ,session: req.session.result==null?null:req.session.result
+        JsonParam: JSON.parse(JSON.stringify(req.params)),
+        session: req.session.result == null ? null : req.session.result
     });
 });
 router.get('/error', function (req, res, next) {
     res.render('error', {
-        JsonParam: JSON.parse(JSON.stringify(req.params))
-        ,session: req.session.result==null?null:req.session.result
+        JsonParam: JSON.parse(JSON.stringify(req.params)),
+        session: req.session.result == null ? null : req.session.result
     });
 });
 router.get('/signup', jobController.doGetJobtype, function (req, res, next) {
     res.render('signup', {
-        JsonParam: JSON.parse(JSON.stringify(req.params))
-        ,session: req.session.result==null?null:req.session.result
+        JsonParam: JSON.parse(JSON.stringify(req.params)),
+        session: req.session.result == null ? null : req.session.result
     });
 });
 
@@ -142,10 +142,20 @@ router.put('/signup/insertEmployer', memberController.doPutEmployer, function (e
 //LOG IN
 router.post('/login', memberController.doPostLogin, function (req, res, next) {
     res.send({
-        JsonParam: JSON.parse(JSON.stringify(req.params))
-        ,session: req.session.result==null?null:req.session.result
+        JsonParam: JSON.parse(JSON.stringify(req.params)),
+        session: req.session.result == null ? null : req.session.result
     });
 });
+
+router.post('/logout', function (req, res, next) {
+    //delete ssesion
+    req.session.destroy(function () {
+        req.session;
+    });
+    
+    res.end();
+});
+
 
 
 module.exports = router;
