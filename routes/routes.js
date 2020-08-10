@@ -28,7 +28,7 @@ router.get('/job-single/:jobNum', jobController.doGetJobSingleList, function (re
     });
 });
 router.get('/contact', function (req, res, next) {
-    res.render('job-single', {
+    res.render('contact', {
         JsonParam: JSON.parse(JSON.stringify(req.params)),
         session: req.session.result == null ? null : req.session.result
     });
