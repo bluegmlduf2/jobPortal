@@ -43,6 +43,7 @@ app.use('*/images', express.static(path.join(__dirname, 'public/images')));
 // app.use('*/fonts', express.static(path.join(__dirname, 'public/fonts/ionicons/fonts')));
 app.use('*/fonts/ionicons/fonts', express.static(path.join(__dirname, 'public/fonts/ionicons/fonts')));//ionicons.min.css안에서 해당 경로를 호출함
 app.use('*/fonts/flaticon/font', express.static(path.join(__dirname, 'public/fonts/flaticon/font')));
+app.use('*/fonts/open-iconic/', express.static(path.join(__dirname, 'public/fonts/open-iconic')));
 app.use('*/uploads/post', express.static(path.join(__dirname, 'public/uploads/post'))); //image upload path
 app.use('*/uploads/candidate', express.static(path.join(__dirname, 'public/uploads/candidate'))); //image upload path
 app.use('*/uploads/employer', express.static(path.join(__dirname, 'public/uploads/employer'))); //image upload path
