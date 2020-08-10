@@ -98,7 +98,7 @@ $('#logOutBtn').on('click', function () {
 						text: "Thank you See you next time !!",
 						icon: "info"
 					}).then(function(){
-						location.reload();
+						location.replace('/index');
 					})
 				},
 				error: function (request, status, error) {

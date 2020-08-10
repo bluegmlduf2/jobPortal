@@ -5,13 +5,14 @@ var indexController = require('../controllers/IndexController')
 var jobController = require('../controllers/JobController')
 var postController = require('../controllers/PostController')
 var memberController = require('../controllers/MemberController')
+var companyController = require('../controllers/CompanyController')
 
 /***************************** PAGE INDEX  ********************************/
 router.get('/index', function (req, res, next) {
-    console.log(req.session.result)
     res.render('index', {
-        JsonParam: JSON.parse(JSON.stringify(req.params)),
-        session: req.session.result == null ? null : req.session.result
+        JsonParam: JSON.parse(JSON.stringify(req.params))
+        ,session: req.session.result == null ? null : req.session.result
+        ,loginChk:undefined
     });
 });
 router.get('/job/:pageNum', jobController.doGetJobList, function (req, res, next) {
@@ -38,11 +39,29 @@ router.get('/job-post', function (req, res, next) {
         session: req.session.result == null ? null : req.session.result
     });
 });
-router.get('/new-post', function (req, res, next) {
-    res.render('new-post', {
-        JsonParam: JSON.parse(JSON.stringify(req.params)),
-        session: req.session.result == null ? null : req.session.result
-    });
+router.get('/new-post',companyController.doGetCompanyList, function (req, res, next) {
+    //LOGIN CHECK
+    if(req.session.result!=undefined){
+        var loginGb=req.session.result[0].LOGIN_GB.substring(0,1) //for checking candidate or employer
+        if(loginGb=='C'){
+            res.render('index', {
+                JsonParam: JSON.parse(JSON.stringify(req.params))
+                ,session: req.session.result == null ? null : req.session.result
+                ,loginChk: 2 //2 == not permit to login candidate
+            });
+        }
+        res.render('new-post', {//Success
+            JsonParam: JSON.parse(JSON.stringify(req.params)),
+            session: req.session.result == null ? null : req.session.result
+        });    
+    }else{
+        //NOT LOGINED
+        res.render('index', {
+            loginChk: 1 //1 == not login
+            ,session: req.session.result == null ? null : req.session.result
+        });
+    }
+
 });
 router.get('/error', function (req, res, next) {
     res.render('error', {
@@ -57,7 +76,7 @@ router.get('/signup', jobController.doGetJobtype, function (req, res, next) {
     });
 });
 
-/* POST FILE&IMAGE UPLOAD  */
+/***************************** POST FILE&IMAGE UPLOAD  *****************************/
 router.post('*/imageUpload', postController.doInsertPostImage, function (req, res, next) {
     var rPath = url.parse(req.url, true).path;
 

@@ -54,7 +54,7 @@ module.exports = {
           break;
       }
 
-      writeStream.filename = addImageName+filename;
+      writeStream.filename = addImageName + filename;
 
       part.pipe(writeStream);
 
