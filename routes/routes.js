@@ -82,9 +82,7 @@ router.post('*/imageUpload', postController.doInsertPostImage, function (req, re
 
     //POST IMAGE UPLOAD
     if (rPath == '/new-post/imageUpload') {
-        // response.writeHead(200);
-        // response.end(html); 
-        //--> return res.send(html); //return은 생략가능
+        //CKEditor Imageupload
         res.send({
             "uploaded": req.params.status,
             "fileName": req.params.filename,
@@ -93,7 +91,7 @@ router.post('*/imageUpload', postController.doInsertPostImage, function (req, re
                 "message": "Uploads are completed."
             }
         });
-        //SIGN UP IMAGE UPLOAD
+        // IMAGE UPLOAD
     } else if (rPath == '/signup/candidate/imageUpload') {
         res.send({
             "uploaded": req.params.status,
@@ -111,6 +109,12 @@ router.post('*/imageUpload', postController.doInsertPostImage, function (req, re
             "uploaded": req.params.status,
             "fileName": req.params.filename,
             "url": "/public/uploads/company/" + req.params.filename
+        });
+    }else if (rPath == '/job/imageUpload') {
+        res.send({
+            "uploaded": req.params.status,
+            "fileName": req.params.filename,
+            "url": "/public/uploads/job/" + req.params.filename
         });
     }
 });

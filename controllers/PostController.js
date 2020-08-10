@@ -52,6 +52,9 @@ module.exports = {
         case "/signup/company/imageUpload":
           writeStream = fs.createWriteStream(path.join(appRoot, '/public/uploads/company/') + addImageName + filename);
           break;
+        case "/job/imageUpload":
+          writeStream = fs.createWriteStream(path.join(appRoot, '/public/uploads/job/') + addImageName + filename);
+          break;
       }
 
       writeStream.filename = addImageName + filename;

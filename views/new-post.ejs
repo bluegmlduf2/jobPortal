@@ -23,8 +23,8 @@
 
         <div class="col-md-12 col-lg-8 mb-5">
 
-          <form action="#" class="p-5 bg-white" method="post">
-
+          <form action="/job/imageUpload" class="p-5 bg-white" method="post" id="job_form_img" enctype="multipart/form-data"
+            accept-charset="utf-8">
             <div class="row form-group">
               <div class="col-md-12 mb-3 mb-md-0">
                 <label class="font-weight-bold" for="option-price-1">Job Type</label>
@@ -44,19 +44,18 @@
             <div class="row form-group">
               <div class="col-md-12 mb-3 mb-md-0">
                 <label class="font-weight-bold" for="jobTitle">Job Title</label>
-                <input type="text" id="jobTitle" class="form-control" placeholder="eg. Professional UI/UX Designer">
+                <input type="text" id="jobTitle" class="form-control" placeholder="Please type Job Title..">
               </div>
             </div>
 
             <div class="row form-group mb-5">
               <div class="col-md-12 mb-3 mb-md-0">
                 <label class="font-weight-bold" for="subTitle">Sub Title</label>
-                <input type="text" id="subTitle" class="form-control" placeholder="eg. Facebook, Inc.">
+                <input type="text" id="subTitle" class="form-control" placeholder="Please type SubTitle..">
               </div>
             </div>
 
-
-            <div class="row form-group">
+            <div class="row form-group mb-5">
               <div class="col-md-12">
                 <h3>Job Type</h3>
               </div>
@@ -85,15 +84,34 @@
                   <input type="radio" id="option-job-type-4" name="job-type"> Termporary
                 </label>
               </div>
-
             </div>
 
-            <div class="row form-group mb-4">
-              <div class="col-md-12">
+            <div class="row form-group mb-5">
+              <div class="col-md-12 mb-3 mb-md-0">
                 <h3>Job Image</h3>
               </div>
-              <div class="col-md-12 mb-3 mb-md-0">
-                <input type="text" class="form-control" placeholder="Western City, UK">
+              <div class="col-md-6 mb-3 mb-md-0">
+                <label for="jobImage" class="text-black" style="display:block;">JOB POST IMAGE<span
+                    class="text-danger">*</span></label>
+                <!-- <input type="text" class="form-control" id="c_lname" name="c_lname"> -->
+                <!-- <div class="site-blocks-cover inner-page" style="background-image: url('images/hero_1.jpg');"> -->
+                <img src='/images/postImage/noimage.png' width="300" height="300" id='jobImage' alt='Image'
+                  class='img-fluid' style="display: block; margin: auto;">
+              </div>
+              <div class="col-md-6 mb-3 mb-md-0">
+                <!-- <input class="upload-name" value="Select File" disabled="disabled" >  -->
+                <div>
+                  <label for="jobImageFile" class="text-black">SELECT IMAGE FILE</label><span class="text-danger">*</span>
+                  <div>
+                    <input type="file" name="jobImageFile" id="jobImageFile">
+                    <span class="error image"></span>
+                  </div>
+                </div>
+                </br>
+                <label for="jobPath" class="text-black" style="display:block;">SAVE FILE PATH</label>
+                <input type="text" class="form-control" id="jobPath" disabled='disabled'>
+                <input type="submit" name="jobSubmit" value="Image Save" style="margin-top:15px;">
+                <!-- e.preventDefault();로 submit가 원래 가진 이벤트가 막힘 -->
               </div>
             </div>
 
@@ -102,7 +120,7 @@
                 <h3>Job Description</h3>
               </div>
               <div class="col-md-12 mb-3 mb-md-0">
-                <textarea name="" class="form-control" id="" cols="30" rows="5"></textarea>
+                <textarea name="" class="form-control" id="jobDesc" cols="30" rows="5"></textarea>
               </div>
             </div>
 
@@ -111,7 +129,7 @@
                 <h3>Job Content</h3>
               </div>
               <div class="col-md-12 mb-3 mb-md-0">
-                <textarea class="form-control" id="p_content"></textarea>
+                <textarea class="form-control" id="jobContent"></textarea>
               </div>
             </div>
 
@@ -128,18 +146,19 @@
           <div class="p-4 mb-3 bg-white">
             <h3 class="h5 text-black mb-3">Contact Info</h3>
             <p class="mb-0 font-weight-bold">Company Name</p>
-            <p class="mb-4"></p>
+            <p class="mb-4" id="companyNm"><%-JsonParam.companyList.COMPANY_NM%></p>
 
             <p class="mb-0 font-weight-bold">Address</p>
-            <p class="mb-4">203 Fake St. Mountain View, San Francisco, California, USA</p>
+            <p class="mb-4" id="companuAddr"><%-JsonParam.companyList.COMPANY_ADDR%></p>
 
             <p class="mb-0 font-weight-bold">Phone</p>
-            <p class="mb-4"><a href="#">+1 232 3235 324</a></p>
+            <p class="mb-4" id="companyPhone"><a href="#"><%-JsonParam.companyList.COMPANY_TEL%></a></p>
 
             <p class="mb-0 font-weight-bold">Email Address</p>
             <p class="mb-0"><a href="#"><span class="__cf_email__"
-                  data-cfemail="671e081215020a060e0b2703080a060e094904080a">[email&#160;protected]</span></a></p>
-
+                  data-cfemail="671e081215020a060e0b2703080a060e094904080a" id="companyEmail"><%-JsonParam.companyList.COMPANY_EMAIL%></span></a>
+            </p>
+            <input type="hidden" value="<%-JsonParam.companyList.COMPANY_IDX%>" id="companyEmpIdx">
           </div>
 
           <div class="p-4 mb-3 bg-white">

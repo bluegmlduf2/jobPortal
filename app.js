@@ -47,6 +47,7 @@ app.use('*/uploads/post', express.static(path.join(__dirname, 'public/uploads/po
 app.use('*/uploads/candidate', express.static(path.join(__dirname, 'public/uploads/candidate'))); //image upload path
 app.use('*/uploads/employer', express.static(path.join(__dirname, 'public/uploads/employer'))); //image upload path
 app.use('*/uploads/company', express.static(path.join(__dirname, 'public/uploads/company'))); //image upload path
+app.use('*/uploads/job', express.static(path.join(__dirname, 'public/uploads/job'))); //image upload path
 app.use('*/ckeditor', express.static(path.join(__dirname, 'public/ckeditor')));
 app.use('*/javascript', express.static(path.join(__dirname, 'views/javascript')));
 
