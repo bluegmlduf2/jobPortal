@@ -1,7 +1,4 @@
-const express = require('express');
 const jobModel = require('../model/JobModel');
-const memberModel = require('../model/memberModel');
-const Views = '../views/'
 
 module.exports = {
   doGetJobList: function (req, res, next) {

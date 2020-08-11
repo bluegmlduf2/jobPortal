@@ -27,16 +27,16 @@
             accept-charset="utf-8">
             <div class="row form-group">
               <div class="col-md-12 mb-3 mb-md-0">
-                <label class="font-weight-bold" for="option-price-1">Job Type</label>
+                <label class="font-weight-bold" for="option-price-1">Post Option</label>
               </div>
               <div class="col-md-12 mb-3 mb-md-0">
                 <label for="option-price-1">
-                  <input type="checkbox" id="option-price-1"> <span class="text-success">$500</span> For 30 days
+                  <input type="checkbox" id="option-price-1" name="post-option" value="P1"> <span class="text-success">$500</span> For 30 days
                 </label>
               </div>
               <div class="col-md-12 mb-3 mb-md-0">
                 <label for="option-price-2">
-                  <input type="checkbox" id="option-price-2"> <span class="text-success">$300</span> / Monthly Recurring
+                  <input type="checkbox" id="option-price-2" name="post-option" value="P2"> <span class="text-success">$300</span> / Monthly Recurring
                 </label>
               </div>
             </div>
@@ -57,31 +57,31 @@
 
             <div class="row form-group mb-5">
               <div class="col-md-12">
-                <h3>Job Type</h3>
+                <h3>Job Time</h3>
               </div>
               <div class="col-md-12 mb-3 mb-md-0">
                 <label for="option-job-type-1">
-                  <input type="radio" id="option-job-type-1" name="job-type"> Full Time
+                  <input type="radio" id="option-job-type-1" name="job-time" value="T1"> Full Time
                 </label>
               </div>
               <div class="col-md-12 mb-3 mb-md-0">
                 <label for="option-job-type-2">
-                  <input type="radio" id="option-job-type-2" name="job-type"> Part Time
+                  <input type="radio" id="option-job-type-2" name="job-time" value="T2"> Part Time
                 </label>
               </div>
 
               <div class="col-md-12 mb-3 mb-md-0">
                 <label for="option-job-type-3">
-                  <input type="radio" id="option-job-type-3" name="job-type"> Freelance
+                  <input type="radio" id="option-job-type-3" name="job-type" value="T3"> Freelance
               </div>
               <div class="col-md-12 mb-3 mb-md-0">
                 <label for="option-job-type-4">
-                  <input type="radio" id="option-job-type-4" name="job-type"> Internship
+                  <input type="radio" id="option-job-type-4" name="job-type" value="T4"> Internship
                 </label>
               </div>
               <div class="col-md-12 mb-3 mb-md-0">
                 <label for="option-job-type-4">
-                  <input type="radio" id="option-job-type-4" name="job-type"> Termporary
+                  <input type="radio" id="option-job-type-4" name="job-type" value="T5"> Termporary
                 </label>
               </div>
             </div>
@@ -135,7 +135,7 @@
 
             <div class="row form-group">
               <div class="col-md-12">
-                <input type="button" value="Post" onclick="setValue()" class="btn btn-primary  py-2 px-5">
+                <input type="button" value="Post" id='btnPost' class="btn btn-primary  py-2 px-5">
               </div>
             </div>
 

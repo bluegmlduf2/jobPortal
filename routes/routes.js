@@ -1,11 +1,11 @@
 var express = require('express');
 var url = require('url');
 var router = express.Router();
-var indexController = require('../controllers/IndexController')
 var jobController = require('../controllers/JobController')
 var postController = require('../controllers/PostController')
 var memberController = require('../controllers/MemberController')
 var companyController = require('../controllers/CompanyController')
+var commonController = require('../controllers/CommonController')
 
 /***************************** PAGE INDEX  ********************************/
 router.get('/index', function (req, res, next) {
@@ -77,7 +77,7 @@ router.get('/signup', jobController.doGetJobtype, function (req, res, next) {
 });
 
 /***************************** POST FILE&IMAGE UPLOAD  *****************************/
-router.post('*/imageUpload', postController.doInsertPostImage, function (req, res, next) {
+router.post('*/imageUpload', commonController.doInsertPostImage, function (req, res, next) {
     var rPath = url.parse(req.url, true).path;
 
     //POST IMAGE UPLOAD
@@ -118,7 +118,6 @@ router.post('*/imageUpload', postController.doInsertPostImage, function (req, re
         });
     }
 });
-
 
 /***************************** SIGN UP PAGE  ********************************/
 //jobTypeDetail init
@@ -178,7 +177,13 @@ router.post('/logout', function (req, res, next) {
     
     res.end();
 });
-
-
+/***************************** NEW POST PAGE  ********************************/
+//INSERT EMPLOYER
+router.put('/new-post/insertPost', postController.doPutPost, function (err, req, res, next) {
+    if (err) {
+        next(err) //에러가 있을 경우 app.js의 ERROR HANDELING에게 던짐
+    }
+    res.end()
+});
 
 module.exports = router;

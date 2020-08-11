@@ -1,4 +1,4 @@
-const memberModel = require('../model/memberModel');
+const memberModel = require('../model/MemberModel');
 
 module.exports = {
   doPostIdCheck: function (req, res, next) {

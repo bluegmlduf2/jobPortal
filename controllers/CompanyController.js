@@ -1,6 +1,4 @@
-const express = require('express');
 const companyModel = require('../model/CompanyModel');
-const Views = '../views/'
 
 module.exports = {
   doGetCompanyList: function (req, res, next) {

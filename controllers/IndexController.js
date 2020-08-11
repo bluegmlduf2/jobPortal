@@ -1,7 +1,4 @@
-const express = require('express');
 const url = require('url');
-//const Users = require('../models/Users');
-const Views = '../views/'
 
 module.exports = {
   doIndexPage: function (req, res, next) {
