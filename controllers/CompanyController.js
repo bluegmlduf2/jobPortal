@@ -7,9 +7,7 @@ module.exports = {
       var loginGbStr = loginGb.substring(0, 1)
       if (loginGbStr == "E") {
         companyModel.getCompanyList(loginGb).then(function (result) {
-          //next('route');
           req.params.companyList = result[0];
-          console.log(req.params.companyList)
           next();
         }).catch(function (err) {
           console.log('컨트롤러의 getCompanyList 에러발생 ');

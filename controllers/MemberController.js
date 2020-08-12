@@ -66,7 +66,6 @@ module.exports = {
         next()
       }
     }).catch(function (err) {
-      //console.log(':::::doPostLogin:::::--->' + err); // then error :  Error: Error in then()
       next(err)
     });
   }

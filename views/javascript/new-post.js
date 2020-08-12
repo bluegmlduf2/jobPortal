@@ -96,7 +96,7 @@ $('#btnPost').on('click', function (e) {
         "JOB_CONTENT": jobContent,
         "JOB_DESC": jobDesc,
         "JOB_OPTION": $("input:checkbox[name='post-option']:checked").val(),
-        "JOB_TIME": $("input:checkbox[name='job-time']:checked").val()
+        "JOB_TIME": $("input:radio[name='job-time']:checked").val()
     };
 
     $.ajax({
@@ -105,24 +105,19 @@ $('#btnPost').on('click', function (e) {
     	data: {
     		"data": JSON.stringify(obj)
     	},
-    	dataType: "json",
     	async: false,
     	//dataType: "json",//서버에서 받을 데이터 형식을 지적한다.그러나 반환값이 없으므로 에러가 발생하므로 주석처리
-    	success: function (result) {
-            console.log('성공...........');
-    		// var loginId = result.JsonParam.result[0].LOGIN_ID;
-    		// //swal("Welcome!", "Welcome to Login [ " + loginId + " ] !", "success");
-    		// swal({
-    		// 	title: "Welcome",
-    		// 	text: "Welcome to Login [ " + loginId + " ] !",
-    		// 	icon: "success"
-    		// }).then(() => {
-    		// 	location.reload();
-    		// });
+    	success: function (result) {//error에서만 result를 사용하면 error로 넘어간다.. (2시간)
+    		swal({
+    			title: "Upload Post",
+    			text: "Your post is Registered !!",
+    			icon: "success"
+    		}).then(() => {
+    			location.reload();
+    		});
     	},
     	error: function (request, status, error) {
-    		var errMsg = request['responseJSON']['error'];
-    		swal("Error!", errMsg, "error");
+    		swal("Error!", "--- Please Contact Administrator ---", "error");
     	}
     });
 });

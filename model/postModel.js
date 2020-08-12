@@ -32,16 +32,22 @@ module.exports = {
       var jsonObj = JSON.parse(jsonStr)
 
       const sqlParamArr = [
-        jsonObj.COMPANY_IDX, jsonObj.JOB_TITLE, jsonObj.JOB_SUBTITLE, jsonObj.JOB_IMAGE, jsonObj.JOB_CONTENT, jsonObj.JOB_DESC, jsonObj.JOB_OPTION, jsonObj.JOB_TIME
+        jsonObj.COMPANY_IDX
+        , jsonObj.JOB_TITLE
+        , jsonObj.JOB_SUBTITLE
+        , jsonObj.JOB_IMAGE
+        , jsonObj.JOB_CONTENT
+        , jsonObj.JOB_DESC
+        , jsonObj.JOB_OPTION
+        , jsonObj.JOB_TIME
       ];
 
       var execSql = con.query(sql, sqlParamArr, (err, result, fields) => {
         if (err) {
           reject(err);
-          //throw new Error(err) //만약 여기서 에러 발생시 바로 catch로 가기때문에 return true를 타지않음
-        } else {
-          resolve(true);
-        }
+        }else{
+          resolve();
+        }      
       });
 
       console.log(execSql.sql);

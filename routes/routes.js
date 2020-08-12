@@ -183,7 +183,6 @@ router.put('/new-post/insertPost', postController.doPutPost, function (err, req,
     if (err) {
         next(err) //에러가 있을 경우 app.js의 ERROR HANDELING에게 던짐
     }
-    res.end()
 });
 
 module.exports = router;
