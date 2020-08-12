@@ -33,6 +33,12 @@ router.get('/contact', function (req, res, next) {
         session: req.session.result == null ? null : req.session.result
     });
 });
+router.get('/candidate', function (req, res, next) {
+    res.render('candidate', {
+        JsonParam: JSON.parse(JSON.stringify(req.params)),
+        session: req.session.result == null ? null : req.session.result
+    });
+});
 router.get('/job-post', function (req, res, next) {
     res.render('job-post', {
         JsonParam: JSON.parse(JSON.stringify(req.params)),
