@@ -32,26 +32,20 @@ module.exports = {
       var jsonObj = JSON.parse(jsonStr)
 
       const sqlParamArr = [
-        jsonObj.COMPANY_IDX
-        , jsonObj.JOB_TITLE
-        , jsonObj.JOB_SUBTITLE
-        , jsonObj.JOB_IMAGE
-        , jsonObj.JOB_CONTENT
-        , jsonObj.JOB_DESC
-        , jsonObj.JOB_OPTION
-        , jsonObj.JOB_TIME
+        jsonObj.COMPANY_IDX, jsonObj.JOB_TITLE, jsonObj.JOB_SUBTITLE, jsonObj.JOB_IMAGE, jsonObj.JOB_CONTENT, jsonObj.JOB_DESC, jsonObj.JOB_OPTION, jsonObj.JOB_TIME
       ];
 
       var execSql = con.query(sql, sqlParamArr, (err, result, fields) => {
         if (err) {
           reject(err);
-        }else{
+        } else {
           resolve();
-        }      
+        }
       });
 
       console.log(execSql.sql);
       con.end(); //비동기로 실행된 후 con.query()가 끝나는걸 대기함
     })
   }
+  
 }

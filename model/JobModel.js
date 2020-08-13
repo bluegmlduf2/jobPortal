@@ -50,12 +50,30 @@ module.exports = {
   getJobSingleList: function (jobNum) {
     return new Promise((resolve, reject) => {
       const con = mysql.createConnection(db);
-      var sql = 'SELECT J.*,E.EMP_NM,E.EMP_INTRO,EMP_IMAGE \
-      FROM JOB_TBL AS J \
-      JOIN COMPANY_TBL AS C ON J.COMPANY_IDX = C.COMPANY_IDX \
-      JOIN EMP_TBL AS E ON C.EMP_IDX=E.EMP_IDX \
-      WHERE J.JOB_IDX=? \
-      ORDER BY J.JOB_IDX+0 ASC '
+      var sql = "SELECT J.JOB_IDX\
+      ,J.COMPANY_IDX\
+      ,J.JOB_TITLE\
+      ,J.JOB_DATE\
+      ,J.JOB_SUBTITLE\
+      ,J.JOB_IMAGE\
+      ,J.JOB_DESC\
+      ,J.JOB_CONTENT\
+      ,J.JOB_OPTION\
+      ,(SELECT C.CODE_NAME FROM CODE_TBL AS C WHERE J.JOB_TIME=C.CODE_IDX) AS JOB_TIME\
+      ,C.EMP_IDX\
+      ,C.COMPANY_NM\
+      ,COMPANY_ADDR\
+      ,COMPANY_TEL\
+      ,COMPANY_IMAGE\
+      ,COMPANY_DATE\
+      ,COMPANY_EMAIL\
+      ,E.EMP_NM\
+      ,E.EMP_INTRO\
+      ,E.EMP_IMAGE\
+      FROM JOB_TBL AS J\
+      JOIN COMPANY_TBL AS C ON J.COMPANY_IDX = C.COMPANY_IDX\
+      JOIN EMP_TBL AS E ON C.EMP_IDX = E.EMP_IDX\
+      WHERE J.JOB_IDX=?"
       var execSql=con.query(
         sql,jobNum,(err, result, fields) => {
           if (err) {
@@ -71,8 +89,15 @@ module.exports = {
   getJobCommentList: function (jobNum) {
     return new Promise((resolve, reject) => {
       const con = mysql.createConnection(db);
-      var sql = 'SELECT * FROM JOB_BOARD_TBL AS JB \
-      WHERE JB.JOB_IDX=?';
+      var sql = "SELECT JB.JOB_GRP_IDX,JB.JOB_GRP_ORD,JB.JOB_GRP_DEN,JB.JOB_IDX,JB.JOB_WRITER,JB.JOB_TBL_DATE,CONCAT(LPAD('ㄴ',JB.JOB_GRP_DEN*3,' '),JB.JOB_COMMENT) AS JOB_COMMENT,\
+      CASE WHEN NULLIF(E.EMP_IDX,'') IS NULL THEN C.CANDIDATE_IDX ELSE E.EMP_IDX END AS IDX,\
+      CASE WHEN NULLIF(E.EMP_NM,'') IS NULL THEN C.CANDIDATE_NM ELSE E.EMP_NM END AS NM,\
+      CASE WHEN NULLIF(E.EMP_IMAGE,'') IS NULL THEN C.CANDIDATE_IMAGE ELSE E.EMP_IMAGE END AS IMAGE\
+    FROM JOB_BOARD_TBL AS JB\
+    LEFT JOIN EMP_TBL AS E ON JB.JOB_WRITER =E.EMP_IDX\
+    LEFT JOIN CANDIDATE_TBL AS C ON JB.JOB_WRITER =C.CANDIDATE_IDX\
+    WHERE JB.JOB_IDX=?\
+    ORDER BY JB.JOB_GRP_IDX,JB.JOB_GRP_ORD ASC";
       var execSql=con.query(
         sql,jobNum,(err, result, fields) => {
           if (err) {
