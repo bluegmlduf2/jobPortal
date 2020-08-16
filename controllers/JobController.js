@@ -46,9 +46,16 @@ module.exports = {
 
     Promise.all([jobModel.getJobSingleList(jobNum),jobModel.getJobCommentList(jobNum)]).then((result) => {
       req.params.jobSingleList=result[0];
-      req.params.jobCommentList=result[1];
+      if(result[1]!=null||result[1]!=undefined){
+        req.params.jobCommentList=result[1];
+      }
       next();
     });
+    // Promise.all([jobModel.getJobSingleList(jobNum)]).then((result) => {
+    //   req.params.jobSingleList=result[0];
+    //   req.params.jobCommentList=result[1];
+    //   next();
+    // });
   },
   doGetJobtype: function (req, res, next) {
     Promise.all([jobModel.getJobType()]).then((result) => {
@@ -60,7 +67,7 @@ module.exports = {
   doGetJobtypeDetail: function (req, res, next) {
     var jobType=req.body.jobType; 
     Promise.all([jobModel.getJobTypeDetail(jobType)]).then((result) => {
-      var jobTypeDetail=result[0]; //JOB TYPE
+      var jobTypeDetail=result[0]; //JOB TYPE .
       req.params.jobTypeDetail=jobTypeDetail;
       next();
     });
