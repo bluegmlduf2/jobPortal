@@ -159,8 +159,14 @@
           <!--empoyer end-->
           <!-- comment-->
           <%if(JsonParam.jobCommentList[0]!=null||JsonParam.jobCommentList[0]!=undefined){ %>
-          <div class="pt-5 mt-5">
-            <h3 class="mb-5 font-weight-bold">6 Comments</h3>
+            
+            <!-- json객체를 json문자열로 변환한 다음 jobCommentList에 담는다-->
+            <script>
+              var jobCommentList=<%-JSON.stringify(JsonParam.jobCommentList)%>;
+            </script>
+
+            <div class="pt-5 mt-5">
+            <h3 class="mb-5 font-weight-bold"><%=JsonParam.jobCommentList.length%> Comments</h3>
             <ul class="comment-list">
               <li class="comment">
                 <div class="vcard bio">
@@ -372,3 +378,4 @@
   </section> <!-- .section -->
 
   <% include ./layout/footer.ejs %>
+  <script src="/javascript/job-single.js"></script>

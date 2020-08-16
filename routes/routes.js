@@ -15,6 +15,10 @@ router.get('/index', function (req, res, next) {
         ,loginChk:undefined
     });
 });
+/* JsonParam:JSON.parse(JSON.stringify(req.params)) ==>이렇게 보낼 경우 JsonParam의 내용을 Stringify되어서 문자열로 전송된다
+    그러나 받은 후에는 JSON.parse()된 내용을 받기 떄문에 json객체를 받게 된다.json객체 안에는 또 json문자열이 들어있다.. 잘못작성한듯
+    json.parse() -->json문자열을 객체로 // json.stringify() -->객체를 json문자열로
+    */
 router.get('/job/:pageNum', jobController.doGetJobList, function (req, res, next) {
     res.render('job', {
         JsonParam: JSON.parse(JSON.stringify(req.params)),
