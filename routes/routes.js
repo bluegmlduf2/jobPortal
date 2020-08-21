@@ -26,10 +26,16 @@ router.get('/job/:pageNum', jobController.doGetJobList, function (req, res, next
     });
 });
 router.get('/job-single/:jobNum', jobController.doGetJobSingleList, function (req, res, next) {
+    var sessionResult=req.session.result;//session
     res.render('job-single', {
         JsonParam: JSON.parse(JSON.stringify(req.params)),
-        session: req.session.result == null ? null : req.session.result
+        session: sessionResult == null ? null : sessionResult,
+        LOGIN_GB: sessionResult == null ? null :sessionResult[0].LOGIN_GB,
+        LOGIN_ID: sessionResult == null ? null :sessionResult[0].LOGIN_ID,
+        LOGIN_MAIL: sessionResult == null ? null :sessionResult[0].LOGIN_MAIL,
+        NM: sessionResult == null ? null :sessionResult[0].NM
     });
+    
 });
 router.get('/contact', function (req, res, next) {
     res.render('contact', {

@@ -320,8 +320,15 @@ module.exports = {
       //ENCRYPTION 
       var encryptionPass = crypto.createHash('sha256').update(jsonObj.MNG_PW).digest('hex')
 
-      var sql = 'SELECT LOGIN_GB,LOGIN_ID,LOGIN_MAIL,LOGIN_LASTIN\
-       FROM LOGIN_TBL AS L WHERE L.LOGIN_ID=? AND L.LOGIN_PASS=?'
+      var sql = 'SELECT LOGIN_GB,LOGIN_ID,LOGIN_MAIL,LOGIN_LASTIN,M.NM\
+      FROM LOGIN_TBL AS L\
+      LEFT JOIN (\
+        SELECT CANDIDATE_IDX AS IDX,CANDIDATE_NM AS NM\
+        FROM CANDIDATE_TBL UNION ALL\
+        SELECT EMP_IDX AS INX,EMP_NM AS NM\
+        FROM EMP_TBL\
+      ) AS M ON L.LOGIN_GB=M.IDX\
+       WHERE L.LOGIN_ID=? AND L.LOGIN_PASS=?'
 
       const sqlParamArr = [
         jsonObj.MNG_ID,
