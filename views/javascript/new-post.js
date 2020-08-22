@@ -13,12 +13,8 @@ CKEDITOR.replace(
 );
 
 function setValue() {
-
     var value = CKEDITOR.instances['jobContent'].getData()
-
     console.log(value);
-
-    //  $( '#p_content' ).val( $( '' ).val() );
 }
 
 $('#btnPost').on('click', function (e) {

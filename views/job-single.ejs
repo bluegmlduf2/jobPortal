@@ -159,12 +159,6 @@
           <!--empoyer end-->
           <!-- comment-->
           <%if(JsonParam.jobCommentList[0]!=null||JsonParam.jobCommentList[0]!=undefined){ %>
-            
-            <!-- json객체를 json문자열로 변환한 다음 jobCommentList에 담는다-->
-            <script>
-              var jobCommentList=<%-JSON.stringify(JsonParam.jobCommentList)%>;
-            </script>
-
             <div class="pt-5 mt-5">
             <h3 class="mb-5 font-weight-bold"><%=JsonParam.jobCommentList.length%> Comments</h3>
             <div id="commentAdd">
@@ -172,31 +166,34 @@
             </div>
             <!-- END comment-list -->
             <%}%>
+            <div class="comment-form-wrap pt-5">
             <%if(LOGIN_ID!=null){%>
-            <div class="comment-form-wrap pt-5" id="leaveCommentHead">
-              <h3 id="leaveComment" class="mb-3">Leave a comment</h3>
-              <form action="#" class="p-5 bg-light">
-                <div class="form-group">
-                  <label for="name">Name *</label>
+              <h3 id="leaveComment" class="mb-3">Leave a New Comment</h3>
+              <form action="#" id="postComment" class="p-5 bg-light">
+                <div class="form-group" >
+                  <label for="name">Your Name</label>
                   <input type="text" class="form-control" disabled="true" id="name" value="<%-NM%>">
                 </div>
                 <div class="form-group">
-                  <label for="email">Email *</label>
+                  <label for="email">Your Email</label>
                   <input type="email" class="form-control" disabled="true" id="email" value="<%-LOGIN_MAIL%>">
                 </div>
 
                 <div class="form-group">
-                  <label for="message">Message</label>
+                  <label for="message" >Message</label>
                   <textarea name="" id="message" cols="30" rows="10" class="form-control"></textarea>
                 </div>
-                <div class="form-group">
-                  <input type="submit" value="Post Comment" class="btn py-3 px-4 btn-primary">
+                <div class="form-group" id="leaveCommentHead">
+                  <button type="button" id="newComment" style="float: left;" class="btn py-1 px-2 btn-primary" onclick="">Leave a New Comment</button>
+                  <input type="submit" style="float: right;" value="Post Comment" class="btn py-1 px-2 btn-primary">
                 </div>
               </form>
-            </div>
             <%}else{%>
-                <div class="cta cta-colored1"><a href="#" id="openModalBtn" class="nav-link">PLEASE LOGIN ( SIGNUP )</a></div>
+              <div style="text-align: center;">
+                <button type="button" style="display: inline-block;"class="btn btn-primary" onclick="openModalFunc()" >Please Login to Leave Comment</button>
+              </div>
             <%}%>
+          </div>
           </div>
           <!--end  -->
         </div> <!-- .col-md-8 -->
@@ -206,5 +203,11 @@
   </section> <!-- .section -->
 
   <% include ./layout/footer.ejs %>
+  <!-- json객체를 json문자열로 변환한 다음 jobCommentList에 담는다-->
+  <script>
+    var jobCommentList=<%-JSON.stringify(JsonParam.jobCommentList)%>;
+    var LOGIN_GB=<%-JSON.stringify(LOGIN_GB)%>;
+    var jobSingleList=<%-JSON.stringify(JsonParam.jobSingleList)%>;
+  </script>
   
   <script src="/javascript/job-single.js"></script>

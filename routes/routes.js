@@ -201,4 +201,12 @@ router.put('/new-post/insertPost', postController.doPutPost, function (err, req,
     }
 });
 
+/***************************** JOB-SINGLE PAGE  ********************************/
+//INSERT COMMENT
+router.put('/job-single/insertComment', postController.doPutInsertComment, function (err, req, res, next) {
+    if (err) {
+        next(err) //에러가 있을 경우 app.js의 ERROR HANDELING에게 던짐
+    }
+});
+
 module.exports = router;

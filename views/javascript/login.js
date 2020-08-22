@@ -23,7 +23,7 @@ var openModalFunc = function () {
 }
 
 //OPEN BTN
-$('#openModalBtn').on('click', openModalFunc);
+$('#openModalBtn,.openModalBtn').on('click', openModalFunc);
 
 
 // CANCEL BTN
