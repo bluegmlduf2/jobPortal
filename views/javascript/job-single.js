@@ -17,62 +17,44 @@ window.addEventListener('DOMContentLoaded', function(){
 
 function postComment() {
     if (LOGIN_GB != null) {
-        commentObj.JOB_COMMENT=document.getElementById('message').value;//init message for sending
-        document.getElementById('postComment').addEventListener(
-            'click',
+        document.getElementById('postComment').addEventListener('submit',
             function (e) {
+                commentObj.JOB_COMMENT=document.getElementById('message').value;//init message for sending
                 console.log(commentObj);
-                //document.getElementById('')
-                // e.preventDefault();
+                
+                //https://poiemaweb.com/js-ajax
+                //vanilla JS Ajax  
+                // XMLHttpRequest 객체의 생성
+                var xhr = new XMLHttpRequest();
 
-                // //vanilla JS Ajax  
-                // // XMLHttpRequest 객체의 생성
-                // var xhr = new XMLHttpRequest();
+                // 비동기 방식으로 Request를 오픈한다
+                xhr.open('PUT', '/job-single/insertComment');
 
-                // // 비동기 방식으로 Request를 오픈한다
-                // xhr.open('PUT', '/job-single/insertComment');
+                // Request를 전송한다
+                // 클라이언트가 서버로 전송할 데이터의 MIME-type 지정: json
+                xhr.setRequestHeader('Content-type', 'application/json');
 
-                // // Request를 전송한다
-                // // 클라이언트가 서버로 전송할 데이터의 MIME-type 지정: json
-                // xhr.setRequestHeader('Content-type', 'application/json');
+                const data = commentObj;
 
-                // const data = {
-                //     id: 3,
-                //     title: 'JavaScript',
-                //     author: 'Park',
-                //     price: 5000
-                // };
+                xhr.send(JSON.stringify(data));
 
-                // xhr.send(JSON.stringify(data));
-
-                // xhr.onreadystatechange = function () {
-                //     // 서버 응답 완료 && 정상 응답
-                //     if (xhr.readyState !== XMLHttpRequest.DONE) return;
-
-                //     if (xhr.status === 200) {
-                //         console.log(xhr.responseText);
-
-                //         // Deserializing (String → Object)
-                //         responseObject = JSON.parse(xhr.responseText);
-
-                //         // JSON → HTML String
-                //         let newContent = '<div id="tours"><h1>Guided Tours</h1><ul>';
-
-                //         responseObject.tours.forEach(tour => {
-                //             newContent += `<li class="${tour.region} tour">
-                //         <h2>${tour.location}</h2>
-                //         <span class="details">${tour.details}</span>
-                //         <button class="book">Book Now</button>
-                //       </li>`;
-                //         });
-
-                //         newContent += '</ul></div>';
-
-                //         document.getElementById('content').innerHTML = newContent;
-                //     } else {
-                //         console.log(`[${xhr.status}] : ${xhr.statusText}`);
-                //     }
-                // };
+                xhr.onreadystatechange = function () {
+                    // 서버 응답 완료 && 정상 응답
+                    if (xhr.readyState !== XMLHttpRequest.DONE) return;
+                    //200,202 Success & else Error
+                    if (xhr.status === 200||xhr.status === 202) {
+                            swal({
+                                title: "Success",
+                                text: "Leave Comment Successfully !",
+                                icon: "success"
+                            }).then(() => {
+                                location.reload();
+                            });
+                    } else {
+                        var responseObject = JSON.parse(xhr.responseText);
+                         swal("Error!", responseObject.error, "error");
+                    }
+                };
             }
         );
     }
@@ -93,7 +75,7 @@ function newComment() {
                 if (willDelete) {
                     commentObj.JOB_GRP_IDX = null;
                     commentObj.JOB_COMMENT = null;
-
+                    document.getElementById('message').value='';
                     var commentElement = document.getElementById('leaveComment');
                     var commentElementHead = document.getElementById('leaveCommentHead');
                     commentElement.innerText = "Leave a New Comment";
@@ -124,7 +106,8 @@ function createComment() {
                 "<div class='meta'>October 03, 2018 at 2:21pm</div>" +
                 "<p>" + value.JOB_COMMENT + "</p>"
             if (LOGIN_GB != null) {
-                listHtml += "<p><a onclick='javascript:clickReply(this)' class='reply' href='javascript:void(0);' data-memo='" + JSON.stringify(value) + "'>Reply</a></p>"
+                listHtml += "<div data-memo='" + JSON.stringify(value) + "'><a onclick='javascript:clickReply(this)' class='reply' href='javascript:void(0);'>Reply</a>&emsp;&emsp;&emsp;&emsp;"+
+                "<a onclick='javascript:deleteReply(this)' class='reply' href='javascript:void(0);'>Delete</a></div>"
             }
             listHtml += "</div></br>";
         });
@@ -134,7 +117,7 @@ function createComment() {
 }
 
 function clickReply(param) {
-    var pramObj = JSON.parse(param.getAttribute('data-memo'));
+    var pramObj = JSON.parse(param.parentNode.getAttribute('data-memo'));
     commentObj.JOB_GRP_IDX = pramObj.JOB_GRP_IDX;
 
     swal({
@@ -157,4 +140,64 @@ function clickReply(param) {
             });
         }
     });
+}
+
+function deleteReply(param) {
+    var pramObj = JSON.parse(param.parentNode.getAttribute('data-memo'));
+    
+    if(pramObj.JOB_WRITER!=LOGIN_GB){
+        swal({
+            title: "Sorry!",
+            text: "Sorry! Writer can delete this comment!",
+            icon: "info",
+            confirmButtonColor: '#3085d6'
+        })
+        return;
+    }
+
+    swal({
+        title: "Delete Comment",
+        text: "Would you like to Delete Comment  \n[ " + pramObj.JOB_COMMENT + " ]?",
+        icon: "info",
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        buttons: true
+        //dataType: "json",전달받을 데이터양식, 보낼때는 생략
+    }).then((willDelete) => {
+        if (willDelete) {
+                //commentObj.JOB_COMMENT=document.getElementById('message').value;//init message for sending
+                //console.log({commentObj});
+
+                var xhr = new XMLHttpRequest();
+                xhr.open('DELETE', '/job-single/deleteComment');
+                xhr.setRequestHeader('Content-type', 'application/json');
+
+                const data = {
+                    JOB_TBL_IDX:pramObj.JOB_TBL_IDX
+                    ,JOB_GRP_IDX:pramObj.JOB_GRP_IDX
+                    ,JOB_IDX:pramObj.JOB_IDX
+                };
+
+                xhr.send(JSON.stringify(data));
+
+                xhr.onreadystatechange = function () {
+                    // 서버 응답 완료 && 정상 응답
+                    if (xhr.readyState !== XMLHttpRequest.DONE) return;
+                    //200,202 Success & else Error
+                    if (xhr.status === 200||xhr.status === 202) {
+                            swal({
+                                title: "Success",
+                                text: "Delete Comment Successfully !",
+                                icon: "success"
+                            }).then(() => {
+                                location.reload();
+                            });
+                    } else {
+                        var responseObject = JSON.parse(xhr.responseText);
+                         swal("Error!", responseObject.error, "error");
+                    }
+                };
+        }
+    });
+
 }

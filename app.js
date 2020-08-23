@@ -65,10 +65,14 @@ app.use(function (err,req, res, next) {
     console.log('::::::::::::::::::::::::: ErrorHandler(500) :::::::::::::::::::::::::')
     console.log(err);
 
-    if(typeof err=='string'){
+    if(typeof err=='string'){//promise return reject('[001]') 로 처리한 경우
         //NO USER
         if(err.substr(0,5)=='[001]'){
             res.status(500).send({error:'Their is NO USER. Please Check'})
+        }
+    }else if(err.message.length==5){//promise return throw('[002]') 로 처리한 경우
+        if(err.message=='[002]'){
+            res.status(500).send({error:"Sorry! their is Child Comment. \n It Can't be Deleted."})
         }
     }else{
         console.log(err.stack)

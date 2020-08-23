@@ -7,7 +7,7 @@ const {
   nextTick
 } = require('process');
 const {
-  Console
+  Console, exception
 } = require('console');
 
 module.exports = {
@@ -342,7 +342,7 @@ module.exports = {
           } else {
             //No User
             if (result.length == 0) {
-              reject('[001]');
+              reject('[001]');//throw exception :: their is no user..
             }
             resolve(result);
           }
@@ -359,12 +359,12 @@ module.exports = {
         if (err) {
           reject(err);
           //throw new Error(err) //만약 여기서 에러 발생시 바로 catch로 가기때문에 return true를 타지않음
-        }else{
+        } else {
           resolve(jsonStr);
         }
       });
       console.log(execSql.sql);
-      con.end();//비동기로 실행된 후 con.query()가 끝나는걸 대기함
+      con.end(); //비동기로 실행된 후 con.query()가 끝나는걸 대기함
     })
   }
 }

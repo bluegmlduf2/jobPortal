@@ -169,7 +169,7 @@
             <div class="comment-form-wrap pt-5">
             <%if(LOGIN_ID!=null){%>
               <h3 id="leaveComment" class="mb-3">Leave a New Comment</h3>
-              <form action="#" id="postComment" class="p-5 bg-light">
+              <form action="#javascript:voit(0)" id="postComment" class="p-5 bg-light">
                 <div class="form-group" >
                   <label for="name">Your Name</label>
                   <input type="text" class="form-control" disabled="true" id="name" value="<%-NM%>">
@@ -184,7 +184,7 @@
                   <textarea name="" id="message" cols="30" rows="10" class="form-control"></textarea>
                 </div>
                 <div class="form-group" id="leaveCommentHead">
-                  <button type="button" id="newComment" style="float: left;" class="btn py-1 px-2 btn-primary" onclick="">Leave a New Comment</button>
+                  <button type="button" id="newComment" style="float: left;" class="btn py-1 px-2 btn-primary">Leave a New Comment</button>
                   <input type="submit" style="float: right;" value="Post Comment" class="btn py-1 px-2 btn-primary">
                 </div>
               </form>

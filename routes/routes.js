@@ -208,5 +208,10 @@ router.put('/job-single/insertComment', postController.doPutInsertComment, funct
         next(err) //에러가 있을 경우 app.js의 ERROR HANDELING에게 던짐
     }
 });
-
+//DELETE COMMENT
+router.delete('/job-single/deleteComment', postController.doDeleteComment, function (err, req, res, next) {
+    if (err) {
+        next(err) //에러가 있을 경우 app.js의 ERROR HANDELING에게 던짐
+    }
+});
 module.exports = router;
