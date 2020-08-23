@@ -19,24 +19,21 @@ module.exports = {
   },
   doDeleteComment: function (req, res, next) {
     var param = req.body;
-
     postModel.checkCommentChild(param).then((result) => {
-      console.log('#########################################');
-      console.log(result);
-      console.log(result[0].CNT);
-
+      //their is no child comment
       if (result[0].CNT == 1) {
         postModel.deleteComment(param).then(function () {
           res.status(202).end()
         }).catch(function (err) {
-          throw new Error(err)
+          next(err);//바로 app.js의 500번처리로 이동 (case1)
         })
       }else{
-        throw new Error('[002]')
+        //자식 코멘트가 존재할 경우
+        throw new Error('[002]') // 이 경우 바로 app.js로 이동하는게 아니라 아래의 catch를 한번 거쳐서 app.js로 이동됨 (case2)
       }
     }).catch(function (err) {
       console.log('컨트롤러의 doDeleteComment에서 에러발생 ');
-      next(err);
+      next(err);//위의 [002]의 case2에서 넘어온다 (case2)
     });
   }
 }

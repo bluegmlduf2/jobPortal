@@ -76,12 +76,7 @@ module.exports = {
       // JOB_COMMENT: null,
       // JOB_WRITER: LOGIN_GB
       const sqlParamArr = [
-        jsonObj.JOB_GRP_IDX, jsonObj.JOB_IDX,jsonObj.JOB_GRP_IDX
-        ,jsonObj.JOB_GRP_IDX, jsonObj.JOB_IDX,jsonObj.JOB_GRP_IDX
-        ,jsonObj.JOB_GRP_IDX, jsonObj.JOB_IDX,jsonObj.JOB_GRP_IDX
-        ,jsonObj.JOB_IDX
-        ,jsonObj.JOB_COMMENT
-        ,jsonObj.JOB_WRITER
+        jsonObj.JOB_GRP_IDX, jsonObj.JOB_IDX, jsonObj.JOB_GRP_IDX, jsonObj.JOB_GRP_IDX, jsonObj.JOB_IDX, jsonObj.JOB_GRP_IDX, jsonObj.JOB_GRP_IDX, jsonObj.JOB_IDX, jsonObj.JOB_GRP_IDX, jsonObj.JOB_IDX, jsonObj.JOB_COMMENT, jsonObj.JOB_WRITER
       ];
 
       var execSql = con.query(sql, sqlParamArr, (err, result, fields) => {
@@ -95,13 +90,14 @@ module.exports = {
       console.log(execSql.sql);
       con.end();
     })
-  },checkCommentChild: function (jsonObj) {
+  },
+  checkCommentChild: function (jsonObj) {
     return new Promise((resolve, reject) => {
-      const con = mysql.createConnection(db); 
+      const con = mysql.createConnection(db);
       var sql = 'SELECT COUNT(*) AS CNT FROM JOB_BOARD_TBL WHERE JOB_IDX=? AND JOB_GRP_IDX=?';
-  
+
       const sqlParamArr = [
-        jsonObj.JOB_IDX,jsonObj.JOB_GRP_IDX
+        jsonObj.JOB_IDX, jsonObj.JOB_GRP_IDX
       ];
 
       var execSql = con.query(sql, sqlParamArr, (err, result, fields) => {
@@ -115,8 +111,8 @@ module.exports = {
       console.log(execSql.sql);
       con.end(); //비동기로 실행된 후 con.query()가 끝나는걸 대기함
     })
-  }
-  ,deleteComment: function (jsonObj) {
+  },
+  deleteComment: function (jsonObj) {
     return new Promise((resolve, reject) => {
       // console.log(JSON.parse(JSON.stringify(jsonStr)));
       const con = mysql.createConnection(db); //con은 try밖에 있어야 finally에서 처리가능함
@@ -136,7 +132,8 @@ module.exports = {
 
       console.log(execSql.sql);
       con.end(); //비동기로 실행된 후 con.query()가 끝나는걸 대기함
+
     })
   }
-  
+
 }
