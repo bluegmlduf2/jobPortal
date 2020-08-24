@@ -49,6 +49,7 @@ function postComment() {
                                 icon: "success"
                             }).then(() => {
                                 location.reload();
+                                 //createComment();
                             });
                     } else {
                         var responseObject = JSON.parse(xhr.responseText);
@@ -91,6 +92,7 @@ function newComment() {
 }
 
 function createComment() {
+    debugger
     if (LOGIN_GB != null) {
         $('#commentAdd').empty();
 
@@ -191,6 +193,8 @@ function deleteReply(param) {
                                 icon: "success"
                             }).then(() => {
                                 location.reload();
+                                //createComment();
+                                //원래 AJAX호출이기때문에 해당 HTML만 변경해야하지만 job-single.ejs에서 생성된 댓글객체를 재호출해서 HTML을 생성해야하기때문에 location.reload()로 대체함
                             });
                     } else {
                         var responseObject = JSON.parse(xhr.responseText);
