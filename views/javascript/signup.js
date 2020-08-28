@@ -298,7 +298,6 @@ $('#btnSave1,#btnSave2,#btnInit1,#btnInit2').click(function (e,flag=true) {
 								location.reload();
 							},
 							error: function (request, status, error) {
-								//console.log("code:"+request.status+ ", message: "+request.responseText+", error:"+error);
 								swal("Error!", "--- Please Contact Administrator ---", "error");
 							}
 						});
@@ -358,7 +357,6 @@ $('#btnSave1,#btnSave2,#btnInit1,#btnInit2').click(function (e,flag=true) {
 						$('#cName').val('4');
 						$('#cMail').val('5');
 						$('#cPhone').val('6');
-						//$('#cBirth').val();
 						$('#rdoSex1').attr('checked');//$('input[name=rdoSex]:checked').val()
 						$('#cAdress').val('8');
 						$('#cJobType option:eq(0)').attr('selected','selected');//$('#cJobType option:selected').val()
