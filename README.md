@@ -1,5 +1,5 @@
 ## About Program 
-This is a sales site for drug
+This is a jobportal site 
 
 ### Client 
 frontend technologies used in this project:
