@@ -21,5 +21,5 @@ backend technologies used in this project:
 * MySQL (AWS-RDS)
 
 #### if you want to see more click this link 
-https://www.youtube.com/watch?v=oChkMVCP5YU&feature=youtu.be
+https://www.youtube.com/watch?v=El-c6AriEmA&feature=youtu.be
 
