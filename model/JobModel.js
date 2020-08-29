@@ -16,7 +16,7 @@ module.exports = {
       FROM JOB_TBL AS J \
       JOIN COMPANY_TBL AS C ON J.COMPANY_IDX = C.COMPANY_IDX \
       JOIN EMP_TBL AS E ON C.EMP_IDX=E.EMP_IDX \
-      ORDER BY J.JOB_IDX+0 ASC \
+      ORDER BY J.JOB_DATE DESC \
        LIMIT ? , ?'
       var execSql=con.query(
         sql, [startCnt, pageShow], (err, result, fields) => {
